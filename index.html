@@ -40,14 +40,14 @@
                 radial-gradient(circle at 80% 70%, rgba(183, 103, 255, 0.05) 0%, transparent 50%);
         }
 
-        /* Quantum Loading Screen */
+        /* Enhanced Quantum Loading Screen with CK Logo */
         .quantum-loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--darker-bg);
+            background: linear-gradient(135deg, var(--darker-bg) 0%, #0a0a1a 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -64,111 +64,128 @@
             text-align: center;
         }
 
-        .quantum-core {
+        .ck-logo-container {
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .quantum-ring {
+        .ck-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff9900;
+            text-shadow: 
+                0 0 10px #ff9900,
+                0 0 20px #ff9900,
+                0 0 30px #ff9900,
+                0 0 40px #ff6600,
+                0 0 70px #ff6600,
+                0 0 80px #ff6600,
+                0 0 100px #ff3300,
+                0 0 150px #ff3300;
+            animation: burn 1.5s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ck-logo::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--neon-blue);
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.2) 0%, transparent 70%);
             border-radius: 50%;
-            animation: quantumSpin 8s linear infinite;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .quantum-ring:nth-child(2) {
-            border-color: var(--neon-purple);
-            animation-duration: 6s;
-            animation-direction: reverse;
-            width: 75px;
-            height: 75px;
-            top: 12.5px;
-            left: 12.5px;
+        @keyframes burn {
+            0% {
+                text-shadow: 
+                    0 0 10px #ff9900,
+                    0 0 20px #ff9900,
+                    0 0 30px #ff9900,
+                    0 0 40px #ff6600,
+                    0 0 70px #ff6600,
+                    0 0 80px #ff6600,
+                    0 0 100px #ff3300,
+                    0 0 150px #ff3300;
+                color: #ff9900;
+            }
+            100% {
+                text-shadow: 
+                    0 0 5px #ff9900,
+                    0 0 10px #ff9900,
+                    0 0 15px #ff9900,
+                    0 0 20px #ff6600,
+                    0 0 35px #ff6600,
+                    0 0 40px #ff6600,
+                    0 0 50px #ff3300,
+                    0 0 75px #ff3300;
+                color: #ffcc00;
+            }
         }
 
-        .quantum-ring:nth-child(3) {
-            border-color: var(--neon-pink);
-            animation-duration: 4s;
-            width: 50px;
-            height: 50px;
-            top: 25px;
-            left: 25px;
-        }
-
-        .quantum-particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 12px var(--neon-green);
-            animation: quantumPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes quantumSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes quantumPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.7; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
         }
 
         .quantum-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             margin-bottom: 10px;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
-            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
             line-height: 1.2;
+            text-transform: uppercase;
         }
 
         .quantum-subtitle {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
             margin-bottom: 15px;
-            letter-spacing: 0.5px;
-            font-weight: 300;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-transform: uppercase;
         }
 
         .quantum-status {
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--neon-blue);
-            margin-bottom: 15px;
-            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+            font-size: 1rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .quantum-progress {
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 1.5px;
+            border-radius: 2px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .quantum-progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
             transition: width 0.3s ease;
             position: relative;
         }
@@ -180,8 +197,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: progressShine 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
         }
 
         @keyframes progressShine {
@@ -192,47 +209,51 @@
         .quantum-steps {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 8px;
-            margin-top: 15px;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .quantum-step {
-            padding: 12px;
-            background: var(--glass-bg);
-            border-radius: 6px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             opacity: 0.5;
             transform: translateY(8px);
+            backdrop-filter: blur(10px);
         }
 
         .quantum-step.active {
             opacity: 1;
             transform: translateY(0);
             border-color: var(--neon-blue);
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            background: rgba(0, 243, 255, 0.05);
         }
 
         .quantum-step.completed {
             border-color: var(--neon-green);
-            background: rgba(0, 255, 136, 0.05);
+            background: rgba(0, 255, 136, 0.08);
         }
 
         .step-icon {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             color: var(--neon-blue);
         }
 
         .step-title {
             font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
-            margin-bottom: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
             color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .step-desc {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
         }
 
@@ -266,17 +287,19 @@
 
         .main-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
-            text-shadow: 0 0 12px rgba(0, 243, 255, 0.3);
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .subtitle {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             letter-spacing: 0.5px;
         }
@@ -294,6 +317,7 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: none;
+            backdrop-filter: blur(10px);
         }
 
         .tab-btn {
@@ -339,19 +363,20 @@
             border-top: none;
             padding: 15px;
             min-height: 500px;
+            backdrop-filter: blur(10px);
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* CK Lottery Container - HEIGHT INCREASED */
+        /* CK Lottery Container */
         .ck-container {
             height: 500px;
             position: relative;
             border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
         }
 
         .ck-container iframe {
@@ -360,7 +385,7 @@
             border: none;
         }
 
-        /* VIP Access Screen */
+        /* Enhanced VIP Access Screen */
         .vip-access {
             display: flex;
             flex-direction: column;
@@ -368,67 +393,102 @@
             justify-content: center;
             height: 100%;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-access::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .vip-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             color: var(--neon-yellow);
-            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
             animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
         }
 
         .vip-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
-            background: linear-gradient(45deg, var(--neon-yellow), #ff9900);
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900, #ff6600);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .vip-desc {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             max-width: 100%;
-            line-height: 1.3;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .vip-progress-container {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .vip-progress-text {
             font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             color: var(--neon-yellow);
-            margin-bottom: 8px;
-            text-shadow: 0 0 6px rgba(255, 204, 0, 0.3);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            letter-spacing: 0.5px;
         }
 
         .vip-progress-bar {
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 2.5px;
+            border-radius: 3px;
             overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .vip-progress-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--neon-yellow), #ff9900);
-            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+            background: linear-gradient(90deg, var(--neon-yellow), #ff9900, #ff6600);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
             transition: width 0.1s linear;
             position: relative;
         }
@@ -440,8 +500,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: progressShine 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
         }
 
         .vip-form {
@@ -453,48 +513,209 @@
 
         .vip-input {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1.5px solid var(--neon-yellow);
-            border-radius: 6px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 8px;
             color: var(--neon-yellow);
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            margin-bottom: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
             text-align: center;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .vip-input:focus {
             outline: none;
-            box-shadow: 0 0 12px rgba(255, 204, 0, 0.5);
-            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .vip-input::placeholder {
+            color: rgba(255, 204, 0, 0.5);
         }
 
         .vip-submit {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px;
             background: linear-gradient(45deg, var(--neon-yellow), #ff9900);
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             color: #000;
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .vip-submit:hover::before {
+            left: 100%;
         }
 
         .vip-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
         }
 
-        /* Hacking Tool - COMPACT VERSION */
+        /* Server Selection Screen */
+        .server-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-selection::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        .server-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+        }
+
+        .server-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .server-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 100%;
+            line-height: 1.5;
+        }
+
+        .server-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .server-btn {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .server-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .server-btn:hover::before {
+            left: 100%;
+        }
+
+        .server-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .server-btn.active {
+            background: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+
+        /* Hacking Tool */
         .hacking-tool {
             display: none;
+        }
+
+        .server-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .switch-server-btn {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-purple);
+            border-radius: 6px;
+            color: var(--neon-purple);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(183, 103, 255, 0.3);
+        }
+
+        .switch-server-btn:hover {
+            background: rgba(183, 103, 255, 0.15);
+            box-shadow: 0 0 15px rgba(183, 103, 255, 0.5);
         }
 
         .tool-header {
@@ -504,96 +725,108 @@
 
         .tool-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
+            font-size: 1.2rem;
+            font-weight: 900;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .tool-subtitle {
             color: var(--text-secondary);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
         }
 
         .period-display {
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: var(--neon-blue);
-            text-shadow: 0 0 6px rgba(0, 243, 255, 0.3);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
         }
 
         .prediction-result {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1.5px solid var(--neon-blue);
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-blue);
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px;
             margin-bottom: 15px;
             text-align: center;
-            box-shadow: 0 0 12px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .result-text {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 900;
             color: var(--neon-blue);
-            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+            letter-spacing: 1px;
         }
 
         .result-text.BIG {
             color: var(--neon-green);
-            text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
         }
 
         .result-text.SMALL {
             color: var(--neon-pink);
-            text-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
         }
 
         /* COMPACT SELECTION GRID */
         .selection-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
         .selection-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
         }
 
         .selection-header {
             grid-column: 1 / -1;
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .column-title {
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center;
             margin-bottom: 5px;
             color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
         }
 
         .selection-item {
-            padding: 10px 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 6px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .selection-item::before {
@@ -603,7 +836,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -614,17 +847,19 @@
         .selection-item.big {
             color: var(--neon-green);
             border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
         }
 
         .selection-item.small {
             color: var(--neon-pink);
             border-color: rgba(255, 42, 109, 0.3);
+            box-shadow: 0 0 10px rgba(255, 42, 109, 0.2);
         }
 
         .selection-item.selected {
             border-color: var(--neon-blue);
-            box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
-            background: rgba(0, 243, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            background: rgba(0, 243, 255, 0.1);
         }
 
         .selection-item.disabled {
@@ -634,49 +869,73 @@
 
         .calculate-btn {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             color: white;
             font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
         }
 
         .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(183, 103, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
         }
 
         .refresh-time {
             font-family: 'Orbitron', monospace;
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .refresh-time.warning {
             color: var(--neon-pink);
-            text-shadow: 0 0 6px rgba(255, 42, 109, 0.3);
+            text-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+            border-color: rgba(255, 42, 109, 0.3);
         }
 
         /* Footer */
         .footer {
             text-align: center;
             margin-top: 20px;
-            padding-top: 12px;
+            padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .watermark {
             color: var(--text-secondary);
-            font-size: 0.65rem;
-            margin-bottom: 8px;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
         }
 
         .contact-link {
@@ -686,16 +945,17 @@
             color: var(--neon-blue);
             text-decoration: none;
             font-family: 'Orbitron', monospace;
-            font-size: 0.65rem;
-            padding: 6px 12px;
+            font-size: 0.7rem;
+            padding: 8px 15px;
             border: 1px solid rgba(0, 243, 255, 0.3);
             border-radius: 4px;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .contact-link:hover {
             background: rgba(0, 243, 255, 0.1);
-            box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
         }
 
         /* Animations */
@@ -706,8 +966,8 @@
 
         @keyframes errorShake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-            20%, 40%, 60%, 80% { transform: translateX(2px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
         }
 
         .error-shake {
@@ -718,7 +978,7 @@
         @media (min-width: 768px) {
             .selection-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 10px;
+                gap: 12px;
             }
             
             .selection-row {
@@ -726,24 +986,34 @@
             }
             
             .quantum-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
             
             .main-title {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
+            }
+            
+            .server-buttons {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .vip-title {
+                font-size: 1.8rem;
+            }
+            
+            .server-title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Quantum Loading Screen -->
+    <!-- Enhanced Quantum Loading Screen with CK Logo -->
     <div class="quantum-loader" id="quantum-loader">
         <div class="quantum-container">
-            <div class="quantum-core">
-                <div class="quantum-ring"></div>
-                <div class="quantum-ring"></div>
-                <div class="quantum-ring"></div>
-                <div class="quantum-particle"></div>
+            <div class="ck-logo-container">
+                <div class="ck-logo">CK</div>
             </div>
             
             <h1 class="quantum-title">CK LOTTERY HACK NEW SEVER</h1>
@@ -802,6 +1072,7 @@
             </div>
             
             <div class="tab-content" id="predictor">
+                <!-- Enhanced VIP Access Screen -->
                 <div class="vip-access" id="vip-access">
                     <div class="vip-icon">⚡</div>
                     <h2 class="vip-title">VVIP ACCESS REQUIRED</h2>
@@ -820,10 +1091,27 @@
                     </div>
                 </div>
                 
+                <!-- Server Selection Screen -->
+                <div class="server-selection" id="server-selection" style="display: none;">
+                    <div class="server-icon">🖥️</div>
+                    <h2 class="server-title">SELECT SERVER</h2>
+                    <p class="server-desc">Choose your preferred prediction algorithm</p>
+                    
+                    <div class="server-buttons">
+                        <button class="server-btn" data-server="1">SEVER 1</button>
+                        <button class="server-btn" data-server="2">SEVER 2</button>
+                        <button class="server-btn" data-server="3">SEVER 3</button>
+                    </div>
+                </div>
+                
                 <div class="hacking-tool" id="hacking-tool">
+                    <div class="server-switch">
+                        <button class="switch-server-btn" id="switch-server-btn">SWITCH SERVER</button>
+                    </div>
+                    
                     <div class="tool-header">
                         <h2 class="tool-title">QUANTUM PREDICTION ENGINE</h2>
-                        <p class="tool-subtitle">Advanced algorithmic analysis for optimal results</p>
+                        <p class="tool-subtitle" id="server-indicator">SERVER 1 - ORIGINAL FORMULA</p>
                     </div>
                     
                     <div class="period-display">PERIOD: <span id="period-number">LOADING...</span></div>
@@ -884,9 +1172,10 @@
     </div>
 
     <script>
-        // JavaScript code remains exactly the same as previous version
-        const QUANTUM_KEY = "22102025CKHACK";
+        // JavaScript code with updated Server 3 formula
+        const QUANTUM_KEY = "9999999999";
         const BASE_INDEX = 9611;
+        let activeServer = 1; // Default to Server 1
         
         // Quantum Loading Sequence
         function initQuantumLoader() {
@@ -1042,23 +1331,46 @@
         function unlockQuantumTool() {
             const password = document.getElementById('vip-password').value;
             const vipAccess = document.getElementById('vip-access');
-            const hackingTool = document.getElementById('hacking-tool');
+            const serverSelection = document.getElementById('server-selection');
             
             if (password === QUANTUM_KEY) {
                 vipAccess.style.display = 'none';
-                hackingTool.style.display = 'block';
-                initHackingTool();
+                serverSelection.style.display = 'flex';
+                initServerSelection();
             } else {
                 const vipInput = document.getElementById('vip-password');
                 vipInput.style.borderColor = 'var(--neon-red)';
-                vipInput.style.boxShadow = '0 0 12px rgba(255, 68, 68, 0.5)';
+                vipInput.style.boxShadow = '0 0 20px rgba(255, 68, 68, 0.7)';
                 vipInput.value = '';
                 
                 setTimeout(() => {
                     vipInput.style.borderColor = 'var(--neon-yellow)';
-                    vipInput.style.boxShadow = 'none';
+                    vipInput.style.boxShadow = '0 0 15px rgba(255, 204, 0, 0.3)';
                 }, 1000);
             }
+        }
+        
+        // Initialize Server Selection
+        function initServerSelection() {
+            const serverButtons = document.querySelectorAll('.server-btn');
+            
+            serverButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const server = this.getAttribute('data-server');
+                    activeServer = parseInt(server);
+                    
+                    // Update active button
+                    serverButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show hacking tool with selected server
+                    setTimeout(() => {
+                        document.getElementById('server-selection').style.display = 'none';
+                        document.getElementById('hacking-tool').style.display = 'block';
+                        initHackingTool();
+                    }, 500);
+                });
+            });
         }
         
         // Initialize Hacking Tool
@@ -1068,6 +1380,14 @@
             const resultText = document.getElementById('result-text');
             const periodNumber = document.getElementById('period-number');
             const refreshTime = document.getElementById('refresh-time');
+            const serverIndicator = document.getElementById('server-indicator');
+            const switchServerBtn = document.getElementById('switch-server-btn');
+            
+            // Update server indicator
+            updateServerIndicator();
+            
+            // Add event listener for server switching
+            switchServerBtn.addEventListener('click', switchServer);
             
             // Period and Timer Functions
             const pad = (n, w = 2) => String(n).padStart(w, '0');
@@ -1178,47 +1498,117 @@
                 
                 let finalResult = null;
                 
-                for (let i = 1; i <= 5; i++) {
-                    const bigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i}"]`).classList.contains('selected');
-                    const smallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i}"]`).classList.contains('selected');
-                    
-                    if (bigSelected || smallSelected) {
-                        const currentRowSelection = bigSelected ? "BIG" : "SMALL";
+                // Server 1 - Original Formula
+                if (activeServer === 1) {
+                    for (let i = 1; i <= 5; i++) {
+                        const bigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i}"]`).classList.contains('selected');
+                        const smallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i}"]`).classList.contains('selected');
                         
-                        if (i < 5) {
-                            const nextBigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i+1}"]`).classList.contains('selected');
-                            const nextSmallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i+1}"]`).classList.contains('selected');
+                        if (bigSelected || smallSelected) {
+                            const currentRowSelection = bigSelected ? "BIG" : "SMALL";
                             
-                            if (nextBigSelected || nextSmallSelected) {
-                                const nextRowSelection = nextBigSelected ? "BIG" : "SMALL";
+                            if (i < 5) {
+                                const nextBigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i+1}"]`).classList.contains('selected');
+                                const nextSmallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i+1}"]`).classList.contains('selected');
                                 
-                                if (currentRowSelection !== nextRowSelection) {
-                                    finalResult = applyFormula(currentRowSelection, 1);
-                                } else {
-                                    if (i < 4) {
-                                        const thirdBigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i+2}"]`).classList.contains('selected');
-                                        const thirdSmallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i+2}"]`).classList.contains('selected');
-                                        
-                                        if ((thirdBigSelected || thirdSmallSelected) && 
-                                            (thirdBigSelected ? "BIG" : "SMALL") === currentRowSelection) {
-                                            finalResult = applyFormula(currentRowSelection, 3);
-                                        } else {
-                                            finalResult = applyFormula(currentRowSelection, 2);
-                                        }
+                                if (nextBigSelected || nextSmallSelected) {
+                                    const nextRowSelection = nextBigSelected ? "BIG" : "SMALL";
+                                    
+                                    if (currentRowSelection !== nextRowSelection) {
+                                        finalResult = applyFormula1(currentRowSelection, 1);
                                     } else {
-                                        finalResult = applyFormula(currentRowSelection, 2);
+                                        if (i < 4) {
+                                            const thirdBigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i+2}"]`).classList.contains('selected');
+                                            const thirdSmallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i+2}"]`).classList.contains('selected');
+                                            
+                                            if ((thirdBigSelected || thirdSmallSelected) && 
+                                                (thirdBigSelected ? "BIG" : "SMALL") === currentRowSelection) {
+                                                finalResult = applyFormula1(currentRowSelection, 3);
+                                            } else {
+                                                finalResult = applyFormula1(currentRowSelection, 2);
+                                            }
+                                        } else {
+                                            finalResult = applyFormula1(currentRowSelection, 2);
+                                        }
                                     }
+                                    
+                                    break;
+                                } else {
+                                    finalResult = applyFormula1(currentRowSelection, 1);
+                                    break;
                                 }
-                                
-                                break;
                             } else {
-                                finalResult = applyFormula(currentRowSelection, 1);
+                                finalResult = applyFormula1(currentRowSelection, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                // Server 2 - Horizontal Calculation with New Formula
+                else if (activeServer === 2) {
+                    // Count consecutive same type selections horizontally
+                    let consecutiveCount = 0;
+                    let firstSelectionType = null;
+                    
+                    for (let i = 1; i <= 5; i++) {
+                        const bigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i}"]`).classList.contains('selected');
+                        const smallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i}"]`).classList.contains('selected');
+                        
+                        if (bigSelected || smallSelected) {
+                            const currentRowSelection = bigSelected ? "BIG" : "SMALL";
+                            
+                            if (firstSelectionType === null) {
+                                firstSelectionType = currentRowSelection;
+                                consecutiveCount = 1;
+                            } else if (currentRowSelection === firstSelectionType) {
+                                consecutiveCount++;
+                            } else {
+                                // Different type found, stop counting
                                 break;
                             }
                         } else {
-                            finalResult = applyFormula(currentRowSelection, 1);
+                            // No selection in this row, stop counting
                             break;
                         }
+                    }
+                    
+                    if (firstSelectionType !== null) {
+                        finalResult = applyFormula2(firstSelectionType, consecutiveCount);
+                    }
+                }
+                // Server 3 - Fixed Pattern Based on First Row Selection
+                else if (activeServer === 3) {
+                    // Get the first row selection
+                    let firstRowSelection = null;
+                    for (let i = 1; i <= 5; i++) {
+                        const bigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i}"]`).classList.contains('selected');
+                        const smallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i}"]`).classList.contains('selected');
+                        
+                        if (bigSelected || smallSelected) {
+                            firstRowSelection = bigSelected ? "BIG" : "SMALL";
+                            break;
+                        }
+                    }
+                    
+                    if (firstRowSelection !== null) {
+                        // Count how many consecutive same selections starting from the first row
+                        let consecutiveCount = 0;
+                        let selectionType = firstRowSelection;
+                        
+                        for (let i = 1; i <= 5; i++) {
+                            const bigSelected = document.querySelector(`.selection-item[data-side="left"][data-index="${i}"]`).classList.contains('selected');
+                            const smallSelected = document.querySelector(`.selection-item[data-side="right"][data-index="${i}"]`).classList.contains('selected');
+                            
+                            if ((bigSelected && selectionType === "BIG") || 
+                                (smallSelected && selectionType === "SMALL")) {
+                                consecutiveCount++;
+                            } else {
+                                break;
+                            }
+                        }
+                        
+                        // Apply the fixed pattern based on the consecutive count
+                        finalResult = applyFormula3(selectionType, consecutiveCount);
                     }
                 }
                 
@@ -1229,7 +1619,9 @@
                         
                         if (bigSelected || smallSelected) {
                             const currentRowSelection = bigSelected ? "BIG" : "SMALL";
-                            finalResult = applyFormula(currentRowSelection, 1);
+                            finalResult = activeServer === 1 ? applyFormula1(currentRowSelection, 1) : 
+                                         activeServer === 2 ? applyFormula2(currentRowSelection, 1) : 
+                                         activeServer === 3 ? applyFormula3(currentRowSelection, 1) : "BIG";
                             break;
                         }
                     }
@@ -1243,7 +1635,8 @@
                 }, 2000);
             }
             
-            function applyFormula(selection, count) {
+            // Server 1 Formula (Original)
+            function applyFormula1(selection, count) {
                 if (selection === "BIG") {
                     if (count === 1 || count === 2) {
                         return "SMALL";
@@ -1260,6 +1653,35 @@
                 return "BIG";
             }
             
+            // Server 2 Formula (New Horizontal Formula)
+            function applyFormula2(selection, count) {
+                if (selection === "BIG") {
+                    if (count === 1 || count === 2) {
+                        return "BIG";
+                    } else if (count >= 3) {
+                        return "SMALL";
+                    }
+                } else if (selection === "SMALL") {
+                    if (count === 1 || count === 2) {
+                        return "SMALL";
+                    } else if (count >= 3) {
+                        return "BIG";
+                    }
+                }
+                return "BIG";
+            }
+            
+            // Server 3 Formula (Fixed Pattern: SMALL, SMALL, SMALL, BIG, SMALL, SMALL, BIG, SMALL, BIG, BIG, BIG)
+            function applyFormula3(selection, count) {
+                // The fixed pattern based on consecutive count
+                const pattern = ["SMALL", "SMALL", "SMALL", "BIG", "SMALL", "SMALL", "BIG", "SMALL", "BIG", "BIG", "BIG"];
+                
+                // Use the count to determine position in pattern (1-based index)
+                const position = Math.min(count, pattern.length) - 1;
+                
+                return pattern[position];
+            }
+            
             function clearSelections() {
                 selectionItems.forEach(item => {
                     item.classList.remove('selected');
@@ -1268,6 +1690,26 @@
                 
                 resultText.textContent = "SELECT PATTERNS TO ANALYZE";
                 resultText.className = "result-text";
+            }
+            
+            // Update Server Indicator
+            function updateServerIndicator() {
+                if (activeServer === 1) {
+                    serverIndicator.textContent = "SERVER 1 - ORIGINAL FORMULA";
+                } else if (activeServer === 2) {
+                    serverIndicator.textContent = "SERVER 2 - HORIZONTAL FORMULA";
+                } else if (activeServer === 3) {
+                    serverIndicator.textContent = "SERVER 3 - FIXED PATTERN";
+                }
+            }
+            
+            // Switch Server Function
+            function switchServer() {
+                document.getElementById('hacking-tool').style.display = 'none';
+                document.getElementById('server-selection').style.display = 'flex';
+                
+                // Clear any selections when switching servers
+                clearSelections();
             }
             
             // Initialize period and timer
