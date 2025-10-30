@@ -797,6 +797,45 @@
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
         }
 
+        /* HACK CODE Button in Server Selection */
+        .hack-code-server-btn {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            margin-top: 10px;
+        }
+
+        .hack-code-server-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-server-btn:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-server-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
         /* Hacking Tool */
         .hacking-tool {
             display: none;
@@ -1294,6 +1333,208 @@
             max-width: 80%;
         }
 
+        /* HACK CODE Section */
+        .hack-code-container {
+            display: none;
+            height: 100%;
+            position: relative;
+        }
+
+        .hack-code-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hack-code-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hack-code-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .hack-code-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 8px;
+        }
+
+        .hack-code-input {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            background-color: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .hack-code-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .hack-code-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-code-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-button:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .hack-code-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hack-code-loading {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .hack-code-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            border-radius: 10px;
+            transition: width 5s linear;
+        }
+
+        .hack-code-result {
+            text-align: center;
+            margin-top: 20px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .hack-code-result-text {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 10px var(--neon-green);
+            margin: 20px 0;
+            animation: flicker 2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.5;
+            }
+        }
+
+        .hack-code-back-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-code-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+        }
+
+        /* Binary Background Effect */
+        .binary-code {
+            position: absolute;
+            color: rgba(0, 255, 65, 0.1);
+            font-size: 0.8rem;
+            z-index: -1;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -1378,6 +1619,21 @@
             
             .mines-title {
                 font-size: 1.8rem;
+            }
+            
+            .hack-code-title {
+                font-size: 1.8rem;
+            }
+            
+            .hack-code-inputs {
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hack-code-input {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
             }
         }
     </style>
@@ -1487,6 +1743,7 @@
                         <button class="server-btn" data-server="1">SEVER 1</button>
                         <button class="server-btn" data-server="2">SEVER 2</button>
                         <button class="server-btn" data-server="3">SEVER 3</button>
+                        <button class="hack-code-server-btn" id="hack-code-server-btn">HACK CODE</button>
                     </div>
                 </div>
                 
@@ -1579,6 +1836,34 @@
                         <button class="mines-back-btn" id="mines-back-btn">BACK TO TOOL SELECTION</button>
                     </div>
                 </div>
+
+                <!-- HACK CODE Container -->
+                <div class="hack-code-container" id="hack-code-container">
+                    <div class="hack-code-header">
+                        <h1 class="hack-code-title">HACK CODE SYSTEM</h1>
+                        <p class="hack-code-subtitle">Enter 5 numbers to calculate prediction</p>
+                    </div>
+                    
+                    <div class="hack-code-inputs" id="hack-code-inputs">
+                        <input type="number" class="hack-code-input" id="hack-num1" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num2" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num3" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num4" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num5" min="0" max="9" placeholder="0" maxlength="1">
+                    </div>
+                    
+                    <button class="hack-code-button" id="hack-code-btn" disabled>CALCULATE HACK CODE</button>
+                    
+                    <div class="hack-code-loading" id="hack-code-loading">
+                        <div class="hack-code-progress" id="hack-code-progress"></div>
+                    </div>
+                    
+                    <div class="hack-code-result" id="hack-code-result">
+                        <div class="hack-code-result-text" id="hack-code-result-text"></div>
+                    </div>
+                    
+                    <button class="hack-code-back-btn" id="hack-code-back-btn">BACK TO SERVER SELECTION</button>
+                </div>
             </div>
         </div>
         
@@ -1591,7 +1876,7 @@
     </div>
 
     <script>
-        // JavaScript code with updated Server 3 formula and integrated Mines Hack
+        // JavaScript code with updated Server 3 formula and integrated Mines Hack and Hack Code
         const QUANTUM_KEY = "NEWHACKCK";
         const BASE_INDEX = 9611;
         let activeServer = 1; // Default to Server 1
@@ -1796,6 +2081,7 @@
         // Initialize Server Selection
         function initServerSelection() {
             const serverButtons = document.querySelectorAll('.server-btn');
+            const hackCodeServerBtn = document.getElementById('hack-code-server-btn');
             
             serverButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -1813,6 +2099,13 @@
                         initHackingTool();
                     }, 500);
                 });
+            });
+            
+            // Add event listener for HACK CODE button
+            hackCodeServerBtn.addEventListener('click', function() {
+                document.getElementById('server-selection').style.display = 'none';
+                document.getElementById('hack-code-container').style.display = 'block';
+                initHackCode();
             });
         }
         
@@ -2325,6 +2618,146 @@
                 document.getElementById('mines-container').style.display = 'none';
                 document.getElementById('tool-selection').style.display = 'flex';
             });
+        }
+        
+        // Initialize Hack Code
+        function initHackCode() {
+            const hackCodeBtn = document.getElementById('hack-code-btn');
+            const hackCodeLoading = document.getElementById('hack-code-loading');
+            const hackCodeProgress = document.getElementById('hack-code-progress');
+            const hackCodeResult = document.getElementById('hack-code-result');
+            const hackCodeResultText = document.getElementById('hack-code-result-text');
+            const hackCodeBackBtn = document.getElementById('hack-code-back-btn');
+            const inputs = document.querySelectorAll('.hack-code-input');
+            
+            // Create binary code background effect
+            createBinaryEffect();
+            
+            // Auto-tab functionality
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    if (this.value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                    
+                    // Check if all inputs are filled
+                    checkAllInputsFilled();
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            function checkAllInputsFilled() {
+                const allFilled = Array.from(inputs).every(input => input.value !== '');
+                hackCodeBtn.disabled = !allFilled;
+            }
+            
+            hackCodeBtn.addEventListener('click', function() {
+                const num1 = parseInt(document.getElementById('hack-num1').value) || 0;
+                const num2 = parseInt(document.getElementById('hack-num2').value) || 0;
+                const num3 = parseInt(document.getElementById('hack-num3').value) || 0;
+                const num4 = parseInt(document.getElementById('hack-num4').value) || 0;
+                const num5 = parseInt(document.getElementById('hack-num5').value) || 0;
+                
+                // Show loading
+                hackCodeLoading.style.display = 'block';
+                hackCodeProgress.style.width = '0%';
+                
+                // Reset result
+                hackCodeResult.style.display = 'none';
+                
+                // Start loading animation
+                setTimeout(() => {
+                    hackCodeProgress.style.width = '100%';
+                }, 10);
+                
+                // After 5 seconds, show result
+                setTimeout(() => {
+                    hackCodeLoading.style.display = 'none';
+                    hackCodeResult.style.display = 'block';
+                    
+                    // Calculate result
+                    const rawResult = num5 - num1 - num2;
+                    
+                    // Determine final result
+                    let finalResult;
+                    
+                    if (rawResult >= -5 && rawResult <= 5) {
+                        finalResult = "SMALL";
+                    } else if (rawResult >= 6 && rawResult <= 9) {
+                        finalResult = "BIG";
+                    } else {
+                        // For numbers outside the range, take the last digit
+                        const lastDigit = Math.abs(rawResult) % 10;
+                        
+                        if (lastDigit >= 0 && lastDigit <= 5) {
+                            finalResult = "SMALL";
+                        } else {
+                            finalResult = "BIG";
+                        }
+                    }
+                    
+                    // Display result with cyber effect
+                    displayCyberResult(finalResult);
+                    
+                }, 5000);
+            });
+            
+            function displayCyberResult(result) {
+                hackCodeResultText.textContent = "";
+                const text = result;
+                let i = 0;
+                
+                function typeWriter() {
+                    if (i < text.length) {
+                        hackCodeResultText.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                }
+                
+                typeWriter();
+            }
+            
+            function createBinaryEffect() {
+                const container = document.getElementById('hack-code-container');
+                const binaryChars = '01';
+                
+                for (let i = 0; i < 20; i++) {
+                    const binaryElement = document.createElement('div');
+                    binaryElement.classList.add('binary-code');
+                    
+                    let binaryText = '';
+                    for (let j = 0; j < 50; j++) {
+                        binaryText += binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
+                    }
+                    
+                    binaryElement.textContent = binaryText;
+                    binaryElement.style.left = Math.random() * 100 + '%';
+                    binaryElement.style.animationDelay = Math.random() * 20 + 's';
+                    
+                    container.appendChild(binaryElement);
+                }
+            }
+            
+            // Event listener for back button
+            hackCodeBackBtn.addEventListener('click', function() {
+                document.getElementById('hack-code-container').style.display = 'none';
+                document.getElementById('server-selection').style.display = 'flex';
+                
+                // Reset form
+                inputs.forEach(input => input.value = '');
+                hackCodeBtn.disabled = true;
+                hackCodeLoading.style.display = 'none';
+                hackCodeResult.style.display = 'none';
+            });
+            
+            // Initially disable the button
+            hackCodeBtn.disabled = true;
         }
         
         // Start the application
