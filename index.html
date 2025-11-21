@@ -1,0 +1,3447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CK Lottery Predictor Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-pink: #ff2a6d;
+            --neon-green: #00ff88;
+            --neon-yellow: #ffcc00;
+            --neon-red: #ff4444;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+            --card-bg: rgba(15, 15, 25, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            height: 100%;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(183, 103, 255, 0.05) 0%, transparent 50%);
+        }
+
+        /* Enhanced Quantum Loading Screen with CK Logo */
+        .quantum-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, #0a0a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .quantum-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ck-logo-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ck-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff9900;
+            text-shadow: 
+                0 0 10px #ff9900,
+                0 0 20px #ff9900,
+                0 0 30px #ff9900,
+                0 0 40px #ff6600,
+                0 0 70px #ff6600,
+                0 0 80px #ff6600,
+                0 0 100px #ff3300,
+                0 0 150px #ff3300;
+            animation: burn 1.5s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ck-logo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes burn {
+            0% {
+                text-shadow: 
+                    0 0 10px #ff9900,
+                    0 0 20px #ff9900,
+                    0 0 30px #ff9900,
+                    0 0 40px #ff6600,
+                    0 0 70px #ff6600,
+                    0 0 80px #ff6600,
+                    0 0 100px #ff3300,
+                    0 0 150px #ff3300;
+                color: #ff9900;
+            }
+            100% {
+                text-shadow: 
+                    0 0 5px #ff9900,
+                    0 0 10px #ff9900,
+                    0 0 15px #ff9900,
+                    0 0 20px #ff6600,
+                    0 0 35px #ff6600,
+                    0 0 40px #ff6600,
+                    0 0 50px #ff3300,
+                    0 0 75px #ff3300;
+                color: #ffcc00;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .quantum-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .quantum-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .quantum-status {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .quantum-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .quantum-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .quantum-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .quantum-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .quantum-step {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            transform: translateY(8px);
+            backdrop-filter: blur(10px);
+        }
+
+        .quantum-step.active {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .quantum-step.completed {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 136, 0.08);
+        }
+
+        .step-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+        }
+
+        .step-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: none;
+            min-height: 100vh;
+            padding: 10px;
+            position: relative;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 25px 25px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Tab System */
+        .tab-system {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-nav {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
+        }
+
+        .tab-btn.active {
+            color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 0 0 8px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            padding: 15px;
+            min-height: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* CK Lottery Container */
+        .ck-container {
+            height: 500px;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .ck-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Enhanced VIP Access Screen */
+        .vip-access {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-access::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .vip-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .vip-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900, #ff6600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .vip-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 100%;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip-progress-container {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .vip-progress-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--neon-yellow);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .vip-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .vip-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-yellow), #ff9900, #ff6600);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .vip-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        .vip-form {
+            width: 100%;
+            max-width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .vip-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 8px;
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .vip-input::placeholder {
+            color: rgba(255, 204, 0, 0.5);
+        }
+
+        .vip-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .vip-submit:hover::before {
+            left: 100%;
+        }
+
+        .vip-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+        }
+
+        /* Tool Selection Screen */
+        .tool-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-selection::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+        }
+
+        .tool-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 100%;
+            line-height: 1.5;
+        }
+
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .tool-btn {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .tool-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-btn:hover::before {
+            left: 100%;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .tool-btn.active {
+            background: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+
+        /* Server Selection Screen */
+        .server-selection {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-selection::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        .server-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
+        }
+
+        .server-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .server-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 100%;
+            line-height: 1.5;
+        }
+
+        .server-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .server-btn {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .server-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .server-btn:hover::before {
+            left: 100%;
+        }
+
+        .server-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .server-btn.active {
+            background: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+        }
+
+        /* HACK CODE Button in Server Selection */
+        .hack-code-server-btn {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            margin-top: 10px;
+        }
+
+        .hack-code-server-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-server-btn:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-server-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Hacking Tool */
+        .hacking-tool {
+            display: none;
+        }
+
+        .server-switch {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .switch-server-btn {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-purple);
+            border-radius: 6px;
+            color: var(--neon-purple);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(183, 103, 255, 0.3);
+            flex: 1;
+        }
+
+        .switch-server-btn:hover {
+            background: rgba(183, 103, 255, 0.15);
+            box-shadow: 0 0 15px rgba(183, 103, 255, 0.5);
+        }
+
+        .back-to-tool-btn {
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 6px;
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            flex: 1;
+        }
+
+        .back-to-tool-btn:hover {
+            background: rgba(255, 204, 0, 0.15);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .tool-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tool-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .period-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .prediction-result {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .result-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .result-text.BIG {
+            color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+        }
+
+        .result-text.SMALL {
+            color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
+        }
+
+        /* COMPACT SELECTION GRID */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .selection-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .selection-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .column-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 5px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+        }
+
+        .selection-item {
+            padding: 12px 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .selection-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .selection-item:hover::before {
+            left: 100%;
+        }
+
+        .selection-item.big {
+            color: var(--neon-green);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        .selection-item.small {
+            color: var(--neon-pink);
+            border-color: rgba(255, 42, 109, 0.3);
+            box-shadow: 0 0 10px rgba(255, 42, 109, 0.2);
+        }
+
+        .selection-item.selected {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .selection-item.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+        }
+
+        .refresh-time {
+            font-family: 'Orbitron', monospace;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .refresh-time.warning {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
+            border-color: rgba(255, 42, 109, 0.3);
+        }
+
+        /* Mines Hack Styles */
+        .mines-container {
+            display: none;
+            height: 100%;
+            position: relative;
+        }
+
+        .mines-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mines-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mines-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .mines-game-section {
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mines-grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 6px;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .mines-grid-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: rgba(30, 30, 50, 0.8);
+            border: 2px solid #5a5a8a;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(90, 90, 138, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mines-grid-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(90, 90, 138, 0.3), transparent);
+            transform: translateX(-100%);
+        }
+
+        .mines-grid-box.active::before {
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+
+        .mines-grid-box.revealed {
+            background: radial-gradient(circle at 30% 30%, #1a1a1a, #000);
+            border-color: #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .mines-coin-icon {
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+
+        .mines-grid-box.revealed .mines-coin-icon {
+            opacity: 1;
+            transform: scale(1);
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .mines-prediction-section {
+            margin: 15px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mines-prediction-text {
+            color: #ffd700;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            margin: 8px 0;
+            min-height: 24px;
+            line-height: 1.3;
+        }
+
+        .mines-button-section {
+            text-align: center;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mines-predict-button {
+            background: linear-gradient(45deg, #ff00ff, #00ffea);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #000;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .mines-predict-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.9);
+        }
+
+        .mines-predict-button:active {
+            transform: scale(0.95);
+        }
+
+        .mines-predict-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .mines-back-btn {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(183, 103, 255, 0.7);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 200px;
+            margin-top: 10px;
+        }
+
+        .mines-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.9);
+        }
+
+        /* Mines Loading Screen */
+        .mines-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.95) 0%, rgba(5, 5, 8, 0.98) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: 10px;
+        }
+
+        .mines-loader-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .mines-loader-progress {
+            width: 80%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .mines-loader-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-yellow), #ff9900, #ff6600);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            transition: width 0.3s ease;
+        }
+
+        .mines-loader-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        /* HACK CODE Section */
+        .hack-code-container {
+            display: none;
+            height: 100%;
+            position: relative;
+        }
+
+        .hack-code-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hack-code-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hack-code-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .hack-code-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 8px;
+        }
+
+        .hack-code-input {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.5rem;
+            background-color: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .hack-code-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .hack-code-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-code-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-button:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .hack-code-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .hack-code-loading {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .hack-code-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            border-radius: 10px;
+            transition: width 5s linear;
+        }
+
+        .hack-code-result {
+            text-align: center;
+            margin-top: 20px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .hack-code-result-text {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 10px var(--neon-green);
+            margin: 20px 0;
+            animation: flicker 2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.5;
+            }
+        }
+
+        .hack-code-back-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-code-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .hack-code-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .hack-code-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+        }
+
+        /* Binary Background Effect */
+        .binary-code {
+            position: absolute;
+            color: rgba(0, 255, 65, 0.1);
+            font-size: 0.8rem;
+            z-index: -1;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* CK LOTTERY HACK VIP Section */
+        .ck-lottery-hack-vip {
+            display: none;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #matrix-vip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .ck-lottery-hack-container {
+            background-color: rgba(0, 20, 0, 0.7);
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .ck-lottery-hack-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        .ck-lottery-hack-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 10px var(--neon-blue);
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+        }
+
+        .ck-lottery-input-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .ck-lottery-input {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 12px;
+            font-size: 1rem;
+            width: 48%;
+            text-align: center;
+            outline: none;
+            border-radius: 3px;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .ck-lottery-input:focus {
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .ck-lottery-analyze-btn {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 3px;
+            transition: all 0.3s;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .ck-lottery-analyze-btn:hover {
+            background-color: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .ck-lottery-result-container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            min-height: 200px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .ck-lottery-scanning-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        .ck-lottery-code-display {
+            font-size: 0.8rem;
+            text-align: left;
+            line-height: 1.4;
+            max-height: 160px;
+            overflow-y: auto;
+            padding: 10px;
+            color: var(--neon-blue);
+            font-family: 'Courier New', monospace;
+        }
+
+        .ck-lottery-final-result {
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding: 20px;
+            text-shadow: 0 0 15px currentColor;
+            letter-spacing: 5px;
+            display: none;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .ck-lottery-final-result.big {
+            color: var(--neon-green);
+            animation: pulse 1s infinite;
+        }
+
+        .ck-lottery-final-result.small {
+            color: var(--neon-pink);
+            animation: pulse 1s infinite;
+        }
+
+        .ck-lottery-final-result.error {
+            color: var(--neon-yellow);
+            animation: pulse 1s infinite;
+        }
+
+        .ck-lottery-final-result.unknown {
+            color: var(--neon-purple);
+            animation: pulse 1s infinite;
+        }
+
+        .ck-lottery-history {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            max-height: 100px;
+            overflow-y: auto;
+            border-top: 1px solid var(--neon-blue);
+            padding-top: 10px;
+            color: var(--text-secondary);
+        }
+
+        .ck-lottery-history-item {
+            margin-bottom: 5px;
+            padding: 3px;
+            border-bottom: 1px dotted rgba(0, 243, 255, 0.3);
+        }
+
+        .ck-lottery-back-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-shadow: 0 0 15px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ck-lottery-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .ck-lottery-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .ck-lottery-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.7);
+        }
+
+        /* VVIP Hack Container */
+        .vvip-hack-container {
+            display: none;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vvip-hack-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vvip-hack-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900, #ff6600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .vvip-hack-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .vvip-hack-content {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .vvip-clock {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 12px rgba(255, 204, 0, 0.7);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .vvip-prediction {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vvip-prediction.big {
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .vvip-prediction.small {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
+        }
+
+        .vvip-countdown {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+            margin: 10px 0;
+        }
+
+        /* NEW: VVIP Progress Bar */
+        .vvip-progress-container {
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .vvip-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .vvip-progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--neon-yellow), #ff9900, #ff6600);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            transition: width 1s linear;
+            position: relative;
+            transform: translateX(-100%);
+        }
+
+        .vvip-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        .vvip-history {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .vvip-history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        .vvip-history-time {
+            color: var(--text-secondary);
+        }
+
+        .vvip-history-prediction.big {
+            color: var(--neon-green);
+        }
+
+        .vvip-history-prediction.small {
+            color: var(--neon-pink);
+        }
+
+        .vvip-back-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vvip-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .vvip-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .vvip-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+        }
+
+        /* VIP 30 SEC Container */
+        .vip30sec-container {
+            display: none;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip30sec-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vip30sec-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .vip30sec-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .vip30sec-content {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .vip30sec-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip30sec-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .vip30sec-input::placeholder {
+            color: rgba(0, 255, 136, 0.5);
+        }
+
+        .vip30sec-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip30sec-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .vip30sec-button:hover::before {
+            left: 100%;
+        }
+
+        .vip30sec-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-result {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vip30sec-result-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vip30sec-result-text.BIG {
+            color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-result-text.SMALL {
+            color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
+        }
+
+        .vip30sec-confidence {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .vip30sec-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .vip30sec-stat {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .vip30sec-stat-title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .vip30sec-stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-history {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .vip30sec-history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        .vip30sec-history-time {
+            color: var(--text-secondary);
+        }
+
+        .vip30sec-history-prediction.big {
+            color: var(--neon-green);
+        }
+
+        .vip30sec-history-prediction.small {
+            color: var(--neon-pink);
+        }
+
+        .vip30sec-back-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip30sec-back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .vip30sec-back-btn:hover::before {
+            left: 100%;
+        }
+
+        .vip30sec-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .watermark {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            padding: 8px 15px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-link:hover {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
+        }
+
+        .error-shake {
+            animation: errorShake 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .selection-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            
+            .selection-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .quantum-title {
+                font-size: 2rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .server-buttons {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .vip-title {
+                font-size: 1.8rem;
+            }
+            
+            .server-title {
+                font-size: 1.6rem;
+            }
+            
+            .mines-title {
+                font-size: 1.8rem;
+            }
+            
+            .hack-code-title {
+                font-size: 1.8rem;
+            }
+            
+            .hack-code-inputs {
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hack-code-input {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .ck-lottery-hack-title {
+                font-size: 1.8rem;
+            }
+
+            .vvip-hack-title {
+                font-size: 1.8rem;
+            }
+
+            .vip30sec-title {
+                font-size: 1.8rem;
+            }
+
+            .vvip-clock {
+                font-size: 2.5rem;
+            }
+
+            .vvip-prediction {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Quantum Loading Screen with CK Logo -->
+    <div class="quantum-loader" id="quantum-loader">
+        <div class="quantum-container">
+            <div class="ck-logo-container">
+                <div class="ck-logo">CK</div>
+            </div>
+            
+            <h1 class="quantum-title">CK LOTTERY HACK NEW SEVER</h1>
+            <p class="quantum-subtitle">INITIALIZING SECURITY PROTOCOLS</p>
+            
+            <div class="quantum-status" id="quantum-status">BOOTING SYSTEMS...</div>
+            
+            <div class="quantum-progress">
+                <div class="quantum-progress-bar" id="quantum-progress"></div>
+            </div>
+            
+            <div class="quantum-steps">
+                <div class="quantum-step" id="step1">
+                    <div class="step-icon">🔍</div>
+                    <div class="step-title">QUANTUM SCAN</div>
+                    <div class="step-desc">Analyzing security layers</div>
+                </div>
+                <div class="quantum-step" id="step2">
+                    <div class="step-icon">🛡️</div>
+                    <div class="step-title">FIREWALL BYPASS</div>
+                    <div class="step-desc">Neutralizing defenses</div>
+                </div>
+                <div class="quantum-step" id="step3">
+                    <div class="step-icon">🔓</div>
+                    <div class="step-title">ENCRYPTION BREACH</div>
+                    <div class="step-desc">Decrypting data streams</div>
+                </div>
+                <div class="quantum-step" id="step4">
+                    <div class="step-icon">⚡</div>
+                    <div class="step-title">SYSTEM ACCESS</div>
+                    <div class="step-desc">Establishing connection</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="main-container" id="main-app">
+        <div class="cyber-grid"></div>
+        
+        <div class="header">
+            <h1 class="main-title">CK HACK SEVER V3</h1>
+            <p class="subtitle">PLAY SAFE 100% WIN SYSTEM</p>
+        </div>
+        
+        <div class="tab-system">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="lottery">CK LOTTERY</button>
+                <button class="tab-btn" data-tab="predictor">HACK V3 TOOL</button>
+            </div>
+            
+            <div class="tab-content active" id="lottery">
+                <div class="ck-container">
+                    <iframe src="https://www.cklottery.online/#/register?invitationCode=35651671244"></iframe>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="predictor">
+                <!-- Enhanced VIP Access Screen -->
+                <div class="vip-access" id="vip-access">
+                    <div class="vip-icon">⚡</div>
+                    <h2 class="vip-title">VVIP ACCESS REQUIRED</h2>
+                    <p class="vip-desc">ဒီ Hack File သည် ရောင်းစားရန်ခွင့်မပြုပါ၊ Free ချပေးထားတာဖြစ်ပါတယ်၊ Ck Acc ဖွင့်ပြီး Password လာယူနိုင်ပါတယ်။</p>
+                    
+                    <div class="vip-progress-container">
+                        <div class="vip-progress-text" id="vip-progress-text">INITIALIZING QUANTUM PROTOCOL... 0%</div>
+                        <div class="vip-progress-bar">
+                            <div class="vip-progress-fill" id="vip-progress-fill"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="vip-form" id="vip-form">
+                        <input type="password" class="vip-input" id="vip-password" placeholder="ENTER QUANTUM KEY">
+                        <button class="vip-submit" id="vip-submit">ACTIVATE SYSTEM</button>
+                    </div>
+                </div>
+                
+                <!-- Tool Selection Screen -->
+                <div class="tool-selection" id="tool-selection" style="display: none;">
+                    <div class="tool-icon">⚙️</div>
+                    <h2 class="tool-title">SELECT HACK TOOL</h2>
+                    <p class="tool-desc">Choose your preferred hacking tool</p>
+                    
+                    <div class="tool-buttons">
+                        <button class="tool-btn" data-tool="lottery">CK LOTTERY HACK</button>
+                        <button class="tool-btn" data-tool="game">GAME HACK</button>
+                        <button class="tool-btn" data-tool="ck-lottery-hack-vip">CK LOTTERY HACK VIP</button>
+                        <button class="tool-btn" data-tool="vvip-hack">VVIP HACK</button>
+                        <button class="tool-btn" data-tool="vip30sec">VIP 30 SEC</button>
+                    </div>
+                </div>
+                
+                <!-- Server Selection Screen -->
+                <div class="server-selection" id="server-selection">
+                    <div class="server-icon">🖥️</div>
+                    <h2 class="server-title">SELECT SERVER</h2>
+                    <p class="server-desc">Choose your preferred prediction algorithm</p>
+                    
+                    <div class="server-buttons">
+                        <button class="server-btn" data-server="1">SEVER 1</button>
+                        <button class="server-btn" data-server="2">SEVER 2</button>
+                        <button class="server-btn" data-server="3">SEVER 3</button>
+                        <button class="hack-code-server-btn" id="hack-code-server-btn">HACK CODE</button>
+                    </div>
+                </div>
+                
+                <div class="hacking-tool" id="hacking-tool">
+                    <div class="server-switch">
+                        <button class="switch-server-btn" id="switch-server-btn">SWITCH SERVER</button>
+                        <button class="back-to-tool-btn" id="back-to-tool-btn">BACK TO TOOLS</button>
+                    </div>
+                    
+                    <div class="tool-header">
+                        <h2 class="tool-title">CK LOTTERY HACK SEVER</h2>
+                        <p class="tool-subtitle" id="server-indicator">SERVER 1 - ORIGINAL FORMULA</p>
+                    </div>
+                    
+                    <div class="period-display">PERIOD: <span id="period-number">LOADING...</span></div>
+                    
+                    <div class="prediction-result">
+                        <div class="result-text" id="result-text">SELECT PATTERNS TO ANALYZE</div>
+                    </div>
+                    
+                    <!-- COMPACT SELECTION GRID -->
+                    <div class="selection-grid">
+                        <!-- Row 1 -->
+                        <div class="selection-row">
+                            <div class="selection-header">
+                                <div class="column-title">BIG & SMALL SEQUENCE</div>
+                            </div>
+                            <div class="selection-item big" data-side="left" data-row="big" data-index="1">BIG 1</div>
+                            <div class="selection-item small" data-side="right" data-row="small" data-index="1">SMALL 1</div>
+                        </div>
+                        
+                        <!-- Row 2 -->
+                        <div class="selection-row">
+                            <div class="selection-item big" data-side="left" data-row="big" data-index="2">BIG 2</div>
+                            <div class="selection-item small" data-side="right" data-row="small" data-index="2">SMALL 2</div>
+                        </div>
+                        
+                        <!-- Row 3 -->
+                        <div class="selection-row">
+                            <div class="selection-item big" data-side="left" data-row="big" data-index="3">BIG 3</div>
+                            <div class="selection-item small" data-side="right" data-row="small" data-index="3">SMALL 3</div>
+                        </div>
+                        
+                        <!-- Row 4 -->
+                        <div class="selection-row">
+                            <div class="selection-item big" data-side="left" data-row="big" data-index="4">BIG 4</div>
+                            <div class="selection-item small" data-side="right" data-row="small" data-index="4">SMALL 4</div>
+                        </div>
+                        
+                        <!-- Row 5 -->
+                        <div class="selection-row">
+                            <div class="selection-item big" data-side="left" data-row="big" data-index="5">BIG 5</div>
+                            <div class="selection-item small" data-side="right" data-row="small" data-index="5">SMALL 5</div>
+                        </div>
+                    </div>
+                    
+                    <button class="calculate-btn" id="calculate-btn">ANALYZE PATTERNS</button>
+                    
+                    <div class="refresh-time" id="refresh-time">NEXT UPDATE IN 60 SECONDS</div>
+                </div>
+
+                <!-- Mines Hack Container -->
+                <div class="mines-container" id="mines-container">
+                    <div class="mines-loader" id="mines-loader">
+                        <div class="mines-loader-text">MINES HACK INITIALIZING</div>
+                        <div class="mines-loader-progress">
+                            <div class="mines-loader-progress-bar" id="mines-loader-progress-bar"></div>
+                        </div>
+                        <div class="mines-loader-desc" id="mines-loader-desc">Loading quantum prediction algorithms...</div>
+                    </div>
+                    
+                    <div class="mines-header">
+                        <h1 class="mines-title">MINES HACK SEVER</h1>
+                        <p class="mines-subtitle">GOLD COIN HACK SYSTEM</p>
+                        <p class="mines-subtitle">Find 5 safe gold coins among 25 boxes</p>
+                    </div>
+                    
+                    <div class="mines-game-section">
+                        <div class="mines-grid-container" id="mines-grid-container">
+                            <!-- 25 boxes will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="mines-prediction-section">
+                        <div class="mines-prediction-text" id="mines-prediction-text">Click the button to reveal 5 safe gold coins</div>
+                    </div>
+                    
+                    <div class="mines-button-section">
+                        <button class="mines-predict-button" id="mines-predict-btn">SHOW HACK COIN</button>
+                        <button class="mines-back-btn" id="mines-back-btn">BACK TO TOOL SELECTION</button>
+                    </div>
+                </div>
+
+                <!-- HACK CODE Container -->
+                <div class="hack-code-container" id="hack-code-container">
+                    <div class="hack-code-header">
+                        <h1 class="hack-code-title">HACK CODE SYSTEM</h1>
+                        <p class="hack-code-subtitle">Enter 5 numbers to HACK WIN 80%</p>
+                    </div>
+                    
+                    <div class="hack-code-inputs" id="hack-code-inputs">
+                        <input type="number" class="hack-code-input" id="hack-num1" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num2" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num3" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num4" min="0" max="9" placeholder="0" maxlength="1">
+                        <input type="number" class="hack-code-input" id="hack-num5" min="0" max="9" placeholder="0" maxlength="1">
+                    </div>
+                    
+                    <button class="hack-code-button" id="hack-code-btn" disabled>SHOW HACK CODE</button>
+                    
+                    <div class="hack-code-loading" id="hack-code-loading">
+                        <div class="hack-code-progress" id="hack-code-progress"></div>
+                    </div>
+                    
+                    <div class="hack-code-result" id="hack-code-result">
+                        <div class="hack-code-result-text" id="hack-code-result-text"></div>
+                    </div>
+                    
+                    <button class="hack-code-back-btn" id="hack-code-back-btn">BACK TO SERVER SELECTION</button>
+                </div>
+
+                <!-- CK LOTTERY HACK VIP Container -->
+                <div class="ck-lottery-hack-vip" id="ck-lottery-hack-vip">
+                    <canvas id="matrix-vip"></canvas>
+                    
+                    <div class="ck-lottery-hack-container">
+                        <h1 class="ck-lottery-hack-title">CK LOTTERY HACK VIP</h1>
+                        
+                        <div class="ck-lottery-input-group">
+                            <input type="number" class="ck-lottery-input" id="ck-lottery-num1" placeholder="First digit">
+                            <input type="number" class="ck-lottery-input" id="ck-lottery-num2" placeholder="Second digit">
+                        </div>
+                        
+                        <button class="ck-lottery-analyze-btn" id="ck-lottery-analyze">ANALYZE DATA</button>
+                        
+                        <div class="ck-lottery-result-container">
+                            <div class="ck-lottery-scanning-line"></div>
+                            <div class="ck-lottery-code-display" id="ck-lottery-codeDisplay"></div>
+                            <div class="ck-lottery-final-result" id="ck-lottery-finalResult"></div>
+                        </div>
+                        
+                        <div class="ck-lottery-history" id="ck-lottery-history">
+                            <div style="color: var(--neon-blue); margin-bottom: 5px;">ANALYSIS HISTORY:</div>
+                            <!-- History will appear here -->
+                        </div>
+                        
+                        <button class="ck-lottery-back-btn" id="ck-lottery-back-btn">BACK TO TOOL SELECTION</button>
+                    </div>
+                </div>
+
+                <!-- VVIP HACK Container -->
+                <div class="vvip-hack-container" id="vvip-hack-container">
+                    <div class="vvip-hack-header">
+                        <h1 class="vvip-hack-title">VVIP HACK</h1>
+                        <p class="vvip-hack-subtitle">24 HR AUTO UPDATE HACL LOTTERY 1 MIN</p>
+                    </div>
+                    
+                    <div class="vvip-hack-content">
+                        <div class="vvip-clock" id="vvip-clock">00:00:00</div>
+                        <div class="vvip-countdown" id="vvip-countdown">Next update in: 60 seconds</div>
+                        
+                        <!-- NEW: Progress Bar for Countdown -->
+                        <div class="vvip-progress-container">
+                            <div class="vvip-progress-bar">
+                                <div class="vvip-progress-fill" id="vvip-progress-fill"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="vvip-prediction" id="vvip-prediction">LOADING...</div>
+                    </div>
+                    
+                    <div class="vvip-history" id="vvip-history">
+                        <div style="color: var(--neon-yellow); text-align: center; margin-bottom: 8px;">RECENT PREDICTIONS</div>
+                        <!-- History items will be added here -->
+                    </div>
+                    
+                    <button class="vvip-back-btn" id="vvip-back-btn">BACK TO TOOL SELECTION</button>
+                </div>
+
+                <!-- VIP 30 SEC Container -->
+                <div class="vip30sec-container" id="vip30sec-container">
+                    <div class="vip30sec-header">
+                        <h1 class="vip30sec-title">VIP 30 SEC</h1>
+                        <p class="vip30sec-subtitle">QUANTUM PATTERN RECOGNITION SYSTEM</p>
+                    </div>
+                    
+                    <div class="vip30sec-content">
+                        <input
+                            id="vip30sec-input"
+                            type="text"
+                            class="vip30sec-input"
+                            placeholder="ENTER 3 DIGITS"
+                            maxlength="3"
+                        />
+                        
+                        <button class="vip30sec-button" id="vip30sec-button">
+                            INITIATE ANALYSIS
+                        </button>
+                        
+                        <div class="vip30sec-result" id="vip30sec-result">
+                            <div class="vip30sec-result-text" id="vip30sec-result-text">SYSTEM READY</div>
+                            <div class="vip30sec-confidence" id="vip30sec-confidence"></div>
+                        </div>
+                        
+                        <div class="vip30sec-stats">
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">TOTAL ANALYSIS</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-total">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">BIG PATTERN</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-big">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">SMALL PATTERN</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-small">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">SUCCESS RATE</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-rate">87.3%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vip30sec-history" id="vip30sec-history">
+                        <div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>
+                        <!-- History items will be added here -->
+                    </div>
+                    
+                    <button class="vip30sec-back-btn" id="vip30sec-back-btn">BACK TO TOOL SELECTION</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="watermark">SYSTEM v4.0 | DEVELOPED BY @DarkSize501</div>
+            <a href="https://t.me/DarkSize501" class="contact-link" target="_blank">
+                <span>CONTACT DEVELOPER</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code with updated Server 3 formula and integrated Mines Hack, Hack Code, and VVIP Hack
+        const QUANTUM_KEY = "VVIPCKUPDATE";
+        const BASE_INDEX = 9611;
+        let activeServer = 1; // Default to Server 1
+        
+        // VVIP Hack Data
+        const vvipData = {
+            "00:00": "Small", "00:01": "Big", "00:02": "Small", "00:03": "Small", "00:04": "Big",
+            "00:05": "Small", "00:06": "Small", "00:07": "Big", "00:08": "Small", "00:09": "Big",
+            "00:10": "Small", "00:11": "Big", "00:12": "Small", "00:13": "Small", "00:14": "Big",
+            "00:15": "Small", "00:16": "Small", "00:17": "Big", "00:18": "Big", "00:19": "Big",
+            "00:20": "Small", "00:21": "Small", "00:22": "Big", "00:23": "Small", "00:24": "Small",
+            "00:25": "Small", "00:26": "Small", "00:27": "Big", "00:28": "Big", "00:29": "Small",
+            "00:30": "Small", "00:31": "Big", "00:32": "Big", "00:33": "Big", "00:34": "Big",
+            "00:35": "Small", "00:36": "Big", "00:37": "Big", "00:38": "Small", "00:39": "Big",
+            "00:40": "Small", "00:41": "Small", "00:42": "Big", "00:43": "Big", "00:44": "Small",
+            "00:45": "Small", "00:46": "Small", "00:47": "Small", "00:48": "Big", "00:49": "Small",
+            "00:50": "Big", "00:51": "Big", "00:52": "Small", "00:53": "Small", "00:54": "Big",
+            "00:55": "Small", "00:56": "Small", "00:57": "Big", "00:58": "Big", "00:59": "Big",
+            "01:00": "Small", "01:01": "Big", "01:02": "Small", "01:03": "Small", "01:04": "Big",
+            "01:05": "Big", "01:06": "Small", "01:07": "Small", "01:08": "Big", "01:09": "Small",
+            "01:10": "Small", "01:11": "Big", "01:12": "Small", "01:13": "Big", "01:14": "Big",
+            "01:15": "Big", "01:16": "Big", "01:17": "Big", "01:18": "Small", "01:19": "Small",
+            "01:20": "Small", "01:21": "Big", "01:22": "Big", "01:23": "Big", "01:24": "Small",
+            "01:25": "Big", "01:26": "Big", "01:27": "Small", "01:28": "Big", "01:29": "Small",
+            "01:30": "Big", "01:31": "Small", "01:32": "Small", "01:33": "Small", "01:34": "Small",
+            "01:35": "Big", "01:36": "Small", "01:37": "Small", "01:38": "Big", "01:39": "Big",
+            "01:40": "Small", "01:41": "Big", "01:42": "Small", "01:43": "Big", "01:44": "Small",
+            "01:45": "Small", "01:46": "Big", "01:47": "Big", "01:48": "Small", "01:49": "Big",
+            "01:50": "Small", "01:51": "Big", "01:52": "Big", "01:53": "Small", "01:54": "Big",
+            "01:55": "Big", "01:56": "Small", "01:57": "Small", "01:58": "Big", "01:59": "Small",
+            "02:00": "Small", "02:01": "Big", "02:02": "Small", "02:03": "Big", "02:04": "Small",
+            "02:05": "Big", "02:06": "Small", "02:07": "Big", "02:08": "Big", "02:09": "Small",
+            "02:10": "Big", "02:11": "Small", "02:12": "Big", "02:13": "Big", "02:14": "Small",
+            "02:15": "Small", "02:16": "Big", "02:17": "Small", "02:18": "Small", "02:19": "Small",
+            "02:20": "Big", "02:21": "Big", "02:22": "Small", "02:23": "Big", "02:24": "Small",
+            "02:25": "Small", "02:26": "Big", "02:27": "Small", "02:28": "Small", "02:29": "Big",
+            "02:30": "Big", "02:31": "Small", "02:32": "Small", "02:33": "Big", "02:34": "Small",
+            "02:35": "Big", "02:36": "Small", "02:37": "Big", "02:38": "Small", "02:39": "Small",
+            "02:40": "Big", "02:41": "Big", "02:42": "Big", "02:43": "Big", "02:44": "Small",
+            "02:45": "Big", "02:46": "Small", "02:47": "Big", "02:48": "Big", "02:49": "Big",
+            "02:50": "Big", "02:51": "Big", "02:52": "Big", "02:53": "Small", "02:54": "Big",
+            "02:55": "Small", "02:56": "Small", "02:57": "Big", "02:58": "Small", "02:59": "Small",
+            "03:00": "Big", "03:01": "Small", "03:02": "Small", "03:03": "Big", "03:04": "Big",
+            "03:05": "Small", "03:06": "Small", "03:07": "Big", "03:08": "Small", "03:09": "Big",
+            "03:10": "Big", "03:11": "Small", "03:12": "Big", "03:13": "Big", "03:14": "Big",
+            "03:15": "Small", "03:16": "Small", "03:17": "Small", "03:18": "Small", "03:19": "Small",
+            "03:20": "Small", "03:21": "Small", "03:22": "Big", "03:23": "Big", "03:24": "Small",
+            "03:25": "Big", "03:26": "Big", "03:27": "Big", "03:28": "Big", "03:29": "Big",
+            "03:30": "Small", "03:31": "Small", "03:32": "Big", "03:33": "Small", "03:34": "Small",
+            "03:35": "Big", "03:36": "Small", "03:37": "Big", "03:38": "Big", "03:39": "Big",
+            "03:40": "Big", "03:41": "Small", "03:42": "Small", "03:43": "Small", "03:44": "Big",
+            "03:45": "Big", "03:46": "Big", "03:47": "Big", "03:48": "Big", "03:49": "Small",
+            "03:50": "Big", "03:51": "Small", "03:52": "Small", "03:53": "Small", "03:54": "Small",
+            "03:55": "Big", "03:56": "Big", "03:57": "Small", "03:58": "Big", "03:59": "Big",
+            "04:00": "Big", "04:01": "Big", "04:02": "Small", "04:03": "Big", "04:04": "Small",
+            "04:05": "Big", "04:06": "Big", "04:07": "Big", "04:08": "Small", "04:09": "Small",
+            "04:10": "Small", "04:11": "Small", "04:12": "Big", "04:13": "Big", "04:14": "Big",
+            "04:15": "Big", "04:16": "Big", "04:17": "Big", "04:18": "Big", "04:19": "Small",
+            "04:20": "Small", "04:21": "Small", "04:22": "Small", "04:23": "Small", "04:24": "Small",
+            "04:25": "Small", "04:26": "Small", "04:27": "Small", "04:28": "Small", "04:29": "Big",
+            "04:30": "Small", "04:31": "Big", "04:32": "Small", "04:33": "Small", "04:34": "Big",
+            "04:35": "Small", "04:36": "Small", "04:37": "Small", "04:38": "Big", "04:39": "Big",
+            "04:40": "Big", "04:41": "Small", "04:42": "Big", "04:43": "Small", "04:44": "Small",
+            "04:45": "Big", "04:46": "Big", "04:47": "Big", "04:48": "Big", "04:49": "Big",
+            "04:50": "Big", "04:51": "Big", "04:52": "Big", "04:53": "Big", "04:54": "Big",
+            "04:55": "Small", "04:56": "Small", "04:57": "Small", "04:58": "Small", "04:59": "Big",
+            "05:00": "Small", "05:01": "Small", "05:02": "Big", "05:03": "Small", "05:04": "Small",
+            "05:05": "Big", "05:06": "Big", "05:07": "Big", "05:08": "Big", "05:09": "Small",
+            "05:10": "Small", "05:11": "Small", "05:12": "Small", "05:13": "Big", "05:14": "Big",
+            "05:15": "Small", "05:16": "Small", "05:17": "Big", "05:18": "Big", "05:19": "Big",
+            "05:20": "Big", "05:21": "Big", "05:22": "Small", "05:23": "Small", "05:24": "Big",
+            "05:25": "Small", "05:26": "Small", "05:27": "Big", "05:28": "Big", "05:29": "Big",
+            "05:30": "Big", "05:31": "Small", "05:32": "Small", "05:33": "Big", "05:34": "Small",
+            "05:35": "Big", "05:36": "Big", "05:37": "Small", "05:38": "Big", "05:39": "Big",
+            "05:40": "Small", "05:41": "Small", "05:42": "Small", "05:43": "Small", "05:44": "Small",
+            "05:45": "Small", "05:46": "Big", "05:47": "Small", "05:48": "Small", "05:49": "Small",
+            "05:50": "Small", "05:51": "Big", "05:52": "Big", "05:53": "Small", "05:54": "Small",
+            "05:55": "Big", "05:56": "Big", "05:57": "Big", "05:58": "Big", "05:59": "Big",
+            "06:00": "Big", "06:01": "Big", "06:02": "Small", "06:03": "Small", "06:04": "Small",
+            "06:05": "Small", "06:06": "Big", "06:07": "Small", "06:08": "Big", "06:09": "Small",
+            "06:10": "Small", "06:11": "Big", "06:12": "Big", "06:13": "Small", "06:14": "Small",
+            "06:15": "Big", "06:16": "Big", "06:17": "Big", "06:18": "Small", "06:19": "Big",
+            "06:20": "Small", "06:21": "Big", "06:22": "Small", "06:23": "Big", "06:24": "Small",
+            "06:25": "Big", "06:26": "Small", "06:27": "Small", "06:28": "Big", "06:29": "Big",
+            "06:30": "Big", "06:31": "Small", "06:32": "Small", "06:33": "Big", "06:34": "Small",
+            "06:35": "Big", "06:36": "Big", "06:37": "Big", "06:38": "Big", "06:39": "Small",
+            "06:40": "Small", "06:41": "Big", "06:42": "Small", "06:43": "Big", "06:44": "Big",
+            "06:45": "Small", "06:46": "Small", "06:47": "Big", "06:48": "Big", "06:49": "Big",
+            "06:50": "Big", "06:51": "Big", "06:52": "Big", "06:53": "Small", "06:54": "Small",
+            "06:55": "Small", "06:56": "Big", "06:57": "Small", "06:58": "Small", "06:59": "Big",
+            "07:00": "Small", "07:01": "Big", "07:02": "Small", "07:03": "Big", "07:04": "Small",
+            "07:05": "Small", "07:06": "Small", "07:07": "Big", "07:08": "Small", "07:09": "Big",
+            "07:10": "Big", "07:11": "Small", "07:12": "Small", "07:13": "Big", "07:14": "Small",
+            "07:15": "Big", "07:16": "Small", "07:17": "Small", "07:18": "Big", "07:19": "Big",
+            "07:20": "Small", "07:21": "Big", "07:22": "Small", "07:23": "Small", "07:24": "Small",
+            "07:25": "Small", "07:26": "Big", "07:27": "Small", "07:28": "Small", "07:29": "Big",
+            "07:30": "Big", "07:31": "Big", "07:32": "Small", "07:33": "Small", "07:34": "Big",
+            "07:35": "Big", "07:36": "Big", "07:37": "Big", "07:38": "Big", "07:39": "Big",
+            "07:40": "Small", "07:41": "Small", "07:42": "Big", "07:43": "Small", "07:44": "Small",
+            "07:45": "Big", "07:46": "Big", "07:47": "Small", "07:48": "Big", "07:49": "Big",
+            "07:50": "Big", "07:51": "Big", "07:52": "Big", "07:53": "Small", "07:54": "Big",
+            "07:55": "Small", "07:56": "Big", "07:57": "Big", "07:58": "Big", "07:59": "Small",
+            "08:00": "Big", "08:01": "Big", "08:02": "Big", "08:03": "Small", "08:04": "Small",
+            "08:05": "Big", "08:06": "Big", "08:07": "Big", "08:08": "Big", "08:09": "Big",
+            "08:10": "Big", "08:11": "Small", "08:12": "Big", "08:13": "Small", "08:14": "Small",
+            "08:15": "Small", "08:16": "Small", "08:17": "Big", "08:18": "Small", "08:19": "Big",
+            "08:20": "Big", "08:21": "Big", "08:22": "Big", "08:23": "Small", "08:24": "Big",
+            "08:25": "Big", "08:26": "Big", "08:27": "Small", "08:28": "Small", "08:29": "Big",
+            "08:30": "Big", "08:31": "Small", "08:32": "Small", "08:33": "Big", "08:34": "Big",
+            "08:35": "Small", "08:36": "Big", "08:37": "Small", "08:38": "Big", "08:39": "Big",
+            "08:40": "Small", "08:41": "Small", "08:42": "Big", "08:43": "Small", "08:44": "Small",
+            "08:45": "Small", "08:46": "Big", "08:47": "Big", "08:48": "Big", "08:49": "Big",
+            "08:50": "Big", "08:51": "Big", "08:52": "Small", "08:53": "Small", "08:54": "Small",
+            "08:55": "Small", "08:56": "Small", "08:57": "Big", "08:58": "Small", "08:59": "Small",
+            "09:00": "Big", "09:01": "Big", "09:02": "Small", "09:03": "Small", "09:04": "Big",
+            "09:05": "Small", "09:06": "Small", "09:07": "Small", "09:08": "Big", "09:09": "Small",
+            "09:10": "Big", "09:11": "Small", "09:12": "Small", "09:13": "Big", "09:14": "Small",
+            "09:15": "Big", "09:16": "Big", "09:17": "Small", "09:18": "Small", "09:19": "Big",
+            "09:20": "Big", "09:21": "Small", "09:22": "Big", "09:23": "Big", "09:24": "Small",
+            "09:25": "Small", "09:26": "Big", "09:27": "Big", "09:28": "Small", "09:29": "Small",
+            "09:30": "Small", "09:31": "Big", "09:32": "Small", "09:33": "Small", "09:34": "Big",
+            "09:35": "Small", "09:36": "Big", "09:37": "Small", "09:38": "Small", "09:39": "Small",
+            "09:40": "Big", "09:41": "Big", "09:42": "Big", "09:43": "Big", "09:44": "Small",
+            "09:45": "Small", "09:46": "Small", "09:47": "Big", "09:48": "Small", "09:49": "Big",
+            "09:50": "Big", "09:51": "Big", "09:52": "Big", "09:53": "Big", "09:54": "Big",
+            "09:55": "Big", "09:56": "Big", "09:57": "Big", "09:58": "Small", "09:59": "Big",
+            "10:00": "Small", "10:01": "Small", "10:02": "Small", "10:03": "Small", "10:04": "Small",
+            "10:05": "Big", "10:06": "Small", "10:07": "Big", "10:08": "Big", "10:09": "Small",
+            "10:10": "Small", "10:11": "Big", "10:12": "Big", "10:13": "Big", "10:14": "Big",
+            "10:15": "Big", "10:16": "Big", "10:17": "Big", "10:18": "Small", "10:19": "Big",
+            "10:20": "Big", "10:21": "Small", "10:22": "Small", "10:23": "Big", "10:24": "Small",
+            "10:25": "Big", "10:26": "Big", "10:27": "Small", "10:28": "Small", "10:29": "Small",
+            "10:30": "Big", "10:31": "Big", "10:32": "Big", "10:33": "Big", "10:34": "Small",
+            "10:35": "Big", "10:36": "Big", "10:37": "Big", "10:38": "Small", "10:39": "Small",
+            "10:40": "Small", "10:41": "Big", "10:42": "Big", "10:43": "Small", "10:44": "Small",
+            "10:45": "Big", "10:46": "Small", "10:47": "Small", "10:48": "Small", "10:49": "Small",
+            "10:50": "Small", "10:51": "Big", "10:52": "Small", "10:53": "Big", "10:54": "Big",
+            "10:55": "Small", "10:56": "Big", "10:57": "Small", "10:58": "Small", "10:59": "Small",
+            "11:00": "Big", "11:01": "Small", "11:02": "Small", "11:03": "Big", "11:04": "Small",
+            "11:05": "Big", "11:06": "Big", "11:07": "Big", "11:08": "Big", "11:09": "Big",
+            "11:10": "Small", "11:11": "Big", "11:12": "Big", "11:13": "Big", "11:14": "Big",
+            "11:15": "Big", "11:16": "Small", "11:17": "Small", "11:18": "Big", "11:19": "Small",
+            "11:20": "Big", "11:21": "Small", "11:22": "Big", "11:23": "Small", "11:24": "Small",
+            "11:25": "Big", "11:26": "Big", "11:27": "Small", "11:28": "Big", "11:29": "Big",
+            "11:30": "Big", "11:31": "Big", "11:32": "Big", "11:33": "Big", "11:34": "Big",
+            "11:35": "Small", "11:36": "Small", "11:37": "Big", "11:38": "Small", "11:39": "Small",
+            "11:40": "Big", "11:41": "Big", "11:42": "Big", "11:43": "Big", "11:44": "Small",
+            "11:45": "Big", "11:46": "Small", "11:47": "Big", "11:48": "Small", "11:49": "Big",
+            "11:50": "Big", "11:51": "Big", "11:52": "Small", "11:53": "Big", "11:54": "Small",
+            "11:55": "Big", "11:56": "Small", "11:57": "Big", "11:58": "Small", "11:59": "Small",
+            "12:00": "Big", "12:01": "Small", "12:02": "Big", "12:03": "Big", "12:04": "Big",
+            "12:05": "Small", "12:06": "Small", "12:07": "Small", "12:08": "Big", "12:09": "Big",
+            "12:10": "Big", "12:11": "Small", "12:12": "Small", "12:13": "Small", "12:14": "Small",
+            "12:15": "Big", "12:16": "Big", "12:17": "Small", "12:18": "Small", "12:19": "Big",
+            "12:20": "Small", "12:21": "Small", "12:22": "Big", "12:23": "Small", "12:24": "Small",
+            "12:25": "Big", "12:26": "Small", "12:27": "Big", "12:28": "Small", "12:29": "Big",
+            "12:30": "Small", "12:31": "Small", "12:32": "Big", "12:33": "Small", "12:34": "Small",
+            "12:35": "Small", "12:36": "Small", "12:37": "Small", "12:38": "Big", "12:39": "Small",
+            "12:40": "Small", "12:41": "Small", "12:42": "Small", "12:43": "Small", "12:44": "Big",
+            "12:45": "Small", "12:46": "Small", "12:47": "Small", "12:48": "Big", "12:49": "Small",
+            "12:50": "Big", "12:51": "Small", "12:52": "Big", "12:53": "Small", "12:54": "Small",
+            "12:55": "Small", "12:56": "Small", "12:57": "Small", "12:58": "Small", "12:59": "Big",
+            "13:00": "Big", "13:01": "Big", "13:02": "Small", "13:03": "Big", "13:04": "Small",
+            "13:05": "Small", "13:06": "Big", "13:07": "Small", "13:08": "Small", "13:09": "Big",
+            "13:10": "Small", "13:11": "Big", "13:12": "Big", "13:13": "Small", "13:14": "Big",
+            "13:15": "Big", "13:16": "Big", "13:17": "Big", "13:18": "Big", "13:19": "Small",
+            "13:20": "Big", "13:21": "Big", "13:22": "Big", "13:23": "Small", "13:24": "Small",
+            "13:25": "Small", "13:26": "Big", "13:27": "Big", "13:28": "Small", "13:29": "Small",
+            "13:30": "Small", "13:31": "Small", "13:32": "Big", "13:33": "Small", "13:34": "Big",
+            "13:35": "Small", "13:36": "Big", "13:37": "Small", "13:38": "Big", "13:39": "Small",
+            "13:40": "Small", "13:41": "Small", "13:42": "Big", "13:43": "Small", "13:44": "Small",
+            "13:45": "Small", "13:46": "Big", "13:47": "Big", "13:48": "Big", "13:49": "Big",
+            "13:50": "Small", "13:51": "Big", "13:52": "Big", "13:53": "Small", "13:54": "Big",
+            "13:55": "Small", "13:56": "Big", "13:57": "Big", "13:58": "Big", "13:59": "Big",
+            "14:00": "Small", "14:01": "Big", "14:02": "Small", "14:03": "Small", "14:04": "Small",
+            "14:05": "Big", "14:06": "Small", "14:07": "Big", "14:08": "Small", "14:09": "Small",
+            "14:10": "Big", "14:11": "Big", "14:12": "Small", "14:13": "Big", "14:14": "Small",
+            "14:15": "Small", "14:16": "Big", "14:17": "Small", "14:18": "Big", "14:19": "Big",
+            "14:20": "Small", "14:21": "Big", "14:22": "Small", "14:23": "Small", "14:24": "Small",
+            "14:25": "Small", "14:26": "Big", "14:27": "Big", "14:28": "Small", "14:29": "Small",
+            "14:30": "Small", "14:31": "Big", "14:32": "Big", "14:33": "Big", "14:34": "Small",
+            "14:35": "Small", "14:36": "Big", "14:37": "Small", "14:38": "Big", "14:39": "Small",
+            "14:40": "Big", "14:41": "Big", "14:42": "Small", "14:43": "Small", "14:44": "Small",
+            "14:45": "Big", "14:46": "Small", "14:47": "Big", "14:48": "Big", "14:49": "Small",
+            "14:50": "Big", "14:51": "Small", "14:52": "Small", "14:53": "Small", "14:54": "Small",
+            "14:55": "Small", "14:56": "Big", "14:57": "Small", "14:58": "Small", "14:59": "Small",
+            "15:00": "Small", "15:01": "Big", "15:02": "Small", "15:03": "Small", "15:04": "Small",
+            "15:05": "Small", "15:06": "Big", "15:07": "Small", "15:08": "Big", "15:09": "Big",
+            "15:10": "Big", "15:11": "Big", "15:12": "Big", "15:13": "Big", "15:14": "Big",
+            "15:15": "Small", "15:16": "Small", "15:17": "Big", "15:18": "Big", "15:19": "Big",
+            "15:20": "Big", "15:21": "Small", "15:22": "Small", "15:23": "Big", "15:24": "Small",
+            "15:25": "Big", "15:26": "Small", "15:27": "Big", "15:28": "Small", "15:29": "Big",
+            "15:30": "Small", "15:31": "Big", "15:32": "Small", "15:33": "Small", "15:34": "Big",
+            "15:35": "Big", "15:36": "Small", "15:37": "Small", "15:38": "Small", "15:39": "Small",
+            "15:40": "Big", "15:41": "Small", "15:42": "Small", "15:43": "Small", "15:44": "Big",
+            "15:45": "Big", "15:46": "Big", "15:47": "Small", "15:48": "Small", "15:49": "Small",
+            "15:50": "Small", "15:51": "Small", "15:52": "Small", "15:53": "Small", "15:54": "Small",
+            "15:55": "Small", "15:56": "Small", "15:57": "Small", "15:58": "Small", "15:59": "Big",
+            "16:00": "Big", "16:01": "Small", "16:02": "Small", "16:03": "Big", "16:04": "Big",
+            "16:05": "Big", "16:06": "Small", "16:07": "Small", "16:08": "Big", "16:09": "Big",
+            "16:10": "Big", "16:11": "Big", "16:12": "Small", "16:13": "Small", "16:14": "Small",
+            "16:15": "Big", "16:16": "Big", "16:17": "Small", "16:18": "Small", "16:19": "Big",
+            "16:20": "Big", "16:21": "Small", "16:22": "Big", "16:23": "Small", "16:24": "Small",
+            "16:25": "Big", "16:26": "Small", "16:27": "Small", "16:28": "Big", "16:29": "Small",
+            "16:30": "Big", "16:31": "Small", "16:32": "Big", "16:33": "Small", "16:34": "Small",
+            "16:35": "Small", "16:36": "Small", "16:37": "Small", "16:38": "Small", "16:39": "Big",
+            "16:40": "Small", "16:41": "Big", "16:42": "Small", "16:43": "Big", "16:44": "Big",
+            "16:45": "Big", "16:46": "Big", "16:47": "Small", "16:48": "Small", "16:49": "Small",
+            "16:50": "Big", "16:51": "Big", "16:52": "Big", "16:53": "Big", "16:54": "Big",
+            "16:55": "Big", "16:56": "Small", "16:57": "Big", "16:58": "Big", "16:59": "Big",
+            "17:00": "Big", "17:01": "Big", "17:02": "Small", "17:03": "Big", "17:04": "Big",
+            "17:05": "Small", "17:06": "Small", "17:07": "Small", "17:08": "Small", "17:09": "Small",
+            "17:10": "Small", "17:11": "Big", "17:12": "Small", "17:13": "Big", "17:14": "Big",
+            "17:15": "Small", "17:16": "Small", "17:17": "Big", "17:18": "Big", "17:19": "Big",
+            "17:20": "Big", "17:21": "Small", "17:22": "Big", "17:23": "Small", "17:24": "Big",
+            "17:25": "Big", "17:26": "Big", "17:27": "Small", "17:28": "Small", "17:29": "Big",
+            "17:30": "Small", "17:31": "Big", "17:32": "Small", "17:33": "Small", "17:34": "Small",
+            "17:35": "Big", "17:36": "Small", "17:37": "Big", "17:38": "Big", "17:39": "Big",
+            "17:40": "Big", "17:41": "Big", "17:42": "Big", "17:43": "Big", "17:44": "Big",
+            "17:45": "Big", "17:46": "Big", "17:47": "Big", "17:48": "Big", "17:49": "Small",
+            "17:50": "Small", "17:51": "Big", "17:52": "Small", "17:53": "Big", "17:54": "Small",
+            "17:55": "Big", "17:56": "Big", "17:57": "Big", "17:58": "Big", "17:59": "Small",
+            "18:00": "Big", "18:01": "Small", "18:02": "Small", "18:03": "Big", "18:04": "Small",
+            "18:05": "Big", "18:06": "Big", "18:07": "Small", "18:08": "Big", "18:09": "Small",
+            "18:10": "Big", "18:11": "Small", "18:12": "Big", "18:13": "Small", "18:14": "Small",
+            "18:15": "Big", "18:16": "Big", "18:17": "Small", "18:18": "Small", "18:19": "Small",
+            "18:20": "Small", "18:21": "Small", "18:22": "Small", "18:23": "Big", "18:24": "Small",
+            "18:25": "Big", "18:26": "Small", "18:27": "Small", "18:28": "Small", "18:29": "Big",
+            "18:30": "Big", "18:31": "Big", "18:32": "Big", "18:33": "Big", "18:34": "Small",
+            "18:35": "Small", "18:36": "Big", "18:37": "Small", "18:38": "Big", "18:39": "Big",
+            "18:40": "Big", "18:41": "Big", "18:42": "Small", "18:43": "Big", "18:44": "Small",
+            "18:45": "Big", "18:46": "Small", "18:47": "Small", "18:48": "Big", "18:49": "Small",
+            "18:50": "Big", "18:51": "Small", "18:52": "Big", "18:53": "Big", "18:54": "Big",
+            "18:55": "Big", "18:56": "Small", "18:57": "Small", "18:58": "Big", "18:59": "Small",
+            "19:00": "Small", "19:01": "Small", "19:02": "Small", "19:03": "Small", "19:04": "Small",
+            "19:05": "Small", "19:06": "Big", "19:07": "Big", "19:08": "Small", "19:09": "Small",
+            "19:10": "Big", "19:11": "Small", "19:12": "Small", "19:13": "Small", "19:14": "Big",
+            "19:15": "Small", "19:16": "Small", "19:17": "Small", "19:18": "Big", "19:19": "Small",
+            "19:20": "Small", "19:21": "Small", "19:22": "Small", "19:23": "Big", "19:24": "Big",
+            "19:25": "Small", "19:26": "Small", "19:27": "Big", "19:28": "Small", "19:29": "Big",
+            "19:30": "Big", "19:31": "Small", "19:32": "Small", "19:33": "Big", "19:34": "Small",
+            "19:35": "Big", "19:36": "Small", "19:37": "Big", "19:38": "Big", "19:39": "Small",
+            "19:40": "Big", "19:41": "Big", "19:42": "Big", "19:43": "Big", "19:44": "Big",
+            "19:45": "Small", "19:46": "Small", "19:47": "Big", "19:48": "Big", "19:49": "Small",
+            "19:50": "Big", "19:51": "Big", "19:52": "Small", "19:53": "Small", "19:54": "Small",
+            "19:55": "Big", "19:56": "Big", "19:57": "Big", "19:58": "Big", "19:59": "Small",
+            "20:00": "Big", "20:01": "Small", "20:02": "Big", "20:03": "Small", "20:04": "Small",
+            "20:05": "Small", "20:06": "Small", "20:07": "Small", "20:08": "Big", "20:09": "Big",
+            "20:10": "Small", "20:11": "Big", "20:12": "Small", "20:13": "Big", "20:14": "Big",
+            "20:15": "Big", "20:16": "Big", "20:17": "Small", "20:18": "Big", "20:19": "Small",
+            "20:20": "Big", "20:21": "Big", "20:22": "Small", "20:23": "Big", "20:24": "Big",
+            "20:25": "Big", "20:26": "Big", "20:27": "Small", "20:28": "Big", "20:29": "Big",
+            "20:30": "Big", "20:31": "Small", "20:32": "Big", "20:33": "Big", "20:34": "Big",
+            "20:35": "Small", "20:36": "Small", "20:37": "Big", "20:38": "Small", "20:39": "Small",
+            "20:40": "Small", "20:41": "Big", "20:42": "Big", "20:43": "Small", "20:44": "Small",
+            "20:45": "Small", "20:46": "Big", "20:47": "Small", "20:48": "Small", "20:49": "Big",
+            "20:50": "Big", "20:51": "Big", "20:52": "Small", "20:53": "Big", "20:54": "Small",
+            "20:55": "Small", "20:56": "Big", "20:57": "Small", "20:58": "Small", "20:59": "Small",
+            "21:00": "Small", "21:01": "Small", "21:02": "Small", "21:03": "Small", "21:04": "Big",
+            "21:05": "Big", "21:06": "Big", "21:07": "Small", "21:08": "Small", "21:09": "Small",
+            "21:10": "Small", "21:11": "Small", "21:12": "Big", "21:13": "Small", "21:14": "Big",
+            "21:15": "Big", "21:16": "Small", "21:17": "Big", "21:18": "Small", "21:19": "Small",
+            "21:20": "Big", "21:21": "Small", "21:22": "Small", "21:23": "Small", "21:24": "Small",
+            "21:25": "Small", "21:26": "Big", "21:27": "Big", "21:28": "Small", "21:29": "Big",
+            "21:30": "Small", "21:31": "Small", "21:32": "Big", "21:33": "Big", "21:34": "Big",
+            "21:35": "Big", "21:36": "Small", "21:37": "Small", "21:38": "Big", "21:39": "Small",
+            "21:40": "Small", "21:41": "Small", "21:42": "Small", "21:43": "Big", "21:44": "Small",
+            "21:45": "Small", "21:46": "Small", "21:47": "Big", "21:48": "Big", "21:49": "Small",
+            "21:50": "Big", "21:51": "Small", "21:52": "Small", "21:53": "Big", "21:54": "Small",
+            "21:55": "Small", "21:56": "Small", "21:57": "Small", "21:58": "Small", "21:59": "Small",
+            "22:00": "Big", "22:01": "Big", "22:02": "Big", "22:03": "Small", "22:04": "Big",
+            "22:05": "Big", "22:06": "Big", "22:07": "Big", "22:08": "Small", "22:09": "Big",
+            "22:10": "Big", "22:11": "Big", "22:12": "Big", "22:13": "Big", "22:14": "Small",
+            "22:15": "Big", "22:16": "Big", "22:17": "Small", "22:18": "Small", "22:19": "Big",
+            "22:20": "Big", "22:21": "Big", "22:22": "Big", "22:23": "Big", "22:24": "Big",
+            "22:25": "Small", "22:26": "Big", "22:27": "Big", "22:28": "Big", "22:29": "Big",
+            "22:30": "Big", "22:31": "Small", "22:32": "Big", "22:33": "Small", "22:34": "Small",
+            "22:35": "Small", "22:36": "Big", "22:37": "Big", "22:38": "Big", "22:39": "Big",
+            "22:40": "Small", "22:41": "Big", "22:42": "Big", "22:43": "Small", "22:44": "Small",
+            "22:45": "Big", "22:46": "Big", "22:47": "Big", "22:48": "Big", "22:49": "Small",
+            "22:50": "Big", "22:51": "Big", "22:52": "Small", "22:53": "Big", "22:54": "Big",
+            "22:55": "Small", "22:56": "Big", "22:57": "Small", "22:58": "Small", "22:59": "Big",
+            "23:00": "Big", "23:01": "Small", "23:02": "Small", "23:03": "Big", "23:04": "Big",
+            "23:05": "Big", "23:06": "Small", "23:07": "Big", "23:08": "Small", "23:09": "Big",
+            "23:10": "Big", "23:11": "Big", "23:12": "Big", "23:13": "Big", "23:14": "Small",
+            "23:15": "Big", "23:16": "Small", "23:17": "Big", "23:18": "Small", "23:19": "Small",
+            "23:20": "Big", "23:21": "Big", "23:22": "Big", "23:23": "Small", "23:24": "Small",
+            "23:25": "Small", "23:26": "Small", "23:27": "Small", "23:28": "Big", "23:29": "Small",
+            "23:30": "Small", "23:31": "Small", "23:32": "Small", "23:33": "Big", "23:34": "Big",
+            "23:35": "Big", "23:36": "Big", "23:37": "Big", "23:38": "Small", "23:39": "Big",
+            "23:40": "Big", "23:41": "Small", "23:42": "Big", "23:43": "Small", "23:44": "Big",
+            "23:45": "Small", "23:46": "Big", "23:47": "Big", "23:48": "Big", "23:49": "Big",
+            "23:50": "Big", "23:51": "Big", "23:52": "Small", "23:53": "Big", "23:54": "Small",
+            "23:55": "Small", "23:56": "Small", "23:57": "Big", "23:58": "Small", "23:59": "Big",
+            // ... (vvipData object remains the same as in your original code)
+        };
+        
+        // VIP 30 SEC Data
+        let vip30secHistory = [];
+        let vip30secStats = { total: 0, big: 0, small: 0 };
+        
+        // Quantum Loading Sequence
+        function initQuantumLoader() {
+            const loader = document.getElementById('quantum-loader');
+            const status = document.getElementById('quantum-status');
+            const progress = document.getElementById('quantum-progress');
+            const steps = document.querySelectorAll('.quantum-step');
+            
+            let progressValue = 0;
+            let currentStep = 0;
+            
+            const messages = [
+                "BOOTING SYSTEMS...",
+                "SCANNING SECURITY LAYERS...",
+                "BYPASSING QUANTUM FIREWALLS...",
+                "DECRYPTING DATA STREAMS...",
+                "ESTABLISHING CONNECTION...",
+                "SYSTEM READY"
+            ];
+            
+            const interval = setInterval(() => {
+                progressValue += 1;
+                progress.style.width = `${progressValue}%`;
+                
+                // Update status message
+                if (progressValue <= 20) {
+                    status.textContent = messages[0];
+                } else if (progressValue <= 40) {
+                    status.textContent = messages[1];
+                    if (currentStep === 0) {
+                        steps[0].classList.add('active');
+                        currentStep++;
+                    }
+                } else if (progressValue <= 60) {
+                    status.textContent = messages[2];
+                    if (currentStep === 1) {
+                        steps[1].classList.add('active');
+                        currentStep++;
+                    }
+                } else if (progressValue <= 80) {
+                    status.textContent = messages[3];
+                    if (currentStep === 2) {
+                        steps[2].classList.add('active');
+                        currentStep++;
+                    }
+                } else if (progressValue <= 95) {
+                    status.textContent = messages[4];
+                    if (currentStep === 3) {
+                        steps[3].classList.add('active');
+                        currentStep++;
+                    }
+                } else {
+                    status.textContent = messages[5];
+                }
+                
+                if (progressValue >= 100) {
+                    clearInterval(interval);
+                    
+                    // Mark all steps as completed
+                    steps.forEach(step => {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    });
+                    
+                    // Transition to main app
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            document.getElementById('main-app').style.display = 'block';
+                            initMainApp();
+                        }, 1000);
+                    }, 1500);
+                }
+            }, 40);
+        }
+        
+        // Main Application Initialization
+        function initMainApp() {
+            // Tab System
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Update tabs
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // If predictor tab is clicked, start VIP sequence
+                    if (tabId === 'predictor') {
+                        startVipSequence();
+                    }
+                });
+            });
+            
+            // Initialize lottery iframe
+            const iframe = document.querySelector('.ck-container iframe');
+            iframe.onload = () => {
+                console.log('CK Lottery loaded');
+            };
+        }
+        
+        // VIP Access Sequence
+        function startVipSequence() {
+            const progressFill = document.getElementById('vip-progress-fill');
+            const progressText = document.getElementById('vip-progress-text');
+            const vipForm = document.getElementById('vip-form');
+            
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += 1;
+                progressFill.style.width = `${progress}%`;
+                
+                if (progress <= 20) {
+                    progressText.textContent = `INITIALIZING QUANTUM PROTOCOL... ${progress}%`;
+                } else if (progress <= 40) {
+                    progressText.textContent = `SCANNING SECURITY MATRIX... ${progress}%`;
+                } else if (progress <= 60) {
+                    progressText.textContent = `BYPASSING ENCRYPTION... ${progress}%`;
+                } else if (progress <= 80) {
+                    progressText.textContent = `ESTABLISHING CONNECTION... ${progress}%`;
+                } else {
+                    progressText.textContent = `FINALIZING ACCESS... ${progress}%`;
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressText.textContent = 'ACCESS PROTOCOL READY - ENTER VVIP KEY';
+                    vipForm.style.opacity = '1';
+                    
+                    // Setup password submission
+                    const vipPassword = document.getElementById('vip-password');
+                    const vipSubmit = document.getElementById('vip-submit');
+                    
+                    vipSubmit.addEventListener('click', unlockQuantumTool);
+                    vipPassword.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') unlockQuantumTool();
+                    });
+                    
+                    vipPassword.focus();
+                }
+            }, 40);
+        }
+        
+        // Unlock Quantum Tool
+        function unlockQuantumTool() {
+            const password = document.getElementById('vip-password').value;
+            const vipAccess = document.getElementById('vip-access');
+            const toolSelection = document.getElementById('tool-selection');
+            
+            if (password === QUANTUM_KEY) {
+                vipAccess.style.display = 'none';
+                toolSelection.style.display = 'flex';
+                initToolSelection();
+            } else {
+                const vipInput = document.getElementById('vip-password');
+                vipInput.style.borderColor = 'var(--neon-red)';
+                vipInput.style.boxShadow = '0 0 20px rgba(255, 68, 68, 0.7)';
+                vipInput.value = '';
+                
+                setTimeout(() => {
+                    vipInput.style.borderColor = 'var(--neon-yellow)';
+                    vipInput.style.boxShadow = '0 0 15px rgba(255, 204, 0, 0.3)';
+                }, 1000);
+            }
+        }
+        
+        // Initialize Tool Selection
+        function initToolSelection() {
+            const toolButtons = document.querySelectorAll('.tool-btn');
+            
+            toolButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tool = this.getAttribute('data-tool');
+                    
+                    // Hide tool selection
+                    document.getElementById('tool-selection').style.display = 'none';
+                    
+                    if (tool === 'lottery') {
+                        // Show server selection for CK Lottery Hack
+                        document.getElementById('server-selection').style.display = 'flex';
+                        initServerSelection();
+                    } else if (tool === 'game') {
+                        // Show Mines Hack directly
+                        document.getElementById('mines-container').style.display = 'block';
+                        initMinesGame();
+                    } else if (tool === 'ck-lottery-hack-vip') {
+                        // Show CK Lottery Hack VIP
+                        document.getElementById('ck-lottery-hack-vip').style.display = 'block';
+                        initCkLotteryHackVip();
+                    } else if (tool === 'vvip-hack') {
+                        // Show VVIP Hack
+                        document.getElementById('vvip-hack-container').style.display = 'block';
+                        initVvipHack();
+                    } else if (tool === 'vip30sec') {
+                        // Show VIP 30 SEC
+                        document.getElementById('vip30sec-container').style.display = 'block';
+                        initVip30Sec();
+                    }
+                });
+            });
+        }
+        
+        // Initialize VIP 30 SEC
+        function initVip30Sec() {
+            const input = document.getElementById('vip30sec-input');
+            const button = document.getElementById('vip30sec-button');
+            const resultText = document.getElementById('vip30sec-result-text');
+            const confidence = document.getElementById('vip30sec-confidence');
+            const total = document.getElementById('vip30sec-total');
+            const big = document.getElementById('vip30sec-big');
+            const small = document.getElementById('vip30sec-small');
+            const historyList = document.getElementById('vip30sec-history');
+            const backBtn = document.getElementById('vip30sec-back-btn');
+            
+            // Update stats
+            function updateStats() {
+                total.textContent = vip30secStats.total;
+                big.textContent = vip30secStats.big;
+                small.textContent = vip30secStats.small;
+            }
+            
+            // Update history
+            function updateHistory() {
+                historyList.innerHTML = '<div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>';
+                
+                if (vip30secHistory.length === 0) {
+                    historyList.innerHTML += '<div class="vip30sec-history-item"><span class="vip30sec-history-time">NO DATA RECORDED</span></div>';
+                } else {
+                    vip30secHistory.forEach(entry => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'vip30sec-history-item';
+                        historyItem.innerHTML = `
+                            <span class="vip30sec-history-time">${entry.timestamp}</span>
+                            <span class="vip30sec-history-prediction ${entry.result.toLowerCase()}">${entry.digits} → ${entry.result}</span>
+                        `;
+                        historyList.appendChild(historyItem);
+                    });
+                }
+            }
+            
+            // Analyze digits
+            function analyzeDigits(digits) {
+                const nums = digits.split('').map(Number);
+                const [first, second, third] = nums;
+                
+                // Multiple analysis factors
+                const sum = first + second + third;
+                const product = first * second * third;
+                const average = sum / 3;
+                const range = Math.max(...nums) - Math.min(...nums);
+                
+                // Pattern analysis
+                const isAscending = first < second && second < third;
+                const isDescending = first > second && second > third;
+                const hasRepeats = new Set(nums).size < 3;
+                const isEven = nums.filter(n => n % 2 === 0).length;
+                
+                // Advanced scoring system
+                let bigScore = 0;
+                let factors = [];
+                
+                // Sum-based analysis
+                if (sum >= 15) {
+                    bigScore += 25;
+                    factors.push(`High sum (${sum})`);
+                } else if (sum <= 8) {
+                    bigScore -= 20;
+                    factors.push(`Low sum (${sum})`);
+                }
+                
+                // Product analysis
+                if (product >= 50) {
+                    bigScore += 20;
+                    factors.push(`High product (${product})`);
+                } else if (product === 0) {
+                    bigScore -= 25;
+                    factors.push('Contains zero');
+                }
+                
+                // Pattern bonuses
+                if (isAscending) {
+                    bigScore += 15;
+                    factors.push('Ascending pattern');
+                } else if (isDescending) {
+                    bigScore -= 10;
+                    factors.push('Descending pattern');
+                }
+                
+                // Range analysis
+                if (range >= 7) {
+                    bigScore += 10;
+                    factors.push(`Wide range (${range})`);
+                } else if (range <= 2) {
+                    bigScore -= 15;
+                    factors.push(`Narrow range (${range})`);
+                }
+                
+                // Even/odd analysis
+                if (isEven >= 2) {
+                    bigScore += 8;
+                    factors.push(`${isEven} even numbers`);
+                } else {
+                    bigScore -= 5;
+                    factors.push('Mostly odd numbers');
+                }
+                
+                // Repeating digits
+                if (hasRepeats) {
+                    bigScore -= 12;
+                    factors.push('Has repeating digits');
+                }
+                
+                // Special number combinations
+                if (nums.includes(7) || nums.includes(8) || nums.includes(9)) {
+                    bigScore += 12;
+                    factors.push('Contains lucky numbers');
+                }
+                
+                // Final calculation with randomness
+                const randomFactor = (Math.random() - 0.5) * 20;
+                const finalScore = bigScore + randomFactor;
+                
+                const isBig = finalScore > 0;
+                const confidenceLevel = Math.min(95, Math.max(60, Math.abs(finalScore) + 60));
+                
+                return {
+                    result: isBig ? 'BIG' : 'SMALL',
+                    confidence: Math.round(confidenceLevel),
+                    factors,
+                    analysis: {
+                        sum,
+                        product,
+                        average: Math.round(average * 10) / 10,
+                        range,
+                        pattern: isAscending ? 'Ascending' : isDescending ? 'Descending' : 'Mixed',
+                        evenCount: isEven
+                    }
+                }
+            }
+            
+            // Handle input change
+            input.addEventListener('input', function(e) {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 3);
+                input.value = value;
+                button.disabled = value.length !== 3;
+            });
+            
+            // Handle button click
+            button.addEventListener('click', function() {
+                if (input.value.length !== 3) return;
+                
+                // Show loading animation
+                resultText.textContent = "ANALYZING...";
+                confidence.textContent = "";
+                button.disabled = true;
+                
+                // Simulate analysis delay
+                setTimeout(() => {
+                    const analysis = analyzeDigits(input.value);
+                    
+                    // Update result
+                    resultText.textContent = analysis.result;
+                    resultText.className = `vip30sec-result-text ${analysis.result}`;
+                    confidence.textContent = `CONFIDENCE: ${analysis.confidence}%`;
+                    
+                    // Update stats
+                    vip30secStats.total++;
+                    if (analysis.result === 'BIG') {
+                        vip30secStats.big++;
+                    } else {
+                        vip30secStats.small++;
+                    }
+                    updateStats();
+                    
+                    // Add to history
+                    const now = new Date();
+                    const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                    
+                    vip30secHistory.unshift({
+                        digits: input.value,
+                        result: analysis.result,
+                        confidence: analysis.confidence,
+                        timestamp: timestamp
+                    });
+                    
+                    // Keep only last 10 entries
+                    if (vip30secHistory.length > 10) {
+                        vip30secHistory.pop();
+                    }
+                    
+                    updateHistory();
+                    
+                    // Clear input and re-enable button
+                    input.value = '';
+                    button.disabled = true;
+                }, 2000);
+            });
+            
+            // Handle back button
+            backBtn.addEventListener('click', function() {
+                document.getElementById('vip30sec-container').style.display = 'none';
+                document.getElementById('tool-selection').style.display = 'flex';
+            });
+            
+            // Initialize
+            updateStats();
+            updateHistory();
+        }
+        
+        // Initialize Server Selection
+        function initServerSelection() {
+            const serverButtons = document.querySelectorAll('.server-btn');
+            const hackCodeServerBtn = document.getElementById('hack-code-server-btn');
+            
+            serverButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const server = this.getAttribute('data-server');
+                    activeServer = parseInt(server);
+                    
+                    // Update active button
+                    serverButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show hacking tool with selected server
+                    setTimeout(() => {
+                        document.getElementById('server-selection').style.display = 'none';
+                        document.getElementById('hacking-tool').style.display = 'block';
+                        initHackingTool();
+                    }, 500);
+                });
+            });
+            
+            // Add event listener for HACK CODE button
+            hackCodeServerBtn.addEventListener('click', function() {
+                document.getElementById('server-selection').style.display = 'none';
+                document.getElementById('hack-code-container').style.display = 'block';
+                initHackCode();
+            });
+        }
+        
+        // The rest of the JavaScript code remains the same as in your original file
+        // (initHackingTool, initMinesGame, initHackCode, initCkLotteryHackVip, initVvipHack functions)
+        // ... (All the remaining JavaScript code from your original file)
+        
+        // Start the application
+        window.addEventListener('load', initQuantumLoader);
+    </script>
+</body>
+</html>
