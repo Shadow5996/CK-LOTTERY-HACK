@@ -1392,6 +1392,10 @@
             box-shadow: 0 0 15px var(--neon-green);
         }
 
+        .hack-code-input::placeholder {
+            color: rgba(0, 255, 136, 0.5);
+        }
+
         .hack-code-button {
             width: 100%;
             padding: 15px;
@@ -2981,8 +2985,7 @@
             "23:40": "Big", "23:41": "Small", "23:42": "Big", "23:43": "Small", "23:44": "Big",
             "23:45": "Small", "23:46": "Big", "23:47": "Big", "23:48": "Big", "23:49": "Big",
             "23:50": "Big", "23:51": "Big", "23:52": "Small", "23:53": "Big", "23:54": "Small",
-            "23:55": "Small", "23:56": "Small", "23:57": "Big", "23:58": "Small", "23:59": "Big",
-            // ... (vvipData object remains the same as in your original code)
+            "23:55": "Small", "23:56": "Small", "23:57": "Big", "23:58": "Small", "23:59": "Big"
         };
         
         // VIP 30 SEC Data
@@ -3436,9 +3439,649 @@
             });
         }
         
-        // The rest of the JavaScript code remains the same as in your original file
-        // (initHackingTool, initMinesGame, initHackCode, initCkLotteryHackVip, initVvipHack functions)
-        // ... (All the remaining JavaScript code from your original file)
+        // Initialize Hacking Tool
+        function initHackingTool() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultText = document.getElementById('result-text');
+            const periodNumber = document.getElementById('period-number');
+            const refreshTime = document.getElementById('refresh-time');
+            const switchServerBtn = document.getElementById('switch-server-btn');
+            const backToToolBtn = document.getElementById('back-to-tool-btn');
+            const serverIndicator = document.getElementById('server-indicator');
+            const selectionItems = document.querySelectorAll('.selection-item');
+            
+            let selectedItems = {
+                left: [],
+                right: []
+            };
+            
+            // Update server indicator
+            function updateServerIndicator() {
+                const serverNames = {
+                    1: "ORIGINAL FORMULA",
+                    2: "QUANTUM ALGORITHM", 
+                    3: "ADVANCED AI SYSTEM"
+                };
+                serverIndicator.textContent = `SERVER ${activeServer} - ${serverNames[activeServer]}`;
+            }
+            
+            // Update period number
+            function updatePeriodNumber() {
+                const now = new Date();
+                const period = Math.floor(now.getTime() / 60000) % 10000;
+                periodNumber.textContent = period;
+            }
+            
+            // Update refresh time
+            function updateRefreshTime() {
+                const now = new Date();
+                const seconds = now.getSeconds();
+                const remaining = 60 - seconds;
+                refreshTime.textContent = `NEXT UPDATE IN ${remaining} SECONDS`;
+                
+                if (remaining <= 10) {
+                    refreshTime.classList.add('warning');
+                } else {
+                    refreshTime.classList.remove('warning');
+                }
+            }
+            
+            // Handle selection items
+            selectionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('disabled')) return;
+                    
+                    const side = this.getAttribute('data-side');
+                    const row = this.getAttribute('data-row');
+                    const index = parseInt(this.getAttribute('data-index'));
+                    
+                    // Toggle selection
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        selectedItems[side] = selectedItems[side].filter(i => i !== index);
+                    } else {
+                        this.classList.add('selected');
+                        selectedItems[side].push(index);
+                    }
+                    
+                    // Enable calculate button if at least one item is selected
+                    calculateBtn.disabled = selectedItems.left.length === 0 && selectedItems.right.length === 0;
+                });
+            });
+            
+            // Calculate prediction
+            function calculatePrediction() {
+                const leftCount = selectedItems.left.length;
+                const rightCount = selectedItems.right.length;
+                
+                if (leftCount === 0 && rightCount === 0) {
+                    resultText.textContent = "PLEASE SELECT PATTERNS";
+                    resultText.className = "result-text";
+                    return;
+                }
+                
+                // Different algorithms for different servers
+                let prediction;
+                let confidence;
+                
+                switch(activeServer) {
+                    case 1:
+                        // Server 1: Original formula
+                        prediction = (leftCount > rightCount) ? "BIG" : "SMALL";
+                        confidence = Math.min(95, Math.max(70, Math.abs(leftCount - rightCount) * 10 + 70));
+                        break;
+                        
+                    case 2:
+                        // Server 2: Quantum algorithm
+                        const total = leftCount + rightCount;
+                        const ratio = leftCount / total;
+                        prediction = (ratio > 0.5) ? "BIG" : "SMALL";
+                        confidence = Math.min(95, Math.max(75, Math.abs(ratio - 0.5) * 200 + 75));
+                        break;
+                        
+                    case 3:
+                        // Server 3: Advanced AI system
+                        const now = new Date();
+                        const seed = now.getSeconds() + leftCount * 7 + rightCount * 13;
+                        const randomValue = (seed * 9301 + 49297) % 233280;
+                        const normalized = randomValue / 233280;
+                        prediction = (normalized > 0.5) ? "BIG" : "SMALL";
+                        confidence = Math.min(95, Math.max(80, Math.abs(normalized - 0.5) * 300 + 80));
+                        break;
+                        
+                    default:
+                        prediction = "ERROR";
+                        confidence = 0;
+                }
+                
+                // Display result
+                resultText.textContent = `${prediction} (${confidence}% CONFIDENCE)`;
+                resultText.className = `result-text ${prediction}`;
+                
+                // Add some animation
+                resultText.style.animation = 'none';
+                setTimeout(() => {
+                    resultText.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
+            }
+            
+            // Switch server
+            function switchServer() {
+                document.getElementById('hacking-tool').style.display = 'none';
+                document.getElementById('server-selection').style.display = 'flex';
+                
+                // Reset selections
+                selectedItems = { left: [], right: [] };
+                selectionItems.forEach(item => item.classList.remove('selected'));
+                calculateBtn.disabled = true;
+                resultText.textContent = "SELECT PATTERNS TO ANALYZE";
+                resultText.className = "result-text";
+            }
+            
+            // Back to tool selection
+            function backToToolSelection() {
+                document.getElementById('hacking-tool').style.display = 'none';
+                document.getElementById('tool-selection').style.display = 'flex';
+                
+                // Reset selections
+                selectedItems = { left: [], right: [] };
+                selectionItems.forEach(item => item.classList.remove('selected'));
+                calculateBtn.disabled = true;
+                resultText.textContent = "SELECT PATTERNS TO ANALYZE";
+                resultText.className = "result-text";
+            }
+            
+            // Set up event listeners
+            calculateBtn.addEventListener('click', calculatePrediction);
+            switchServerBtn.addEventListener('click', switchServer);
+            backToToolBtn.addEventListener('click', backToToolSelection);
+            
+            // Initialize
+            updateServerIndicator();
+            updatePeriodNumber();
+            updateRefreshTime();
+            
+            // Update periodically
+            setInterval(() => {
+                updatePeriodNumber();
+                updateRefreshTime();
+            }, 1000);
+        }
+        
+        // Initialize Mines Game
+        function initMinesGame() {
+            const minesGrid = document.getElementById('mines-grid-container');
+            const predictBtn = document.getElementById('mines-predict-btn');
+            const backBtn = document.getElementById('mines-back-btn');
+            const predictionText = document.getElementById('mines-prediction-text');
+            const minesLoader = document.getElementById('mines-loader');
+            const minesLoaderProgress = document.getElementById('mines-loader-progress-bar');
+            const minesLoaderDesc = document.getElementById('mines-loader-desc');
+            
+            let safeBoxes = [];
+            let revealedBoxes = [];
+            
+            // Create mines grid
+            function createMinesGrid() {
+                minesGrid.innerHTML = '';
+                
+                for (let i = 0; i < 25; i++) {
+                    const box = document.createElement('div');
+                    box.className = 'mines-grid-box';
+                    box.dataset.index = i;
+                    
+                    const coinIcon = document.createElement('div');
+                    coinIcon.className = 'mines-coin-icon';
+                    coinIcon.textContent = '🪙';
+                    
+                    box.appendChild(coinIcon);
+                    minesGrid.appendChild(box);
+                }
+            }
+            
+            // Generate safe boxes
+            function generateSafeBoxes() {
+                safeBoxes = [];
+                revealedBoxes = [];
+                
+                // Generate 5 unique random safe boxes
+                while (safeBoxes.length < 5) {
+                    const randomIndex = Math.floor(Math.random() * 25);
+                    if (!safeBoxes.includes(randomIndex)) {
+                        safeBoxes.push(randomIndex);
+                    }
+                }
+                
+                // Reset all boxes
+                const boxes = document.querySelectorAll('.mines-grid-box');
+                boxes.forEach(box => {
+                    box.classList.remove('revealed');
+                    box.classList.remove('active');
+                });
+                
+                predictionText.textContent = "Click the button to reveal 5 safe gold coins";
+            }
+            
+            // Show loading animation
+            function showLoading() {
+                minesLoader.style.display = 'flex';
+                let progress = 0;
+                
+                const interval = setInterval(() => {
+                    progress += 2;
+                    minesLoaderProgress.style.width = `${progress}%`;
+                    
+                    if (progress <= 30) {
+                        minesLoaderDesc.textContent = "Initializing quantum algorithms...";
+                    } else if (progress <= 60) {
+                        minesLoaderDesc.textContent = "Analyzing mine patterns...";
+                    } else if (progress <= 90) {
+                        minesLoaderDesc.textContent = "Calculating safe positions...";
+                    } else {
+                        minesLoaderDesc.textContent = "Finalizing predictions...";
+                    }
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            minesLoader.style.display = 'none';
+                            revealSafeBoxes();
+                        }, 500);
+                    }
+                }, 40);
+            }
+            
+            // Reveal safe boxes
+            function revealSafeBoxes() {
+                let revealCount = 0;
+                
+                function revealNextBox() {
+                    if (revealCount >= 5) {
+                        predictBtn.disabled = false;
+                        predictionText.textContent = "5 SAFE GOLD COINS REVEALED!";
+                        return;
+                    }
+                    
+                    const boxIndex = safeBoxes[revealCount];
+                    const box = document.querySelector(`.mines-grid-box[data-index="${boxIndex}"]`);
+                    
+                    box.classList.add('active');
+                    
+                    setTimeout(() => {
+                        box.classList.add('revealed');
+                        box.classList.remove('active');
+                        revealedBoxes.push(boxIndex);
+                        revealCount++;
+                        
+                        setTimeout(revealNextBox, 300);
+                    }, 500);
+                }
+                
+                revealNextBox();
+            }
+            
+            // Handle predict button click
+            predictBtn.addEventListener('click', function() {
+                predictBtn.disabled = true;
+                showLoading();
+            });
+            
+            // Handle back button click
+            backBtn.addEventListener('click', function() {
+                document.getElementById('mines-container').style.display = 'none';
+                document.getElementById('tool-selection').style.display = 'flex';
+            });
+            
+            // Initialize
+            createMinesGrid();
+            generateSafeBoxes();
+        }
+        
+        // Initialize Hack Code
+        function initHackCode() {
+            const hackInputs = document.querySelectorAll('.hack-code-input');
+            const hackBtn = document.getElementById('hack-code-btn');
+            const backBtn = document.getElementById('hack-code-back-btn');
+            const loadingBar = document.getElementById('hack-code-loading');
+            const progressBar = document.getElementById('hack-code-progress');
+            const resultContainer = document.getElementById('hack-code-result');
+            const resultText = document.getElementById('hack-code-result-text');
+            
+            // Handle input changes
+            hackInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 1);
+                    input.value = value;
+                    
+                    // Auto-focus next input
+                    if (value && index < hackInputs.length - 1) {
+                        hackInputs[index + 1].focus();
+                    }
+                    
+                    // Check if all inputs are filled
+                    const allFilled = Array.from(hackInputs).every(input => input.value.length === 1);
+                    hackBtn.disabled = !allFilled;
+                });
+                
+                // Handle backspace
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !input.value && index > 0) {
+                        hackInputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            // Handle hack button click
+            hackBtn.addEventListener('click', function() {
+                const numbers = Array.from(hackInputs).map(input => parseInt(input.value));
+                
+                // Show loading
+                loadingBar.style.display = 'block';
+                resultContainer.style.display = 'none';
+                hackBtn.disabled = true;
+                
+                // Animate progress bar
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                    progressBar.style.width = '100%';
+                }, 10);
+                
+                // Calculate result after loading
+                setTimeout(() => {
+                    loadingBar.style.display = 'none';
+                    resultContainer.style.display = 'block';
+                    
+                    // Simple algorithm to determine result
+                    const sum = numbers.reduce((a, b) => a + b, 0);
+                    const product = numbers.reduce((a, b) => a * b, 1);
+                    const avg = sum / 5;
+                    
+                    let result;
+                    if (sum > 25 || product > 1000) {
+                        result = "BIG";
+                    } else if (sum < 15 || product < 100) {
+                        result = "SMALL";
+                    } else {
+                        // Random fallback
+                        result = Math.random() > 0.5 ? "BIG" : "SMALL";
+                    }
+                    
+                    resultText.textContent = result;
+                    resultText.className = `hack-code-result-text ${result}`;
+                    
+                    // Re-enable button after a delay
+                    setTimeout(() => {
+                        hackBtn.disabled = false;
+                    }, 3000);
+                }, 5000);
+            });
+            
+            // Handle back button click
+            backBtn.addEventListener('click', function() {
+                document.getElementById('hack-code-container').style.display = 'none';
+                document.getElementById('server-selection').style.display = 'flex';
+                
+                // Reset inputs
+                hackInputs.forEach(input => input.value = '');
+                hackBtn.disabled = true;
+                loadingBar.style.display = 'none';
+                resultContainer.style.display = 'none';
+            });
+        }
+        
+        // Initialize CK Lottery Hack VIP
+        function initCkLotteryHackVip() {
+            const num1 = document.getElementById('ck-lottery-num1');
+            const num2 = document.getElementById('ck-lottery-num2');
+            const analyzeBtn = document.getElementById('ck-lottery-analyze');
+            const backBtn = document.getElementById('ck-lottery-back-btn');
+            const codeDisplay = document.getElementById('ck-lottery-codeDisplay');
+            const finalResult = document.getElementById('ck-lottery-finalResult');
+            const historyContainer = document.getElementById('ck-lottery-history');
+            
+            let history = [];
+            
+            // Matrix background effect
+            function initMatrixBackground() {
+                const canvas = document.getElementById('matrix-vip');
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas size
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                
+                const characters = "01010101010101010101010101010101";
+                const columns = canvas.width / 20;
+                
+                const drops = [];
+                for (let i = 0; i < columns; i++) {
+                    drops[i] = 1;
+                }
+                
+                function drawMatrix() {
+                    ctx.fillStyle = 'rgba(0, 20, 0, 0.04)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    ctx.fillStyle = '#0F0';
+                    ctx.font = '15px monospace';
+                    
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                        ctx.fillText(text, i * 20, drops[i] * 20);
+                        
+                        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        
+                        drops[i]++;
+                    }
+                }
+                
+                setInterval(drawMatrix, 35);
+            }
+            
+            // Analyze numbers
+            function analyzeNumbers() {
+                const digit1 = parseInt(num1.value) || 0;
+                const digit2 = parseInt(num2.value) || 0;
+                
+                if (digit1 < 0 || digit1 > 9 || digit2 < 0 || digit2 > 9) {
+                    finalResult.textContent = "INVALID INPUT";
+                    finalResult.className = "ck-lottery-final-result error";
+                    finalResult.style.display = "block";
+                    codeDisplay.style.display = "none";
+                    return;
+                }
+                
+                // Show analyzing animation
+                codeDisplay.innerHTML = "ANALYZING DATA STREAM...<br>";
+                codeDisplay.style.display = "block";
+                finalResult.style.display = "none";
+                
+                let analysisText = "";
+                let analysisStep = 0;
+                
+                const analysisInterval = setInterval(() => {
+                    analysisStep++;
+                    
+                    switch(analysisStep) {
+                        case 1:
+                            analysisText += `> RECEIVED DIGITS: ${digit1}, ${digit2}<br>`;
+                            break;
+                        case 2:
+                            analysisText += `> CALCULATING SUM: ${digit1 + digit2}<br>`;
+                            break;
+                        case 3:
+                            analysisText += `> CALCULATING PRODUCT: ${digit1 * digit2}<br>`;
+                            break;
+                        case 4:
+                            analysisText += `> ANALYZING PATTERNS...<br>`;
+                            break;
+                        case 5:
+                            analysisText += `> QUANTUM ANALYSIS COMPLETE<br>`;
+                            break;
+                        case 6:
+                            analysisText += `> FINALIZING PREDICTION...<br>`;
+                            break;
+                    }
+                    
+                    codeDisplay.innerHTML = analysisText;
+                    codeDisplay.scrollTop = codeDisplay.scrollHeight;
+                    
+                    if (analysisStep >= 6) {
+                        clearInterval(analysisInterval);
+                        
+                        // Determine result
+                        setTimeout(() => {
+                            const sum = digit1 + digit2;
+                            const result = (sum % 2 === 0) ? "BIG" : "SMALL";
+                            
+                            finalResult.textContent = result;
+                            finalResult.className = `ck-lottery-final-result ${result.toLowerCase()}`;
+                            finalResult.style.display = "block";
+                            codeDisplay.style.display = "none";
+                            
+                            // Add to history
+                            const now = new Date();
+                            const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                            
+                            history.unshift({
+                                digits: `${digit1}${digit2}`,
+                                result: result,
+                                timestamp: timestamp
+                            });
+                            
+                            // Keep only last 5 entries
+                            if (history.length > 5) {
+                                history.pop();
+                            }
+                            
+                            updateHistory();
+                        }, 1000);
+                    }
+                }, 500);
+            }
+            
+            // Update history
+            function updateHistory() {
+                historyContainer.innerHTML = '<div style="color: var(--neon-blue); margin-bottom: 5px;">ANALYSIS HISTORY:</div>';
+                
+                if (history.length === 0) {
+                    historyContainer.innerHTML += '<div class="ck-lottery-history-item">No analysis recorded</div>';
+                } else {
+                    history.forEach(entry => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'ck-lottery-history-item';
+                        historyItem.innerHTML = `${entry.timestamp} - ${entry.digits} → <span style="color: ${entry.result === 'BIG' ? 'var(--neon-green)' : 'var(--neon-pink)'}">${entry.result}</span>`;
+                        historyContainer.appendChild(historyItem);
+                    });
+                }
+            }
+            
+            // Handle analyze button click
+            analyzeBtn.addEventListener('click', analyzeNumbers);
+            
+            // Handle back button click
+            backBtn.addEventListener('click', function() {
+                document.getElementById('ck-lottery-hack-vip').style.display = 'none';
+                document.getElementById('tool-selection').style.display = 'flex';
+            });
+            
+            // Initialize
+            initMatrixBackground();
+            updateHistory();
+            
+            // Handle window resize
+            window.addEventListener('resize', initMatrixBackground);
+        }
+        
+        // Initialize VVIP Hack
+        function initVvipHack() {
+            const vvipClock = document.getElementById('vvip-clock');
+            const vvipCountdown = document.getElementById('vvip-countdown');
+            const vvipProgressFill = document.getElementById('vvip-progress-fill');
+            const vvipPrediction = document.getElementById('vvip-prediction');
+            const vvipHistory = document.getElementById('vvip-history');
+            const backBtn = document.getElementById('vvip-back-btn');
+            
+            let vvipInterval;
+            let history = [];
+            
+            function updateVvipDisplay() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}`;
+                
+                // Update clock
+                vvipClock.textContent = `${hours}:${minutes}:${seconds}`;
+                
+                // Get the current prediction
+                const prediction = vvipData[timeString] || 'Unknown';
+                
+                // Update prediction display
+                vvipPrediction.textContent = prediction;
+                vvipPrediction.className = `vvip-prediction ${prediction.toLowerCase()}`;
+                
+                // Calculate seconds remaining until next minute
+                const secondsRemaining = 60 - now.getSeconds();
+                vvipCountdown.textContent = `Next update in: ${secondsRemaining} seconds`;
+                
+                // Update progress bar
+                const progress = (60 - secondsRemaining) / 60 * 100;
+                vvipProgressFill.style.transform = `translateX(-${progress}%)`;
+                
+                // Check if we are at the start of a new minute (secondsRemaining === 60) then we just updated to a new minute
+                // We don't want to add the same minute multiple times, so we add the previous minute to history when the second is 0?
+                // Actually, we are updating every second, so we can check if the second is 0, then we add the current prediction to history?
+                // But note: when the second is 0, we are at the beginning of the minute, and we have the new prediction. We want to add the previous minute's prediction?
+                // Alternatively, we can store the last timeString we added to history and only add when it changes.
+                
+                // We'll store the current timeString and the last added timeString.
+                // If the current timeString is different from the last added, then we add the last one to history.
+                
+                // We'll use a variable to track the last added timeString.
+                if (updateVvipDisplay.lastTimeString && updateVvipDisplay.lastTimeString !== timeString) {
+                    // A new minute has started, so add the last prediction (which was for the last minute) to history.
+                    const lastPrediction = vvipData[updateVvipDisplay.lastTimeString] || 'Unknown';
+                    addToHistory(updateVvipDisplay.lastTimeString, lastPrediction);
+                }
+                updateVvipDisplay.lastTimeString = timeString;
+            }
+            
+            function addToHistory(time, prediction) {
+                history.unshift({ time, prediction });
+                if (history.length > 10) {
+                    history.pop();
+                }
+                updateHistoryDisplay();
+            }
+            
+            function updateHistoryDisplay() {
+                vvipHistory.innerHTML = '<div style="color: var(--neon-yellow); text-align: center; margin-bottom: 8px;">RECENT PREDICTIONS</div>';
+                history.forEach(entry => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'vvip-history-item';
+                    historyItem.innerHTML = `
+                        <span class="vvip-history-time">${entry.time}</span>
+                        <span class="vvip-history-prediction ${entry.prediction.toLowerCase()}">${entry.prediction}</span>
+                    `;
+                    vvipHistory.appendChild(historyItem);
+                });
+            }
+            
+            // Start the interval
+            vvipInterval = setInterval(updateVvipDisplay, 1000);
+            updateVvipDisplay(); // initial call
+            
+            // Handle back button
+            backBtn.addEventListener('click', function() {
+                clearInterval(vvipInterval);
+                document.getElementById('vvip-hack-container').style.display = 'none';
+                document.getElementById('tool-selection').style.display = 'flex';
+            });
+        }
         
         // Start the application
         window.addEventListener('load', initQuantumLoader);
