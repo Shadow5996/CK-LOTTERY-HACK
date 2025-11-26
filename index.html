@@ -93,19 +93,6 @@
             z-index: 2;
         }
 
-        .ck-logo::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: radial-gradient(circle, rgba(255, 153, 0, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
         @keyframes burn {
             0% {
                 text-shadow: 
@@ -131,11 +118,6 @@
                     0 0 75px #ff3300;
                 color: #ffcc00;
             }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; }
         }
 
         .quantum-title {
@@ -204,57 +186,6 @@
         @keyframes progressShine {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
-        }
-
-        .quantum-steps {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .quantum-step {
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            transform: translateY(8px);
-            backdrop-filter: blur(10px);
-        }
-
-        .quantum-step.active {
-            opacity: 1;
-            transform: translateY(0);
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            background: rgba(0, 243, 255, 0.05);
-        }
-
-        .quantum-step.completed {
-            border-color: var(--neon-green);
-            background: rgba(0, 255, 136, 0.08);
-        }
-
-        .step-icon {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            color: var(--neon-blue);
-        }
-
-        .step-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .step-desc {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
         }
 
         /* Main Container */
@@ -333,21 +264,6 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-        }
-
-        .tab-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .tab-btn:hover::before {
-            left: 100%;
         }
 
         .tab-btn.active {
@@ -557,297 +473,209 @@
             overflow: hidden;
         }
 
-        .vip-submit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .vip-submit:hover::before {
-            left: 100%;
-        }
-
         .vip-submit:hover {
             transform: translateY(-3px);
             box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
         }
 
-        /* Tool Selection Screen */
-        .tool-selection {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-            backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tool-selection::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-            z-index: -1;
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 243, 255, 0.5));
-        }
-
-        .tool-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .tool-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            max-width: 100%;
-            line-height: 1.5;
-        }
-
-        .tool-buttons {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .tool-btn {
-            padding: 18px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid var(--neon-blue);
-            border-radius: 8px;
-            color: var(--neon-blue);
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-        }
-
-        .tool-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .tool-btn:hover::before {
-            left: 100%;
-        }
-
-        .tool-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
-        }
-
-        .tool-btn.active {
-            background: rgba(0, 243, 255, 0.15);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
-        }
-
-        /* SEQUENCE FINDER Container */
-        .sequence-finder-container {
+        /* VIP 30 SEC Container */
+        .vip30sec-container {
             display: none;
             height: 100%;
             position: relative;
             overflow: hidden;
         }
 
-        .sequence-finder-header {
+        .vip30sec-header {
             text-align: center;
             margin-bottom: 15px;
             position: relative;
             z-index: 1;
         }
 
-        .sequence-finder-title {
+        .vip30sec-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 900;
-            background: linear-gradient(45deg, var(--neon-yellow), #ff9900, #ff6600);
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
-            text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        .sequence-finder-subtitle {
+        .vip30sec-subtitle {
             font-size: 0.8rem;
             color: var(--text-secondary);
             letter-spacing: 0.5px;
         }
 
-        .sequence-finder-content {
+        .vip30sec-content {
             background: rgba(0, 0, 0, 0.4);
-            border: 2px solid var(--neon-yellow);
+            border: 2px solid var(--neon-green);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 15px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
 
-        .sequence-controls {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-            justify-content: center;
-        }
-
-        .sequence-btn {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 0;
-            cursor: pointer;
-            color: #001017;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--neon-yellow), #ff9900);
-            box-shadow: 0 0 12px var(--neon-yellow);
-            transition: 0.15s;
-            font-size: 0.9rem;
-        }
-
-        .sequence-btn:hover {
-            transform: scale(1.04);
-        }
-
-        .sequence-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-secondary);
-            border-radius: 8px;
-            resize: vertical;
-            margin-bottom: 15px;
-            font-family: 'Rajdhani', sans-serif;
-        }
-
-        .sequence-output {
-            margin-top: 12px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.35);
-            min-height: 100px;
-        }
-
-        .sequence-bubble {
-            display: inline-block;
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 999px;
-            margin: 4px;
-            font-size: 0.9rem;
-        }
-
-        .sequence-bubble.big {
-            color: var(--neon-green);
-            border-color: var(--neon-green);
-        }
-
-        .sequence-bubble.small {
-            color: var(--neon-pink);
-            border-color: var(--neon-pink);
-        }
-
-        .sequence-terminal {
-            margin-top: 16px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.4);
-            font-family: monospace;
-            color: #9fd6ff;
-            white-space: pre-wrap;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .sequence-back-btn {
+        .vip30sec-input {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip30sec-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .vip30sec-input::placeholder {
+            color: rgba(0, 255, 136, 0.5);
+        }
+
+        .vip30sec-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
             border: none;
             border-radius: 8px;
-            color: white;
+            color: #000;
             font-family: 'Orbitron', monospace;
             font-size: 1rem;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
             letter-spacing: 1px;
-            margin-top: 20px;
-            box-shadow: 0 0 20px rgba(183, 103, 255, 0.5);
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
         }
 
-        .sequence-back-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .sequence-back-btn:hover::before {
-            left: 100%;
-        }
-
-        .sequence-back-btn:hover {
+        .vip30sec-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(183, 103, 255, 0.7);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-result {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vip30sec-result-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vip30sec-result-text.BIG {
+            color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-result-text.SMALL {
+            color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
+        }
+
+        .vip30sec-confidence {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .vip30sec-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .vip30sec-stat {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .vip30sec-stat-title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .vip30sec-stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+        }
+
+        .vip30sec-history {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .vip30sec-history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        .vip30sec-history-time {
+            color: var(--text-secondary);
+        }
+
+        .vip30sec-history-prediction.big {
+            color: var(--neon-green);
+        }
+
+        .vip30sec-history-prediction.small {
+            color: var(--neon-pink);
         }
 
         /* Footer */
@@ -884,22 +712,6 @@
             box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
-            20%, 40%, 60%, 80% { transform: translateX(3px); }
-        }
-
-        .error-shake {
-            animation: errorShake 0.5s ease;
-        }
-
         /* Responsive */
         @media (min-width: 768px) {
             .quantum-title {
@@ -914,16 +726,8 @@
                 font-size: 1.8rem;
             }
             
-            .tool-title {
-                font-size: 1.6rem;
-            }
-            
-            .sequence-finder-title {
+            .vip30sec-title {
                 font-size: 1.8rem;
-            }
-
-            .sequence-controls {
-                justify-content: center;
             }
         }
     </style>
@@ -936,36 +740,13 @@
                 <div class="ck-logo">CK</div>
             </div>
             
-            <h1 class="quantum-title">CK LOTTERY PREDICTOR</h1>
+            <h1 class="quantum-title">CK LOTTERY HACK NEW SEVER</h1>
             <p class="quantum-subtitle">INITIALIZING SECURITY PROTOCOLS</p>
             
             <div class="quantum-status" id="quantum-status">BOOTING SYSTEMS...</div>
             
             <div class="quantum-progress">
                 <div class="quantum-progress-bar" id="quantum-progress"></div>
-            </div>
-            
-            <div class="quantum-steps">
-                <div class="quantum-step" id="step1">
-                    <div class="step-icon">🔍</div>
-                    <div class="step-title">QUANTUM SCAN</div>
-                    <div class="step-desc">Analyzing security layers</div>
-                </div>
-                <div class="quantum-step" id="step2">
-                    <div class="step-icon">🛡️</div>
-                    <div class="step-title">FIREWALL BYPASS</div>
-                    <div class="step-desc">Neutralizing defenses</div>
-                </div>
-                <div class="quantum-step" id="step3">
-                    <div class="step-icon">🔓</div>
-                    <div class="step-title">ENCRYPTION BREACH</div>
-                    <div class="step-desc">Decrypting data streams</div>
-                </div>
-                <div class="quantum-step" id="step4">
-                    <div class="step-icon">⚡</div>
-                    <div class="step-title">SYSTEM ACCESS</div>
-                    <div class="step-desc">Establishing connection</div>
-                </div>
             </div>
         </div>
     </div>
@@ -975,14 +756,14 @@
         <div class="cyber-grid"></div>
         
         <div class="header">
-            <h1 class="main-title">CK LOTTERY HACK V5</h1>
-            <p class="subtitle">100 % WIN CK LOTTERY HACK FILE</p>
+            <h1 class="main-title">CK HACK SEVER V3</h1>
+            <p class="subtitle">PLAY SAFE 100% WIN SYSTEM</p>
         </div>
         
         <div class="tab-system">
             <div class="tab-nav">
                 <button class="tab-btn active" data-tab="lottery">CK LOTTERY</button>
-                <button class="tab-btn" data-tab="predictor">CK LOTTERY HACK TOOL 2025</button>
+                <button class="tab-btn" data-tab="predictor">HACK V3 TOOL</button>
             </div>
             
             <div class="tab-content active" id="lottery">
@@ -995,8 +776,8 @@
                 <!-- Enhanced VIP Access Screen -->
                 <div class="vip-access" id="vip-access">
                     <div class="vip-icon">⚡</div>
-                    <h2 class="vip-title">ACCESS REQUIRED</h2>
-                    <p class="vip-desc">Enter the password to access the CK LOTTERY HACK tool, ရောင်းစာရန်ခွင့်မပြုပါ။ FREE သုံးရန်ထုတ်ပေးထားခြင်းဖြစ်သည်။</p>
+                    <h2 class="vip-title">VVIP ACCESS REQUIRED</h2>
+                    <p class="vip-desc">ဒီ Hack File သည် ရောင်းစားရန်ခွင့်မပြုပါ၊ Free ချပေးထားတာဖြစ်ပါတယ်၊ Ck Acc ဖွင့်ပြီး Password လာယူနိုင်ပါတယ်။</p>
                     
                     <div class="vip-progress-container">
                         <div class="vip-progress-text" id="vip-progress-text">INITIALIZING QUANTUM PROTOCOL... 0%</div>
@@ -1006,56 +787,66 @@
                     </div>
                     
                     <div class="vip-form" id="vip-form">
-                        <input type="password" class="vip-input" id="vip-password" placeholder="ENTER ACCESS KEY">
+                        <input type="password" class="vip-input" id="vip-password" placeholder="ENTER QUANTUM KEY">
                         <button class="vip-submit" id="vip-submit">ACTIVATE SYSTEM</button>
                     </div>
                 </div>
                 
-                <!-- Tool Selection Screen -->
-                <div class="tool-selection" id="tool-selection" style="display: none;">
-                    <div class="tool-icon">🔍</div>
-                    <h2 class="tool-title">CK LOTTERY HACK</h2>
-                    <p class="tool-desc">BIG / SMALL HACKING Tool</p>
-                    
-                    <div class="tool-buttons">
-                        <button class="tool-btn" data-tool="sequence-finder">VVIP PRO HACK</button>
-                    </div>
-                </div>
-                
-                <!-- SEQUENCE FINDER Container -->
-                <div class="sequence-finder-container" id="sequence-finder-container">
-                    <div class="sequence-finder-header">
-                        <h1 class="sequence-finder-title">CK LOTTERY HACKING</h1>
-                        <p class="sequence-finder-subtitle">BIG / SMALL 100 % HACK</p>
+                <!-- VIP 30 SEC Container -->
+                <div class="vip30sec-container" id="vip30sec-container">
+                    <div class="vip30sec-header">
+                        <h1 class="vip30sec-title">VIP 30 SEC & 1 MIN HACK</h1>
+                        <p class="vip30sec-subtitle">QUANTUM PATTERN RECOGNITION SYSTEM</p>
                     </div>
                     
-                    <div class="sequence-finder-content">
-                        <div class="sequence-controls">
-                            <button class="sequence-btn" onclick="addToken('big')">+ BIG</button>
-                            <button class="sequence-btn" onclick="addToken('small')">+ SMALL</button>
-                            <button class="sequence-btn" onclick="undoToken()">UNDO</button>
-                            <button class="sequence-btn" onclick="clearAll()">CLEAR</button>
+                    <div class="vip30sec-content">
+                        <input
+                            id="vip30sec-input"
+                            type="text"
+                            class="vip30sec-input"
+                            placeholder="ENTER 3 DIGITS"
+                            maxlength="3"
+                        />
+                        
+                        <button class="vip30sec-button" id="vip30sec-button">
+                            INITIATE ANALYSIS
+                        </button>
+                        
+                        <div class="vip30sec-result" id="vip30sec-result">
+                            <div class="vip30sec-result-text" id="vip30sec-result-text">SYSTEM READY</div>
+                            <div class="vip30sec-confidence" id="vip30sec-confidence"></div>
                         </div>
                         
-                        <textarea id="sequence-input" class="sequence-input" rows="3" placeholder="big, small, small, big, small"></textarea>
-                        
-                        <div class="sequence-controls">
-                            <button class="sequence-btn" onclick="checkSeq()">CHECK</button>
-                            <button class="sequence-btn" onclick="showMatches()">SHOW MATCHES</button>
+                        <div class="vip30sec-stats">
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">TOTAL ANALYSIS</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-total">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">BIG PATTERN</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-big">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">SMALL PATTERN</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-small">0</div>
+                            </div>
+                            <div class="vip30sec-stat">
+                                <div class="vip30sec-stat-title">SUCCESS RATE</div>
+                                <div class="vip30sec-stat-value" id="vip30sec-rate">87.3%</div>
+                            </div>
                         </div>
-                        
-                        <div id="sequence-output" class="sequence-output">Result will appear here…</div>
-                        
-                        <div class="sequence-terminal" id="sequence-terminal">Loading…</div>
                     </div>
                     
-                    <button class="sequence-back-btn" id="sequence-back-btn">BACK TO MAIN MENU</button>
+                    <div class="vip30sec-history" id="vip30sec-history">
+                        <div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>
+                        <!-- History items will be added here -->
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <div class="watermark">SYSTEM v4.0 | PATTERN ANALYSIS</div>
+            <div class="watermark">SYSTEM v4.0 | DEVELOPED BY @DarkSize501</div>
             <a href="https://t.me/DarkSize501" class="contact-link" target="_blank">
                 <span>CONTACT DEVELOPER</span>
             </a>
@@ -1063,1469 +854,18 @@
     </div>
 
     <script>
-        // JavaScript code with integrated Sequence Finder
-        const QUANTUM_KEY = "0000055555";
+        // VIP 30 SEC Data
+        const QUANTUM_KEY = "VVIPCKUPDATE";
+        let vip30secHistory = [];
+        let vip30secStats = { total: 0, big: 0, small: 0 };
         
-        // Sequence Finder Data
-        const EMBEDDED_DATA = `
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Small
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Small
-Big
-Big
-Big
-Small
-Small
-Small
-Small
-Small
-Big
-Small
-Small
-Small
-Small
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Big
-Small
-Big
-Small
-Big
-Small
-Big
-Big
-Big
-Big
-Big
-Big
-Small
-Big
-Small
-Small
-Small
-Big
-Small
-Big
-`.trim();
-
-        let dataset = EMBEDDED_DATA.split(/[\s,]+/)
-            .map(x=>x.trim().toLowerCase())
-            .filter(x=>x==="big"||x==="small");
-
         // Quantum Loading Sequence
         function initQuantumLoader() {
             const loader = document.getElementById('quantum-loader');
             const status = document.getElementById('quantum-status');
             const progress = document.getElementById('quantum-progress');
-            const steps = document.querySelectorAll('.quantum-step');
             
             let progressValue = 0;
-            let currentStep = 0;
             
             const messages = [
                 "BOOTING SYSTEMS...",
@@ -2545,40 +885,18 @@ Big
                     status.textContent = messages[0];
                 } else if (progressValue <= 40) {
                     status.textContent = messages[1];
-                    if (currentStep === 0) {
-                        steps[0].classList.add('active');
-                        currentStep++;
-                    }
                 } else if (progressValue <= 60) {
                     status.textContent = messages[2];
-                    if (currentStep === 1) {
-                        steps[1].classList.add('active');
-                        currentStep++;
-                    }
                 } else if (progressValue <= 80) {
                     status.textContent = messages[3];
-                    if (currentStep === 2) {
-                        steps[2].classList.add('active');
-                        currentStep++;
-                    }
                 } else if (progressValue <= 95) {
                     status.textContent = messages[4];
-                    if (currentStep === 3) {
-                        steps[3].classList.add('active');
-                        currentStep++;
-                    }
                 } else {
                     status.textContent = messages[5];
                 }
                 
                 if (progressValue >= 100) {
                     clearInterval(interval);
-                    
-                    // Mark all steps as completed
-                    steps.forEach(step => {
-                        step.classList.add('completed');
-                        step.classList.remove('active');
-                    });
                     
                     // Transition to main app
                     setTimeout(() => {
@@ -2650,7 +968,7 @@ Big
                 
                 if (progress >= 100) {
                     clearInterval(interval);
-                    progressText.textContent = 'ACCESS PROTOCOL READY - ENTER ACCESS KEY';
+                    progressText.textContent = 'ACCESS PROTOCOL READY - ENTER VVIP KEY';
                     vipForm.style.opacity = '1';
                     
                     // Setup password submission
@@ -2671,12 +989,12 @@ Big
         function unlockQuantumTool() {
             const password = document.getElementById('vip-password').value;
             const vipAccess = document.getElementById('vip-access');
-            const toolSelection = document.getElementById('tool-selection');
+            const vip30secContainer = document.getElementById('vip30sec-container');
             
             if (password === QUANTUM_KEY) {
                 vipAccess.style.display = 'none';
-                toolSelection.style.display = 'flex';
-                initToolSelection();
+                vip30secContainer.style.display = 'block';
+                initVip30Sec();
             } else {
                 const vipInput = document.getElementById('vip-password');
                 vipInput.style.borderColor = 'var(--neon-red)';
@@ -2690,130 +1008,206 @@ Big
             }
         }
         
-        // Initialize Tool Selection
-        function initToolSelection() {
-            const toolButtons = document.querySelectorAll('.tool-btn');
+        // Initialize VIP 30 SEC
+        function initVip30Sec() {
+            const input = document.getElementById('vip30sec-input');
+            const button = document.getElementById('vip30sec-button');
+            const resultText = document.getElementById('vip30sec-result-text');
+            const confidence = document.getElementById('vip30sec-confidence');
+            const total = document.getElementById('vip30sec-total');
+            const big = document.getElementById('vip30sec-big');
+            const small = document.getElementById('vip30sec-small');
+            const historyList = document.getElementById('vip30sec-history');
             
-            toolButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const tool = this.getAttribute('data-tool');
-                    
-                    // Hide tool selection
-                    document.getElementById('tool-selection').style.display = 'none';
-                    
-                    if (tool === 'sequence-finder') {
-                        // Show Sequence Finder
-                        document.getElementById('sequence-finder-container').style.display = 'block';
-                        initSequenceFinder();
+            // Update stats
+            function updateStats() {
+                total.textContent = vip30secStats.total;
+                big.textContent = vip30secStats.big;
+                small.textContent = vip30secStats.small;
+            }
+            
+            // Update history
+            function updateHistory() {
+                historyList.innerHTML = '<div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>';
+                
+                if (vip30secHistory.length === 0) {
+                    historyList.innerHTML += '<div class="vip30sec-history-item"><span class="vip30sec-history-time">NO DATA RECORDED</span></div>';
+                } else {
+                    vip30secHistory.forEach(entry => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'vip30sec-history-item';
+                        historyItem.innerHTML = `
+                            <span class="vip30sec-history-time">${entry.timestamp}</span>
+                            <span class="vip30sec-history-prediction ${entry.result.toLowerCase()}">${entry.digits} → ${entry.result}</span>
+                        `;
+                        historyList.appendChild(historyItem);
+                    });
+                }
+            }
+            
+            // Analyze digits
+            function analyzeDigits(digits) {
+                const nums = digits.split('').map(Number);
+                const [first, second, third] = nums;
+                
+                // Multiple analysis factors
+                const sum = first + second + third;
+                const product = first * second * third;
+                const average = sum / 3;
+                const range = Math.max(...nums) - Math.min(...nums);
+                
+                // Pattern analysis
+                const isAscending = first < second && second < third;
+                const isDescending = first > second && second > third;
+                const hasRepeats = new Set(nums).size < 3;
+                const isEven = nums.filter(n => n % 2 === 0).length;
+                
+                // Advanced scoring system
+                let bigScore = 0;
+                let factors = [];
+                
+                // Sum-based analysis
+                if (sum >= 15) {
+                    bigScore += 25;
+                    factors.push(`High sum (${sum})`);
+                } else if (sum <= 8) {
+                    bigScore -= 20;
+                    factors.push(`Low sum (${sum})`);
+                }
+                
+                // Product analysis
+                if (product >= 50) {
+                    bigScore += 20;
+                    factors.push(`High product (${product})`);
+                } else if (product === 0) {
+                    bigScore -= 25;
+                    factors.push('Contains zero');
+                }
+                
+                // Pattern bonuses
+                if (isAscending) {
+                    bigScore += 15;
+                    factors.push('Ascending pattern');
+                } else if (isDescending) {
+                    bigScore -= 10;
+                    factors.push('Descending pattern');
+                }
+                
+                // Range analysis
+                if (range >= 7) {
+                    bigScore += 10;
+                    factors.push(`Wide range (${range})`);
+                } else if (range <= 2) {
+                    bigScore -= 15;
+                    factors.push(`Narrow range (${range})`);
+                }
+                
+                // Even/odd analysis
+                if (isEven >= 2) {
+                    bigScore += 8;
+                    factors.push(`${isEven} even numbers`);
+                } else {
+                    bigScore -= 5;
+                    factors.push('Mostly odd numbers');
+                }
+                
+                // Repeating digits
+                if (hasRepeats) {
+                    bigScore -= 12;
+                    factors.push('Has repeating digits');
+                }
+                
+                // Special number combinations
+                if (nums.includes(7) || nums.includes(8) || nums.includes(9)) {
+                    bigScore += 12;
+                    factors.push('Contains lucky numbers');
+                }
+                
+                // Final calculation with randomness
+                const randomFactor = (Math.random() - 0.5) * 20;
+                const finalScore = bigScore + randomFactor;
+                
+                const isBig = finalScore > 0;
+                const confidenceLevel = Math.min(95, Math.max(60, Math.abs(finalScore) + 60));
+                
+                return {
+                    result: isBig ? 'BIG' : 'SMALL',
+                    confidence: Math.round(confidenceLevel),
+                    factors,
+                    analysis: {
+                        sum,
+                        product,
+                        average: Math.round(average * 10) / 10,
+                        range,
+                        pattern: isAscending ? 'Ascending' : isDescending ? 'Descending' : 'Mixed',
+                        evenCount: isEven
                     }
-                });
-            });
-        }
-
-        // Initialize Sequence Finder
-        function initSequenceFinder() {
-            const terminal = document.getElementById('sequence-terminal');
-            const backBtn = document.getElementById('sequence-back-btn');
+                }
+            }
             
-            // Update terminal
-            terminal.innerText =
-                "Dataset loaded.\nTotal: "+dataset.length+"\nPreview:\n"+
-                dataset.slice(0,30).join(" ");
-            
-            // Handle back button
-            backBtn.addEventListener('click', function() {
-                document.getElementById('sequence-finder-container').style.display = 'none';
-                document.getElementById('tool-selection').style.display = 'flex';
+            // Handle input change
+            input.addEventListener('input', function(e) {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 3);
+                input.value = value;
+                button.disabled = value.length !== 3;
             });
-        }
-
-        // Sequence Finder Functions
-        function norm(x){
-            if(!x)return null;
-            x=x.trim().toLowerCase();
-            if(x==="b")x="big";
-            if(x==="s")x="small";
-            return (x==="big"||x==="small")?x:null;
+            
+            // Handle button click
+            button.addEventListener('click', function() {
+                if (input.value.length !== 3) return;
+                
+                // Show loading animation
+                resultText.textContent = "ANALYZING...";
+                confidence.textContent = "";
+                button.disabled = true;
+                
+                // Simulate analysis delay
+                setTimeout(() => {
+                    const analysis = analyzeDigits(input.value);
+                    
+                    // Update result
+                    resultText.textContent = analysis.result;
+                    resultText.className = `vip30sec-result-text ${analysis.result}`;
+                    confidence.textContent = `CONFIDENCE: ${analysis.confidence}%`;
+                    
+                    // Update stats
+                    vip30secStats.total++;
+                    if (analysis.result === 'BIG') {
+                        vip30secStats.big++;
+                    } else {
+                        vip30secStats.small++;
+                    }
+                    updateStats();
+                    
+                    // Add to history
+                    const now = new Date();
+                    const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                    
+                    vip30secHistory.unshift({
+                        digits: input.value,
+                        result: analysis.result,
+                        confidence: analysis.confidence,
+                        timestamp: timestamp
+                    });
+                    
+                    // Keep only last 10 entries
+                    if (vip30secHistory.length > 10) {
+                        vip30secHistory.pop();
+                    }
+                    
+                    updateHistory();
+                    
+                    // Clear input and re-enable button
+                    input.value = '';
+                    button.disabled = true;
+                }, 2000);
+            });
+            
+            // Initialize
+            updateStats();
+            updateHistory();
         }
         
-        function parseInput(t){
-            return t.split(/[\s,]+/).map(norm).filter(Boolean);
-        }
-
-        function addToken(t){
-            let arr=parseInput(document.getElementById('sequence-input').value);
-            if(arr.length>=10){ flash("Max 10 items","error"); return;}
-            arr.push(t);
-            document.getElementById('sequence-input').value=arr.join(", ");
-        }
-
-        function undoToken(){
-            let arr=parseInput(document.getElementById('sequence-input').value);
-            arr.pop();
-            document.getElementById('sequence-input').value=arr.join(", ");
-        }
-
-        function clearAll(){
-            document.getElementById('sequence-input').value="";
-            document.getElementById('sequence-output').innerHTML="Result will appear here…";
-        }
-
-        function flash(msg,type){
-            document.getElementById('sequence-output').innerHTML=
-                type==="error"
-                ? `<div style='color:var(--neon-red);font-weight:700;'>${msg}</div>`
-                : `<div style='color:var(--neon-green);font-weight:700;'>${msg}</div>`;
-        }
-
-        function findMatches(p){
-            const L=p.length;
-            let out=[];
-            for(let i=0;i+L<dataset.length;i++){
-                let ok=true;
-                for(let j=0;j<L;j++){
-                    if(dataset[i+j]!==p[j]){ ok=false; break;}
-                }
-                if(ok){
-                    let next=dataset[i+L];
-                    if(next) out.push({index:i,following:next});
-                }
-            }
-            return out;
-        }
-
-        function checkSeq(){
-            const arr=parseInput(document.getElementById('sequence-input').value);
-            if(arr.length<5)return flash("Enter at least 5 items","error");
-            if(arr.length>10)return flash("Max 10 items","error");
-
-            const matches=findMatches(arr);
-            window._match=matches;
-            window._pattern=arr;
-
-            if(matches.length===0) return flash("No match found","error");
-
-            let summary={};
-            matches.forEach(m=>summary[m.following]=(summary[m.following]||0)+1);
-
-            let html=`<div style='color:var(--neon-green);font-weight:700;'>${matches.length} matches found</div>`;
-            for(const k in summary) {
-                const className = k.toLowerCase() === 'big' ? 'big' : 'small';
-                html+=`<span class='sequence-bubble ${className}'><b>${k}</b> — ${summary[k]}</span>`;
-            }
-
-            document.getElementById('sequence-output').innerHTML=html;
-        }
-
-        function showMatches(){
-            if(!window._match)return alert("Run check first");
-            let s="";
-            window._match.forEach(m=>{
-                let part=dataset.slice(m.index,m.index+window._pattern.length+1).join(" ");
-                s+=`@${m.index}: ${part}\n\n`;
-            });
-            document.getElementById('sequence-terminal').innerText=s;
-        }
-
         // Start the application
         window.addEventListener('load', initQuantumLoader);
     </script>
