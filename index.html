@@ -1,326 +1,355 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CK Lottery HACK 2025 WEB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#020301; /* near black */
-      --green:#00ff5c;
-      --dim-green:rgba(0,255,92,0.06);
-      --glass:rgba(0,0,0,0.55);
-      --accent:#0ff7ff;
-      --muted:#8fb38f;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--green);font-family:'Share Tech Mono', monospace;}
-    /* MATRIX RAIN */
-    canvas#matrix{position:fixed;inset:0;z-index:0;mix-blend-mode:screen;opacity:0.85}
-
-    /* Main shell */
-    .shell{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:28px;z-index:2}
-
-    /* top bar (terminal) */
-    .topbar{width:100%;max-width:1200px;display:flex;align-items:center;gap:12px;margin-bottom:18px}
-    .brand{font-family:'Orbitron',sans-serif;font-size:20px;color:var(--accent);text-transform:uppercase;letter-spacing:2px}
-    .status{flex:1;text-align:right;color:var(--muted);font-size:12px}
-
-    /* terminal / panels */
-    .panels{display:grid;grid-template-columns:1fr 420px;gap:18px;width:100%;max-width:1200px}
-    .panel{background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));border:1px solid rgba(0,255,92,0.08);backdrop-filter:blur(6px);padding:18px;border-radius:6px;box-shadow:0 6px 40px rgba(0,0,0,0.6)}
-
-    /* left big terminal */
-    .terminal{height:560px;overflow:auto;position:relative;border-left:4px solid rgba(0,255,92,0.06)}
-    .terminal .lines{white-space:pre-wrap;font-size:13px;line-height:1.45;padding:6px 4px}
-
-    /* right control */
-    .controls h3{margin:0 0 10px 0;color:var(--accent);font-size:14px}
-    .controls .pad{display:flex;flex-direction:column;gap:10px}
-    .input{background:rgba(0,0,0,0.6);border:1px solid rgba(0,255,92,0.12);padding:12px;border-radius:6px;color:var(--green);font-family:inherit;font-size:16px}
-    .btn{padding:12px;border-radius:6px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#001;cursor:pointer;font-weight:700}
-    .btn.ghost{background:transparent;border:1px solid rgba(0,255,92,0.12);color:var(--muted)}
-
-    /* small status boxes */
-    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
-    .stat{background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55));padding:10px;border-radius:6px;border:1px solid rgba(0,255,92,0.05)}
-    .stat .k{font-size:12px;color:var(--muted)}
-    .stat .v{font-size:18px;font-weight:700;color:var(--green)}
-
-    /* footer */
-    .footer{margin-top:18px;color:rgba(143,179,143,0.7);font-size:12px}
-
-    /* neon cursor */
-    .cursor{display:inline-block;width:10px;height:18px;background:var(--green);margin-left:6px;vertical-align:middle;animation:blink 1s steps(2) infinite}
-    @keyframes blink{50%{opacity:0}}
-
-    /* overlay glass info */
-    .glass-info{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,rgba(0,0,0,0.5),rgba(0,0,0,0.65));padding:10px;border-radius:6px;border:1px solid rgba(0,255,92,0.06);font-size:12px;color:var(--muted);z-index:3}
-
-    /* responsive */
-    @media (max-width:980px){.panels{grid-template-columns:1fr} .terminal{height:420px}}
-
-    /* subtle scanline */
-    .scanline:before{content:"";position:absolute;left:0;right:0;top:0;height:100%;background-image:linear-gradient(rgba(0,0,0,0) 50%, rgba(0,255,92,0.015) 50%);background-size:100% 2px;pointer-events:none}
-
-    /* small helper: bright headline */
-    .headline{font-family:'Orbitron';font-size:14px;color:var(--accent);margin-bottom:8px}
-
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CK Smart WING — VVIP Pro Panel (v8.0)</title>
+<style>
+  :root{
+    --bg-0:#040406;
+    --bg-1:#071014;
+    --neon-green:#00ff7a;
+    --neon-cyan:#00e6ff;
+    --muted:#88c6a7;
+    --glass:rgba(255,255,255,0.03);
+    --card:#06110b;
+    --accent-grad:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:radial-gradient(circle at 10% 10%,#001 0%,var(--bg-0) 30%,var(--bg-1) 100%);color:var(--neon-green);font-family:Inter, "Share Tech Mono", monospace;-webkit-font-smoothing:antialiased}
+  /* layout */
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;position:relative;overflow:hidden}
+  .stage{width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 420px;gap:20px;z-index:2}
+  .card{border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));border:1px solid rgba(0,255,122,0.06);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
+  /* left console */
+  .console{min-height:680px;position:relative;overflow:hidden}
+  .console-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .brand{font-family:'Orbitron',sans-serif;font-size:18px;color:var(--neon-cyan);letter-spacing:1px}
+  .status{font-size:13px;color:var(--muted)}
+  .screen{height:520px;border-radius:8px;padding:14px;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.06));overflow:auto;border:1px solid rgba(0,255,122,0.03);color:var(--neon-green)}
+  .console-line{line-height:1.5;font-size:14px;white-space:pre-wrap}
+  .result-bubble{position:absolute;right:28px;top:100px;padding:14px 18px;border-radius:999px;font-weight:900;background:var(--neon-green);color:#001;box-shadow:0 10px 40px rgba(0,255,122,0.08);transform:translateY(0);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+  .result-bubble.hidden{opacity:0;transform:translateY(-8px)}
+  /* right controls */
+  .controls{display:flex;flex-direction:column;gap:12px;min-height:680px}
+  .panel{background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.55));padding:16px;border-radius:10px;border:1px solid rgba(0,255,122,0.06)}
+  .panel h3{margin:0;color:var(--neon-cyan);font-size:14px}
+  .field{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  input[type="password"], input[type="text"]{background:transparent;border:1px solid rgba(0,255,122,0.12);padding:12px;border-radius:8px;color:var(--neon-green);font-size:16px}
+  .btn{padding:12px;border-radius:10px;border:none;background:var(--accent-grad);color:#001;font-weight:800;cursor:pointer}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+  .hint{font-size:13px;color:rgba(143,179,143,0.7)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .stat{background:var(--glass);padding:10px;border-radius:8px;border:1px solid rgba(0,255,122,0.03);text-align:center}
+  .stat .k{font-size:12px;color:var(--muted)}
+  .stat .v{font-size:18px;font-weight:900;color:var(--neon-green)}
+  .result-card{margin-top:6px;padding:12px;border-radius:8px;background:linear-gradient(90deg,rgba(0,0,0,0.25),rgba(0,0,0,0.12));text-align:center;font-weight:900;color:var(--neon-cyan);font-size:18px}
+  .footer{margin-top:auto;color:rgba(143,179,143,0.6);font-size:12px}
+  /* confetti canvas (overlaid) */
+  canvas#confetti{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:3}
+  /* matrix canvas */
+  canvas#matrix{position:fixed;inset:0;z-index:0;opacity:0.85;mix-blend-mode:screen}
+  /* small */
+  @media (max-width:1000px){.stage{grid-template-columns:1fr}.result-bubble{position:static;margin-top:12px}}
+</style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <canvas id="confetti" aria-hidden="true"></canvas>
 
-  <div class="shell">
-    <div class="topbar">
-      <div class="brand">Smart WING Trend Analyzer 📊</div>
-      <div class="status" id="sys-status">SECURITY: <span id="sec-level">DEEP SCAN</span> • UPTIME 00:12:23</div>
-    </div>
-
-    <div class="panels">
-      <div class="panel terminal scanline" id="left-panel">
-        <div class="headline">TREND ANALYSIS CONSOLE</div>
-        <div class="lines" id="console">
-          <!-- console text injected by JS -->
+  <div class="wrap" role="application" aria-label="CK Smart WING VVIP Pro Panel">
+    <div class="stage">
+      <!-- LEFT: TREND ANALYSIS CONSOLE -->
+      <div class="card console" aria-live="polite">
+        <div class="console-head">
+          <div class="brand">Smart WING — TREND ANALYSIS CONSOLE</div>
+          <div class="status" id="uptime">SECURITY: LOCKED • UPTIME 00:00:00</div>
         </div>
+
+        <div id="screen" class="screen" role="log" aria-atomic="true">
+          <!-- only safe lines -->
+        </div>
+
+        <div id="resultBubble" class="result-bubble hidden" aria-hidden="true">RESULT: —</div>
       </div>
 
-      <div class="panel controls">
-        <h3>VVIP ACCESS</h3>
-        <div class="pad">
-          <input id="vip-key" class="input" placeholder="ENTER QUANTUM KEY" type="password">
-          <div style="display:flex;gap:8px">
-            <button id="unlock" class="btn">UNLOCK</button>
-            <button id="clear-log" class="btn ghost">CLEAR LOG</button>
+      <!-- RIGHT: CONTROLS -->
+      <div class="controls">
+        <div class="panel">
+          <h3>VVIP ACCESS</h3>
+          <div class="field">
+            <label class="hint">ENTER PASSWORD</label>
+            <input id="pass" type="password" placeholder="VVIP PASS">
+            <div style="display:flex;gap:8px">
+              <button id="btnUnlock" class="btn">UNLOCK</button>
+              <button id="btnClear" class="btn ghost">CLEAR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>ANALYZE — 3 DIGITS</h3>
+          <div class="field">
+            <input id="digits" type="text" maxlength="3" placeholder="e.g. 147" aria-label="three digits" disabled>
+            <button id="btnAnalyze" class="btn" disabled>ANALYZE</button>
+            <div class="hint">Only the final RESULT will appear in the Console. Internal calculations are hidden.</div>
           </div>
 
-          <div class="headline">GAME RESULT PREDICTOR</div>
-          <input id="digits" class="input" placeholder="ENTER 3 DIGITS" maxlength="3">
-          <button id="run" class="btn">ANALYZE</button>
-
-          <div id="ck-user-panel" style="display:none;background:rgba(0,255,92,0.05);padding:10px;border-radius:6px;border:1px solid rgba(0,255,92,0.15);margin-bottom:10px">
-  <div style="font-weight:700;font-size:14px;color:var(--accent)">Account</div>
-  <div id="ck-user-name" style="font-size:12px;color:var(--muted)">User: Loading...</div>
-  <div id="ck-user-balance" style="font-size:12px;color:var(--muted)">Balance: --</div>
-</div>
-<div class="stats">
-            <div class="stat"><div class="k">ANALYSES</div><div class="v" id="s-total">0</div></div>
-            <div class="stat"><div class="k">SUCCESS</div><div class="v" id="s-success">100%</div></div>
-            <div class="stat"><div class="k">BIG</div><div class="v" id="s-big">0</div></div>
-            <div class="stat"><div class="k">SMALL</div><div class="v" id="s-small">0</div></div>
+          <div class="stats" aria-hidden="false">
+            <div class="stat"><div class="k">ANALYSES</div><div id="statTotal" class="v">0</div></div>
+            <div class="stat"><div class="k">LAST</div><div id="statLast" class="v">—</div></div>
+            <div class="stat"><div class="k">CONF</div><div id="statConf" class="v">100%</div></div>
           </div>
 
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <a class="btn" id="auth-btn" href="https://www.cklottery.online/#/register?invitationCode=35651671244" target="_blank">Login to CK Official</a>
-            <a class="btn ghost" href="https://t.me/cklotteryfreehackfile" target="_blank">TELEGRAM</a>
-          </div>
+          <div class="result-card" id="resultCard">RESULT: —</div>
+        </div>
+
+        <div class="panel footer">
+          DEVELOPER: @DarkSize501 · VVIP PRO · system v8.0
         </div>
       </div>
     </div>
-
-    <div class="footer">DEVELOPER: @DarkSize501 · UI: HACK MODE · system v4.0</div>
   </div>
 
-  <div class="glass-info" id="glass-info">Terminal active<span class="cursor"></span></div>
-
-  <script>
-    // --- MATRIX RAIN ---
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = innerWidth;
-    let height = canvas.height = innerHeight;
-    const cols = Math.floor(width / 14) + 1;
-    const ypos = Array(cols).fill(0);
-
-    function matrixResize(){width = canvas.width = innerWidth;height = canvas.height = innerHeight;}
-    addEventListener('resize', () => {matrixResize();});
-
-    function draw(){
-      ctx.fillStyle = 'rgba(0,0,0,0.06)';
-      ctx.fillRect(0,0,width,height);
-      ctx.fillStyle = '#00380f';
-      ctx.font = '14px "Share Tech Mono", monospace';
-      for(let i=0;i<ypos.length;i++){
-        const text = String.fromCharCode(48 + Math.random()*42);
-        const x = i * 14;
-        ctx.fillStyle = 'rgba(0,255,92,'+ (0.4 + Math.random()*0.6)+')';
-        ctx.fillText(text, x, ypos[i]*14);
-        if(ypos[i]*14 > height && Math.random() > 0.975) ypos[i]=0; else ypos[i]++;
-      }
-    }
-    setInterval(draw, 45);
-
-    // --- Console simulation ---
-    const consoleEl = document.getElementById('console');
-    const LOGS = [
-      'INITIALIZING QUANTUM MODULE...','SCANNING NETWORK NODES...','BYPASSING FIREWALL LAYER 3...','DECRYPTING STREAMS','PATTERN MATCH: NEURAL-SIGMA OK','LOADING WINGO ALGORITHM v3.1',
-      'ATTEMPTING VVIP AUTH...','AUTH: PENDING','AUTH: OK','SPAWNING ANALYTICS WORKER #7','STREAM STABLE'
-    ];
-
-    function pushLine(line){
-      const div = document.createElement('div');
-      div.textContent = line;
-      consoleEl.appendChild(div);
-      consoleEl.scrollTop = consoleEl.scrollHeight;
-    }
-
-    // inject startup logs
-    (function bootSequence(){
-      let i=0;
-      const t = setInterval(()=>{
-        pushLine(new Date().toLocaleTimeString() + '  > ' + LOGS[i]);
-        i++;
-        if(i>=LOGS.length){clearInterval(t);pushLine(new Date().toLocaleTimeString() + '  > SYSTEM READY.');}
-      }, 420);
-    })();
-
-    // --- WINGO TOOL (ported logic) ---
-    const QUANTUM_KEY = 'VVIPCKUPDATE'; // keep original key
-    let stats = {total:0,big:0,small:0};
-
-    function type(n){return n <= 4 ? 'S' : 'B';}
-
-    function analyzeDigits(digits){
-      if(!/^\d{3}$/.test(digits)) return null;
-      const d1=type(Number(digits[0]));
-      const d2=type(Number(digits[1]));
-      const d3=type(Number(digits[2]));
-      let selected=[];
-      if(d1===d2 && d2===d3) selected=[d1,d2,d3];
-      else if(d1===d2) selected=[d1,d2];
-      else selected=[d3];
-      const bigCount = selected.filter(v=>v==='B').length;
-      const smallCount = selected.filter(v=>v==='S').length;
-      let result='';
-      if(bigCount===1 || bigCount===2) result='SMALL';
-      else if(bigCount===3) result='BIG';
-      else if(smallCount===1 || smallCount===2) result='BIG';
-      else if(smallCount===3) result='SMALL';
-      return {result,confidence:100,analysis:{d1,d2,d3,selected,bigCount,smallCount}};
-    }
-
-    // UI bindings
-    document.getElementById('run').addEventListener('click', ()=>{
-      const v = document.getElementById('digits').value.trim();
-      if(!/^\d{3}$/.test(v)){
-        pushLine(new Date().toLocaleTimeString() + '  > INPUT ERROR: provide 3 digits');
-        return;
-      }
-      pushLine(new Date().toLocaleTimeString() + '  > ANALYZING ' + v + ' ...');
-      document.getElementById('run').disabled = true;
-      setTimeout(()=>{
-        const out = analyzeDigits(v);
-        if(!out){pushLine(new Date().toLocaleTimeString() + '  > ANALYSIS FAILED');document.getElementById('run').disabled=false;return;}
-        pushLine(new Date().toLocaleTimeString() + '  > RESULT: ' + out.result + ' (CONF ' + out.confidence + '%)');
-        stats.total++;
-        if(out.result==='BIG') stats.big++; else stats.small++;
-        updateStatsUI();
-        document.getElementById('digits').value='';
-        document.getElementById('run').disabled = false;
-      }, 900 + Math.random()*800);
-    });
-
-    function updateStatsUI(){
-      document.getElementById('s-total').textContent = stats.total;
-      document.getElementById('s-big').textContent = stats.big;
-      document.getElementById('s-small').textContent = stats.small;
-      const succ = stats.total ? Math.round(((stats.total - stats.small) / stats.total) * 100) : 100;
-      document.getElementById('s-success').textContent = succ + '%';
-    }
-
-    // unlock button
-    document.getElementById('unlock').addEventListener('click', ()=>{
-      const val = document.getElementById('vip-key').value;
-      if(val === QUANTUM_KEY){
-        pushLine(new Date().toLocaleTimeString() + '  > VVIP KEY ACCEPTED — ACTIVATING WINGO UI');
-        document.getElementById('glass-info').textContent = 'VVIP ACTIVE • ACCESS GRANTED';
-        document.getElementById('glass-info').style.borderColor = 'rgba(0,255,92,0.12)';
-      } else {
-        pushLine(new Date().toLocaleTimeString() + '  > VVIP KEY REJECTED — ACCESS DENIED');
-        const input = document.getElementById('vip-key');
-        input.style.borderColor = '#ff4d4d';
-        setTimeout(()=>{input.style.borderColor='';},800);
-      }
-    });
-
-    // clear log
-    document.getElementById('clear-log').addEventListener('click', ()=>{consoleEl.innerHTML='';pushLine(new Date().toLocaleTimeString() + '  > LOG CLEARED');});
-
-    // small uptime ticker
-    (function uptime(){
-      let seconds=12*60+23;
-      setInterval(()=>{seconds++;const h=Math.floor(seconds/3600).toString().padStart(2,'0');const m=Math.floor(seconds%3600/60).toString().padStart(2,'0');const s=(seconds%60).toString().padStart(2,'0'); document.getElementById('sys-status').textContent = 'SECURITY: DEEP SCAN • UPTIME ' + h+':'+m+':'+s},1000);
-    })();
-
-    // small console heartbeat
-    setInterval(()=>{
-      const sample = ['NODE OK','SYNC OK','STREAM OK','DB READ','CACHE MISS','PATTERN OK'];
-      pushLine(new Date().toLocaleTimeString() + '  > ' + sample[Math.floor(Math.random()*sample.length)]);
-      // prune long logs
-      const lines = consoleEl.children;
-      if(lines.length > 300) for(let i=0;i<60;i++) if(consoleEl.firstChild) consoleEl.removeChild(consoleEl.firstChild);
-    },4200);
-
-  </script>
 <script>
-(function(){
-  // Lightweight gate: require PASS before tool becomes usable. Change QUANTUM_KEY here if you want a different PASS.
-  const QUANTUM_KEY = 'VVIPCKUPDATE';
-  let vvipActive = false;
-  const vipInput = document.getElementById('vip-key');
-  const unlockBtn = document.getElementById('unlock');
-  const runBtn = document.getElementById('run');
-  const digits = document.getElementById('digits');
-
-  // Start with tool locked (in case original file enabled it)
-  runBtn.disabled = true;
-  digits.disabled = true;
-
-  unlockBtn.addEventListener('click', ()=>{
-    const val = vipInput.value;
-    if(val === QUANTUM_KEY){
-      vvipActive = true;
-      runBtn.disabled = false;
-      digits.disabled = false;
-      document.getElementById('glass-info').textContent = 'VVIP ACTIVE • ACCESS GRANTED';
-      document.getElementById('glass-info').style.borderColor = 'rgba(0,255,92,0.12)';
-      pushLine(new Date().toLocaleTimeString() + '  > PASS ACCEPTED — TOOL ENABLED');
-      vipInput.value = '';
-    } else {
-      pushLine(new Date().toLocaleTimeString() + '  > PASS REJECTED — ACCESS DENIED');
-      vipInput.style.borderColor = '#ff4d4d';
-      setTimeout(()=>{ vipInput.style.borderColor = ''; }, 800);
-    }
-  });
-
-  // --- CK Auth Integration ---
-  const authBtn = document.getElementById('auth-btn');
-  function checkAuth(){
-    const t = localStorage.getItem('CK_AUTH_TOKEN');
-    if(t){
-      vvipActive = true;
-      runBtn.disabled = false;
-      digits.disabled = false;
-      authBtn.textContent = "Account Linked ✓";
-      authBtn.style.background = "#00ff5c";
-      pushLine(new Date().toLocaleTimeString() + '  > ACCOUNT VERIFIED — TOOL ENABLED');
+/* =========================
+   Matrix background
+   ========================= */
+(function matrix(){
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = innerWidth;
+  let h = canvas.height = innerHeight;
+  let cols = Math.floor(w/14)+1;
+  let ypos = Array(cols).fill(0);
+  function resize(){ w = canvas.width = innerWidth; h = canvas.height = innerHeight; cols = Math.floor(w/14)+1; ypos = Array(cols).fill(0); }
+  addEventListener('resize', resize);
+  function draw(){
+    ctx.fillStyle = 'rgba(0,0,0,0.06)'; ctx.fillRect(0,0,w,h);
+    ctx.font = '14px "Share Tech Mono", monospace';
+    for(let i=0;i<ypos.length;i++){
+      const ch = String.fromCharCode(48 + Math.random()*42);
+      ctx.fillStyle = 'rgba(0,255,122,' + (0.12 + Math.random()*0.6) + ')';
+      ctx.fillText(ch, i*14, ypos[i]*14);
+      if(ypos[i]*14 > h && Math.random() > 0.985) ypos[i]=0; else ypos[i]++;
     }
   }
-  checkAuth();
-
-  // Extra safety: intercept run clicks to ensure vvipActive
-  runBtn.addEventListener('click', function(e){
-    if(!vvipActive){
-      pushLine(new Date().toLocaleTimeString() + '  > ERROR: PASS required. Unlock first.');
-      e.stopImmediatePropagation();
-      e.preventDefault();
-      return false;
-    }
-    return true;
-  }, true);
+  setInterval(draw, 45);
 })();
+
+/* =========================
+   Confetti (simple)
+   ========================= */
+const confettiCanvas = document.getElementById('confetti');
+const confettiCtx = confettiCanvas.getContext('2d');
+function resizeConf(){ confettiCanvas.width = innerWidth; confettiCanvas.height = innerHeight; }
+resizeConf(); addEventListener('resize', resizeConf);
+
+let confettiDrops = [];
+function spawnConfetti(count=60){
+  confettiDrops = [];
+  for(let i=0;i<count;i++){
+    confettiDrops.push({
+      x: Math.random()*innerWidth,
+      y: -Math.random()*innerHeight,
+      r: 6+Math.random()*8,
+      vx: -2 + Math.random()*4,
+      vy: 2 + Math.random()*4,
+      color: Math.random()>0.5? '#00ff7a':'#00e6ff',
+      rot: Math.random()*360
+    });
+  }
+  let t=0;
+  const id = setInterval(()=>{
+    confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+    confettiDrops.forEach(d=>{
+      d.x += d.vx;
+      d.y += d.vy;
+      d.rot += d.vx;
+      confettiCtx.save();
+      confettiCtx.translate(d.x,d.y);
+      confettiCtx.rotate(d.rot*Math.PI/180);
+      confettiCtx.fillStyle = d.color;
+      confettiCtx.fillRect(-d.r/2, -d.r/2, d.r, d.r*0.6);
+      confettiCtx.restore();
+    });
+    t++;
+    if(t>120){ clearInterval(id); confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height); }
+  }, 1000/60);
+}
+
+/* =========================
+   Console helpers (result-only)
+   ========================= */
+const screen = document.getElementById('screen');
+function pushLine(text){
+  const d = document.createElement('div');
+  d.className = 'console-line';
+  d.textContent = new Date().toLocaleTimeString() + '  •  ' + text;
+  screen.appendChild(d);
+  // limit size
+  while(screen.children.length > 300) screen.removeChild(screen.firstChild);
+  screen.scrollTop = screen.scrollHeight;
+}
+
+/* =========================
+   Uptime ticker
+   ========================= */
+let seconds = 0;
+setInterval(()=>{
+  seconds++;
+  const h = String(Math.floor(seconds/3600)).padStart(2,'0');
+  const m = String(Math.floor(seconds%3600/60)).padStart(2,'0');
+  const s = String(seconds%60).padStart(2,'0');
+  document.getElementById('uptime').textContent = 'SECURITY: ' + (btnAnalyze.disabled ? 'LOCKED' : 'VVIP ACTIVE') + ' • UPTIME ' + h + ':' + m + ':' + s;
+},1000);
+
+/* =========================
+   Formula (exact per request)
+   - mapping 0-4 => S ; 5-9 => B
+   - selection rule: d1==d2==d3 => use all; else if d1==d2 => d1,d2; else => d3 only
+   - result: based on counts as specified (only final result returned)
+   ========================= */
+function digitType(n){ return n <= 4 ? 'S' : 'B'; }
+
+function analyzeSecure(inp){
+  // validate
+  if(!/^\d{3}$/.test(inp)) return null;
+  const n1 = Number(inp[0]), n2 = Number(inp[1]), n3 = Number(inp[2]);
+  const d1 = digitType(n1), d2 = digitType(n2), d3 = digitType(n3);
+
+  // internal selection (kept private)
+  let selected = [];
+  if(d1 === d2 && d2 === d3) selected = [d1,d2,d3];
+  else if(d1 === d2) selected = [d1,d2];
+  else selected = [d3];
+
+  const bigCount = selected.filter(x => x === 'B').length;
+  const smallCount = selected.filter(x => x === 'S').length;
+
+  let final = '';
+  if(bigCount === 3) final = 'BIG';
+  else if(bigCount === 1 || bigCount === 2) final = 'SMALL';
+  else if(smallCount === 3) final = 'SMALL';
+  else if(smallCount === 1 || smallCount === 2) final = 'BIG';
+  else final = 'UNKNOWN';
+
+  // only reveal final and confidence
+  return { result: final, confidence: 100 };
+}
+
+/* =========================
+   UI: lock/unlock & analyze
+   ========================= */
+const PASS = '2025HACKCK';
+const btnUnlock = document.getElementById('btnUnlock');
+const btnAnalyze = document.getElementById('btnAnalyze');
+const btnClear = document.getElementById('btnClear');
+const passInput = document.getElementById('pass');
+const digitsInput = document.getElementById('digits');
+const statTotal = document.getElementById('statTotal');
+const statLast = document.getElementById('statLast');
+const statConf = document.getElementById('statConf');
+const resultCard = document.getElementById('resultCard');
+const resultBubble = document.getElementById('resultBubble');
+
+let stats = { total: 0, last: '—', conf: '100%' };
+
+btnUnlock.addEventListener('click', ()=>{
+  if(passInput.value.trim() === PASS){
+    passInput.value = '';
+    digitsInput.disabled = false;
+    btnAnalyze.disabled = false;
+    pushLine('VVIP PASS ACCEPTED — TOOL ENABLED');
+    // visual unlock
+    resultBubble.classList.remove('hidden');
+    resultBubble.style.opacity = '1';
+  } else {
+    pushLine('PASS REJECTED — ACCESS DENIED');
+    passInput.style.borderColor = '#ff4d4d';
+    setTimeout(()=>passInput.style.borderColor = '',700);
+  }
+});
+
+btnClear.addEventListener('click', ()=>{
+  screen.innerHTML = '';
+  pushLine('CONSOLE CLEARED');
+});
+
+/* sound: short pleasant tone using WebAudio */
+function playTone(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = 880;
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0.2, ctx.currentTime+0.01);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.45);
+    o.stop(ctx.currentTime+0.5);
+  }catch(e){/* ignore audio errors */ }
+}
+
+/* animate stat increment */
+function animateStat(targetEl, from, to, ms=420){
+  const start = performance.now();
+  function step(now){
+    const t = Math.min(1, (now-start)/ms);
+    const val = Math.floor(from + (to-from)*t);
+    targetEl.textContent = val;
+    if(t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+btnAnalyze.addEventListener('click', ()=>{
+  const v = digitsInput.value.trim();
+  if(!/^\d{3}$/.test(v)){
+    pushLine('INPUT ERROR — PROVIDE 3 DIGITS (0-9)');
+    return;
+  }
+
+  // show minimal process messages only
+  pushLine('ANALYSIS STARTED — INPUT RECEIVED');
+  // run analysis (internal)
+  const out = analyzeSecure(v);
+  if(!out){
+    pushLine('ANALYSIS FAILED');
+    return;
+  }
+
+  // stats update with animation
+  const prev = stats.total;
+  stats.total += 1;
+  stats.last = out.result;
+  stats.conf = out.confidence + '%';
+  animateStat(statTotal, prev, stats.total);
+  statLast.textContent = stats.last;
+  statConf.textContent = stats.conf;
+  resultCard.textContent = 'RESULT: ' + stats.last;
+
+  // UI result bubble & console minimal line (no internal details)
+  setTimeout(()=>{
+    resultBubble.textContent = 'RESULT: ' + out.result;
+    resultBubble.classList.remove('hidden');
+    // animate bubble pulse
+    resultBubble.style.transform = 'translateY(-6px)';
+    setTimeout(()=> resultBubble.style.transform = 'translateY(0)', 350);
+    pushLine('RESULT: ' + out.result + '  (CONF ' + out.confidence + '%)');
+    // sound & confetti
+    playTone();
+    spawnConfetti(64);
+  }, 380);
+
+  digitsInput.value = '';
+});
+
+/* initial lines */
+pushLine('SYSTEM BOOT — TREND ANALYSIS CONSOLE INITIALIZING');
+pushLine('TOOL LOCKED — ENTER PASS TO ENABLE');
 </script>
 </body>
 </html>
-
