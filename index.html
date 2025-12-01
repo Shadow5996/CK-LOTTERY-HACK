@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CK Smart WING — VVIP Pro Panel (v8.0)</title>
+<style>
+  :root{
+    --bg-0:#040406;
+    --bg-1:#071014;
+    --neon-green:#00ff7a;
+    --neon-cyan:#00e6ff;
+    --muted:#88c6a7;
+    --glass:rgba(255,255,255,0.03);
+    --card:#06110b;
+    --accent-grad:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:radial-gradient(circle at 10% 10%,#001 0%,var(--bg-0) 30%,var(--bg-1) 100%);color:var(--neon-green);font-family:Inter, "Share Tech Mono", monospace;-webkit-font-smoothing:antialiased}
+  /* layout */
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;position:relative;overflow:hidden}
+  .stage{width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 420px;gap:20px;z-index:2}
+  .card{border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));border:1px solid rgba(0,255,122,0.06);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
+  /* left console */
+  .console{min-height:680px;position:relative;overflow:hidden}
+  .console-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .brand{font-family:'Orbitron',sans-serif;font-size:18px;color:var(--neon-cyan);letter-spacing:1px}
+  .status{font-size:13px;color:var(--muted)}
+  .screen{height:520px;border-radius:8px;padding:14px;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.06));overflow:auto;border:1px solid rgba(0,255,122,0.03);color:var(--neon-green)}
+  .console-line{line-height:1.5;font-size:14px;white-space:pre-wrap}
+  .result-bubble{position:absolute;right:28px;top:100px;padding:14px 18px;border-radius:999px;font-weight:900;background:var(--neon-green);color:#001;box-shadow:0 10px 40px rgba(0,255,122,0.08);transform:translateY(0);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+  .result-bubble.hidden{opacity:0;transform:translateY(-8px)}
+  /* right controls */
+  .controls{display:flex;flex-direction:column;gap:12px;min-height:680px}
+  .panel{background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.55));padding:16px;border-radius:10px;border:1px solid rgba(0,255,122,0.06)}
+  .panel h3{margin:0;color:var(--neon-cyan);font-size:14px}
+  .field{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  input[type="password"], input[type="text"]{background:transparent;border:1px solid rgba(0,255,122,0.12);padding:12px;border-radius:8px;color:var(--neon-green);font-size:16px}
+  .btn{padding:12px;border-radius:10px;border:none;background:var(--accent-grad);color:#001;font-weight:800;cursor:pointer}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+  .hint{font-size:13px;color:rgba(143,179,143,0.7)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .stat{background:var(--glass);padding:10px;border-radius:8px;border:1px solid rgba(0,255,122,0.03);text-align:center}
+  .stat .k{font-size:12px;color:var(--muted)}
+  .stat .v{font-size:18px;font-weight:900;color:var(--neon-green)}
+  .result-card{margin-top:6px;padding:12px;border-radius:8px;background:linear-gradient(90deg,rgba(0,0,0,0.25),rgba(0,0,0,0.12));text-align:center;font-weight:900;color:var(--neon-cyan);font-size:18px}
+  .footer{margin-top:auto;color:rgba(143,179,143,0.6);font-size:12px}
+  /* confetti canvas (overlaid) */
+  canvas#confetti{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:3}
+  /* matrix canvas */
+  canvas#matrix{position:fixed;inset:0;z-index:0;opacity:0.85;mix-blend-mode:screen}
+  /* small */
+  @media (max-width:1000px){.stage{grid-template-columns:1fr}.result-bubble{position:static;margin-top:12px}}
+</style>
+</head>
+<body>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div class="wrap" role="application" aria-label="CK Smart WING VVIP Pro Panel">
+    <div class="stage">
+      <!-- LEFT: TREND ANALYSIS CONSOLE -->
+      <div class="card console" aria-live="polite">
+        <div class="console-head">
+          <div class="brand">Smart WING — TREND ANALYSIS CONSOLE</div>
+          <div class="status" id="uptime">SECURITY: LOCKED • UPTIME 00:00:00</div>
+        </div>
+
+        <div id="screen" class="screen" role="log" aria-atomic="true">
+          <!-- only safe lines -->
+        </div>
+
+        <div id="resultBubble" class="result-bubble hidden" aria-hidden="true">RESULT: —</div>
+      </div>
+
+      <!-- RIGHT: CONTROLS -->
+      <div class="controls">
+        <div class="panel">
+          <h3>VVIP ACCESS</h3>
+          <div class="field">
+            <label class="hint">ENTER PASSWORD</label>
+            <input id="pass" type="password" placeholder="VVIP PASS">
+            <div style="display:flex;gap:8px">
+              <button id="btnUnlock" class="btn">UNLOCK</button>
+              <button id="btnClear" class="btn ghost">CLEAR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>ANALYZE — 3 DIGITS</h3>
+          <div class="field">
+            <input id="digits" type="text" maxlength="3" placeholder="e.g. 147" aria-label="three digits" disabled>
+            <button id="btnAnalyze" class="btn" disabled>ANALYZE</button>
+            <div class="hint">Only the final RESULT will appear in the Console. Internal calculations are hidden.</div>
+          </div>
+
+          <div class="stats" aria-hidden="false">
+            <div class="stat"><div class="k">ANALYSES</div><div id="statTotal" class="v">0</div></div>
+            <div class="stat"><div class="k">LAST</div><div id="statLast" class="v">—</div></div>
+            <div class="stat"><div class="k">CONF</div><div id="statConf" class="v">100%</div></div>
+          </div>
+
+          <div class="result-card" id="resultCard">RESULT: —</div>
+        </div>
+
+        <div class="panel footer">
+          DEVELOPER: @DarkSize501 · VVIP PRO · system v8.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================
+   Matrix background
+   ========================= */
+(function matrix(){
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = innerWidth;
+  let h = canvas.height = innerHeight;
+  let cols = Math.floor(w/14)+1;
+  let ypos = Array(cols).fill(0);
+  function resize(){ w = canvas.width = innerWidth; h = canvas.height = innerHeight; cols = Math.floor(w/14)+1; ypos = Array(cols).fill(0); }
+  addEventListener('resize', resize);
+  function draw(){
+    ctx.fillStyle = 'rgba(0,0,0,0.06)'; ctx.fillRect(0,0,w,h);
+    ctx.font = '14px "Share Tech Mono", monospace';
+    for(let i=0;i<ypos.length;i++){
+      const ch = String.fromCharCode(48 + Math.random()*42);
+      ctx.fillStyle = 'rgba(0,255,122,' + (0.12 + Math.random()*0.6) + ')';
+      ctx.fillText(ch, i*14, ypos[i]*14);
+      if(ypos[i]*14 > h && Math.random() > 0.985) ypos[i]=0; else ypos[i]++;
+    }
+  }
+  setInterval(draw, 45);
+})();
+
+/* =========================
+   Confetti (simple)
+   ========================= */
+const confettiCanvas = document.getElementById('confetti');
+const confettiCtx = confettiCanvas.getContext('2d');
+function resizeConf(){ confettiCanvas.width = innerWidth; confettiCanvas.height = innerHeight; }
+resizeConf(); addEventListener('resize', resizeConf);
+
+let confettiDrops = [];
+function spawnConfetti(count=60){
+  confettiDrops = [];
+  for(let i=0;i<count;i++){
+    confettiDrops.push({
+      x: Math.random()*innerWidth,
+      y: -Math.random()*innerHeight,
+      r: 6+Math.random()*8,
+      vx: -2 + Math.random()*4,
+      vy: 2 + Math.random()*4,
+      color: Math.random()>0.5? '#00ff7a':'#00e6ff',
+      rot: Math.random()*360
+    });
+  }
+  let t=0;
+  const id = setInterval(()=>{
+    confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+    confettiDrops.forEach(d=>{
+      d.x += d.vx;
+      d.y += d.vy;
+      d.rot += d.vx;
+      confettiCtx.save();
+      confettiCtx.translate(d.x,d.y);
+      confettiCtx.rotate(d.rot*Math.PI/180);
+      confettiCtx.fillStyle = d.color;
+      confettiCtx.fillRect(-d.r/2, -d.r/2, d.r, d.r*0.6);
+      confettiCtx.restore();
+    });
+    t++;
+    if(t>120){ clearInterval(id); confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height); }
+  }, 1000/60);
+}
+
+/* =========================
+   Console helpers (result-only)
+   ========================= */
+const screen = document.getElementById('screen');
+function pushLine(text){
+  const d = document.createElement('div');
+  d.className = 'console-line';
+  d.textContent = new Date().toLocaleTimeString() + '  •  ' + text;
+  screen.appendChild(d);
+  // limit size
+  while(screen.children.length > 300) screen.removeChild(screen.firstChild);
+  screen.scrollTop = screen.scrollHeight;
+}
+
+/* =========================
+   Uptime ticker
+   ========================= */
+let seconds = 0;
+setInterval(()=>{
+  seconds++;
+  const h = String(Math.floor(seconds/3600)).padStart(2,'0');
+  const m = String(Math.floor(seconds%3600/60)).padStart(2,'0');
+  const s = String(seconds%60).padStart(2,'0');
+  document.getElementById('uptime').textContent = 'SECURITY: ' + (btnAnalyze.disabled ? 'LOCKED' : 'VVIP ACTIVE') + ' • UPTIME ' + h + ':' + m + ':' + s;
+},1000);
+
+/* =========================
+   Formula (exact per request)
+   - mapping 0-4 => S ; 5-9 => B
+   - selection rule: d1==d2==d3 => use all; else if d1==d2 => d1,d2; else => d3 only
+   - result: based on counts as specified (only final result returned)
+   ========================= */
+function digitType(n){ return n <= 4 ? 'S' : 'B'; }
+
+function analyzeSecure(inp){
+  // validate
+  if(!/^\d{3}$/.test(inp)) return null;
+  const n1 = Number(inp[0]), n2 = Number(inp[1]), n3 = Number(inp[2]);
+  const d1 = digitType(n1), d2 = digitType(n2), d3 = digitType(n3);
+
+  // internal selection (kept private)
+  let selected = [];
+  if(d1 === d2 && d2 === d3) selected = [d1,d2,d3];
+  else if(d1 === d2) selected = [d1,d2];
+  else selected = [d3];
+
+  const bigCount = selected.filter(x => x === 'B').length;
+  const smallCount = selected.filter(x => x === 'S').length;
+
+  let final = '';
+  if(bigCount === 3) final = 'BIG';
+  else if(bigCount === 1 || bigCount === 2) final = 'SMALL';
+  else if(smallCount === 3) final = 'SMALL';
+  else if(smallCount === 1 || smallCount === 2) final = 'BIG';
+  else final = 'UNKNOWN';
+
+  // only reveal final and confidence
+  return { result: final, confidence: 100 };
+}
+
+/* =========================
+   UI: lock/unlock & analyze
+   ========================= */
+const PASS = 'Hlg9CsrfKBu376mhknbR';
+const btnUnlock = document.getElementById('btnUnlock');
+const btnAnalyze = document.getElementById('btnAnalyze');
+const btnClear = document.getElementById('btnClear');
+const passInput = document.getElementById('pass');
+const digitsInput = document.getElementById('digits');
+const statTotal = document.getElementById('statTotal');
+const statLast = document.getElementById('statLast');
+const statConf = document.getElementById('statConf');
+const resultCard = document.getElementById('resultCard');
+const resultBubble = document.getElementById('resultBubble');
+
+let stats = { total: 0, last: '—', conf: '100%' };
+
+btnUnlock.addEventListener('click', ()=>{
+  if(passInput.value.trim() === PASS){
+    passInput.value = '';
+    digitsInput.disabled = false;
+    btnAnalyze.disabled = false;
+    pushLine('VVIP PASS ACCEPTED — TOOL ENABLED');
+    // visual unlock
+    resultBubble.classList.remove('hidden');
+    resultBubble.style.opacity = '1';
+  } else {
+    pushLine('PASS REJECTED — ACCESS DENIED');
+    passInput.style.borderColor = '#ff4d4d';
+    setTimeout(()=>passInput.style.borderColor = '',700);
+  }
+});
+
+btnClear.addEventListener('click', ()=>{
+  screen.innerHTML = '';
+  pushLine('CONSOLE CLEARED');
+});
+
+/* sound: short pleasant tone using WebAudio */
+function playTone(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = 880;
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0.2, ctx.currentTime+0.01);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.45);
+    o.stop(ctx.currentTime+0.5);
+  }catch(e){/* ignore audio errors */ }
+}
+
+/* animate stat increment */
+function animateStat(targetEl, from, to, ms=420){
+  const start = performance.now();
+  function step(now){
+    const t = Math.min(1, (now-start)/ms);
+    const val = Math.floor(from + (to-from)*t);
+    targetEl.textContent = val;
+    if(t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+btnAnalyze.addEventListener('click', ()=>{
+  const v = digitsInput.value.trim();
+  if(!/^\d{3}$/.test(v)){
+    pushLine('INPUT ERROR — PROVIDE 3 DIGITS (0-9)');
+    return;
+  }
+
+  // show minimal process messages only
+  pushLine('ANALYSIS STARTED — INPUT RECEIVED');
+  // run analysis (internal)
+  const out = analyzeSecure(v);
+  if(!out){
+    pushLine('ANALYSIS FAILED');
+    return;
+  }
+
+  // stats update with animation
+  const prev = stats.total;
+  stats.total += 1;
+  stats.last = out.result;
+  stats.conf = out.confidence + '%';
+  animateStat(statTotal, prev, stats.total);
+  statLast.textContent = stats.last;
+  statConf.textContent = stats.conf;
+  resultCard.textContent = 'RESULT: ' + stats.last;
+
+  // UI result bubble & console minimal line (no internal details)
+  setTimeout(()=>{
+    resultBubble.textContent = 'RESULT: ' + out.result;
+    resultBubble.classList.remove('hidden');
+    // animate bubble pulse
+    resultBubble.style.transform = 'translateY(-6px)';
+    setTimeout(()=> resultBubble.style.transform = 'translateY(0)', 350);
+    pushLine('RESULT: ' + out.result + '  (CONF ' + out.confidence + '%)');
+    // sound & confetti
+    playTone();
+    spawnConfetti(64);
+  }, 380);
+
+  digitsInput.value = '';
+});
+
+/* initial lines */
+pushLine('SYSTEM BOOT — TREND ANALYSIS CONSOLE INITIALIZING');
+pushLine('TOOL LOCKED — ENTER PASS TO ENABLE');
+</script>
+</body>
+</html>
