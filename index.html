@@ -1,1166 +1,1439 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DUAL SYSTEM - VVIP Pro + TRX Pattern Analyzer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --vvip-green: #00ff7a;
-            --vvip-cyan: #00e6ff;
-            --trx-green: #00ff41;
-            --trx-cyan: #00ffff;
-            --danger: #ff0033;
-            --bg-dark: #0a0a0f;
-            --bg-darker: #05050a;
-            --card-bg: rgba(10, 20, 15, 0.7);
-            --vvip-card-bg: rgba(6, 17, 11, 0.8);
-            --trx-card-bg: rgba(0, 20, 10, 0.8);
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMAN PREDICTION - Web Hack Interface</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap');
 
-        * {
-            box-sizing: border-box;
-        }
+:root{
+  --bg1:#1a0000;
+  --bg2:#3b0000;
+  --gold:#ffd700;
+  --red:#ff3333;
+  --text:#fff5e6;
+  --muted:#fcd9b6;
+}
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at top,#3b0000 0%,#0b0000 100%);
+  overflow:hidden;
+  font-family:"Poppins",sans-serif;
+  color:var(--text);
+}
 
-        body {
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #001a0d 100%);
-            color: var(--vvip-green);
-            font-family: 'Share Tech Mono', monospace;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+/* ---- Spark particles ---- */
+canvas#sparks{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
 
-        /* Modern Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
+/* ---- Main Container ---- */
+.main-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
 
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
-        }
+/* ---- Web View Section ---- */
+.webview-section {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 20px;
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--vvip-green), var(--vvip-cyan));
-            border-radius: 5px;
-        }
+.webview-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  background: #000;
+}
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, var(--trx-green), var(--trx-cyan));
-        }
+/* ---- Floating Action Button ---- */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--gold));
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
 
-        /* Header Styles */
-        .main-header {
-            background: linear-gradient(90deg, rgba(0, 255, 122, 0.1), rgba(0, 255, 65, 0.1));
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 122, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(255, 51, 51, 0.8);
+}
 
-        /* VVIP Panel Styles */
-        .vvip-section {
-            background: linear-gradient(135deg, rgba(0, 40, 20, 0.3), rgba(0, 20, 40, 0.3));
-            border-radius: 20px;
-            border: 1px solid rgba(0, 255, 122, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 255, 122, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-        }
+@keyframes pulse {
+  0% { box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6); }
+  50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6); }
+}
 
-        .vvip-title {
-            background: linear-gradient(90deg, var(--vvip-green), var(--vvip-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 122, 0.3);
-        }
+/* ---- Floating Panel ---- */
+.floating-panel {
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  width: 380px;
+  height: 420px;
+  background: rgba(30,0,0,0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  z-index: 999;
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
 
-        .vvip-console {
-            background: linear-gradient(135deg, rgba(0, 10, 5, 0.9), rgba(0, 5, 10, 0.9));
-            border: 1px solid rgba(0, 255, 122, 0.15);
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+.floating-panel.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
 
-        .vvip-input {
-            background: rgba(0, 20, 10, 0.6);
-            border: 1px solid rgba(0, 255, 122, 0.3);
-            transition: all 0.3s ease;
-            color: var(--vvip-green);
-        }
+/* Password Overlay */
+.password-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,0,0,0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  z-index: 10;
+  border-radius: 20px;
+}
 
-        .vvip-input:focus {
-            outline: none;
-            border-color: var(--vvip-cyan);
-            box-shadow: 0 0 20px rgba(0, 255, 122, 0.3);
-        }
+.password-overlay h3 {
+  color: var(--gold);
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 22px;
+  text-shadow: 0 0 10px #ffae00;
+}
 
-        .vvip-btn {
-            background: linear-gradient(45deg, var(--vvip-green), var(--vvip-cyan));
-            border: none;
-            color: #000;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 255, 122, 0.3);
-        }
+.password-input {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
 
-        .vvip-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 255, 122, 0.5);
-        }
+.password-input:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
 
-        .vvip-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+.password-btn {
+  padding: 10px 25px;
+  background: linear-gradient(to right, var(--red), var(--gold));
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-        .vvip-stat-card {
-            background: rgba(0, 30, 15, 0.5);
-            border: 1px solid rgba(0, 255, 122, 0.2);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
+.password-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
 
-        .vvip-stat-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--vvip-cyan);
-            box-shadow: 0 8px 20px rgba(0, 255, 122, 0.2);
-        }
+.password-error {
+  color: var(--red);
+  font-size: 14px;
+  margin-top: 10px;
+  min-height: 20px;
+  text-align: center;
+}
 
-        /* TRX Panel Styles */
-        .trx-section {
-            background: linear-gradient(135deg, rgba(0, 30, 15, 0.3), rgba(0, 15, 30, 0.3));
-            border-radius: 20px;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-        }
+.panel-header {
+  padding: 20px;
+  background: linear-gradient(to right, rgba(255, 51, 51, 0.2), rgba(255, 215, 0, 0.2));
+  border-bottom: 1px solid var(--gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        .trx-title {
-            background: linear-gradient(90deg, var(--trx-green), var(--trx-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-        }
+.panel-header h3 {
+  margin: 0;
+  color: var(--gold);
+  font-size: 20px;
+  text-shadow: 0 0 10px #ffae00;
+}
 
-        .trx-card {
-            background: linear-gradient(135deg, rgba(0, 15, 7, 0.9), rgba(7, 0, 15, 0.9));
-            border: 1px solid rgba(0, 255, 65, 0.15);
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
+.close-btn {
+  background: var(--red);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
 
-        .trx-input {
-            background: rgba(0, 20, 10, 0.7);
-            border: 1px solid rgba(0, 255, 65, 0.4);
-            transition: all 0.3s ease;
-            color: var(--trx-green);
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-        }
+.close-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
 
-        .trx-input:focus {
-            outline: none;
-            border-color: var(--trx-cyan);
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
-        }
+.panel-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 320px;
+}
 
-        .trx-btn {
-            background: linear-gradient(45deg, #003b00, #001800);
-            border: 1px solid var(--trx-green);
-            color: var(--trx-green);
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
-            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4),
-                        0 0 30px rgba(0, 255, 65, 0.2);
-            transition: all 0.3s ease;
-        }
+/* ---- Card inside Panel ---- */
+.card{
+  position:relative;
+  z-index:1;
+  width:100%;
+  padding:20px;
+  text-align:center;
+  border-radius:18px;
+  background:rgba(30,0,0,0.6);
+  box-shadow:0 0 20px rgba(255,0,0,0.25);
+  backdrop-filter:blur(8px);
+  overflow:hidden;
+  margin-bottom: 20px;
+}
 
-        .trx-btn:hover:not(:disabled) {
-            background: linear-gradient(45deg, #005500, #002200);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 255, 65, 0.6),
-                        0 0 40px rgba(0, 255, 65, 0.3);
-            animation: trxPulse 1.5s infinite;
-        }
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:18px;
+  background:conic-gradient(from 0deg, #ff3333, #ffd700, #ff3333);
+  animation:spin 5s linear infinite;
+  z-index:-1;
+  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  padding:2px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-        @keyframes trxPulse {
-            0%, 100% { box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4), 0 0 30px rgba(0, 255, 65, 0.2); }
-            50% { box-shadow: 0 4px 20px rgba(0, 255, 65, 0.6), 0 0 40px rgba(0, 255, 65, 0.4); }
-        }
+/* ---- Content ---- */
+h1{
+  margin:0 0 15px;
+  font-size:20px;
+  letter-spacing:1px;
+  color:var(--gold);
+  text-shadow:0 0 10px #ffae00;
+}
 
-        .trx-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+.label{
+  font-size:12px;
+  color:var(--muted);
+  text-align:left;
+  margin-bottom:5px;
+}
+.box{
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:15px;
+}
+.period{
+  font-family:"Courier New",monospace;
+  font-size:14px;
+  color:#ffe8c6;
+  word-break:break-all;
+}
+.timer{
+  font-family:"Orbitron",monospace;
+  font-size:32px;
+  letter-spacing:2px;
+  text-shadow:0 0 15px #ff3333;
+}
+.prediction{
+  font-size:28px;
+  font-weight:700;
+  padding:10px 15px;
+  border-radius:8px;
+  display:inline-block;
+  min-width:150px;
+  transition:all 0.4s ease;
+  opacity:1;
+}
+.sm{
+  color:var(--gold);
+  box-shadow:0 0 15px 2px rgba(255,215,0,0.5);
+  background:rgba(255,215,0,0.08);
+}
+.bg{
+  color:var(--red);
+  box-shadow:0 0 15px 2px rgba(255,51,51,0.5);
+  background:rgba(255,51,51,0.08);
+}
+.fade{animation:fade 1.2s ease;}
+@keyframes fade{
+  0%{opacity:0;transform:scale(0.9);}
+  50%{opacity:1;transform:scale(1.05);}
+  100%{opacity:1;transform:scale(1);}
+}
+.meta{
+  font-size:11px;
+  color:var(--muted);
+  margin-top: 10px;
+}
 
-        .trx-badge {
-            background: rgba(0, 40, 20, 0.8);
-            border: 1px solid rgba(0, 255, 65, 0.5);
-            color: var(--trx-green);
-            text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
-        }
+/* ---- Web Hack Tools ---- */
+.hack-tools {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 51, 51, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 51, 51, 0.3);
+}
 
-        /* Animation Effects */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+.hack-tools h4 {
+  color: var(--gold);
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 16px;
+}
 
-        @keyframes glow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
+.tool-btn {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(1000%); }
-        }
+.tool-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
 
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
+.tool-btn i {
+  font-size: 18px;
+}
 
-        .glowing {
-            animation: glow 2s ease-in-out infinite;
-        }
+/* Pulse */
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 10px 2px currentColor;}
+  50%{box-shadow:0 0 25px 5px currentColor;}
+  100%{box-shadow:0 0 10px 2px currentColor;}
+}
 
-        /* Status Indicators */
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .status-dot.active {
-            background: var(--vvip-green);
-            box-shadow: 0 0 20px rgba(0, 255, 122, 0.7);
-        }
-
-        .status-dot.active::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 50%;
-            border: 2px solid var(--vvip-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.8; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
-        /* Console Lines */
-        .console-line {
-            padding: 8px 12px;
-            margin: 4px 0;
-            border-left: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .console-line:hover {
-            background: rgba(0, 255, 122, 0.05);
-            border-left-color: var(--vvip-green);
-        }
-
-        .console-line.error {
-            border-left-color: var(--danger);
-            background: rgba(255, 0, 51, 0.05);
-        }
-
-        .console-line.success {
-            border-left-color: var(--vvip-green);
-            background: rgba(0, 255, 122, 0.05);
-        }
-
-        /* Matrix Effect */
-        .matrix-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .matrix-char {
-            position: absolute;
-            color: rgba(0, 255, 65, 0.15);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 14px;
-            opacity: 0;
-            animation: matrixRain 10s linear infinite;
-        }
-
-        @keyframes matrixRain {
-            0% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Separator */
-        .section-divider {
-            position: relative;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--vvip-green), 
-                var(--trx-green), 
-                transparent
-            );
-            margin: 40px 0;
-            border-radius: 1px;
-        }
-
-        .divider-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--bg-dark);
-            padding: 0 20px;
-            font-size: 14px;
-            color: var(--vvip-cyan);
-            text-shadow: 0 0 10px rgba(0, 230, 255, 0.5);
-            white-space: nowrap;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-            
-            .vvip-console, .trx-card {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .section-divider {
-                margin: 20px 0;
-            }
-            
-            .divider-text {
-                font-size: 12px;
-                padding: 0 10px;
-            }
-        }
-    </style>
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  
+  .webview-section {
+    height: 60%;
+  }
+  
+  .floating-panel {
+    width: 90%;
+    right: 5%;
+    bottom: 100px;
+    height: 350px;
+  }
+  
+  .floating-btn {
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+  }
+  
+  .panel-content {
+    height: 250px;
+  }
+}
+</style>
 </head>
 <body>
-    <!-- Matrix Background -->
-    <div class="matrix-container" id="matrix-bg"></div>
+<canvas id="sparks"></canvas>
 
-    <!-- Main Container -->
-    <div class="min-h-screen p-4">
-        <!-- Header -->
-        <header class="main-header rounded-2xl mb-8 p-6 floating">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-center md:text-left">
-                    <h1 class="text-4xl font-bold mb-2 font-['Orbitron']">
-                        <span class="vvip-title">VVIP PRO PANEL</span> 
-                        <span class="text-white mx-2">+</span>
-                        <span class="trx-title">TRX HACK</span>
-                    </h1>
-                    <p class="text-gray-400 text-sm font-['Share_Tech_Mono']">
-                        DUAL PATTERN ANALYSIS SYSTEM • SECURE ACCESS REQUIRED
-                    </p>
-                </div>
-                <div class="status-indicator">
-                    <div class="status-dot active"></div>
-                    <span class="text-sm font-['Share_Tech_Mono']" id="system-status">SYSTEM ONLINE</span>
-                </div>
-            </div>
-        </header>
+<div class="main-container">
+  <!-- Web View Section -->
+  <div class="webview-section">
+    <iframe 
+      src="https://www.cklottery.online/#/register?invitationCode=35651671244" 
+      class="webview-frame" 
+      id="webview"
+      title="CK Lottery"
+      allow="autoplay; encrypted-media"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    ></iframe>
+  </div>
+</div>
 
-        <!-- Main Content -->
-        <div class="max-w-7xl mx-auto">
-            <!-- VVIP Section -->
-            <section class="vvip-section p-6 mb-8">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold font-['Orbitron'] vvip-title">
-                        <i class="fas fa-crown mr-3"></i>VVIP PRO PANEL v8.0
-                    </h2>
-                    <div class="flex items-center gap-4">
-                        <div class="text-sm font-['Share_Tech_Mono'] text-gray-400" id="vvip-uptime">
-                            <i class="fas fa-clock mr-2"></i>UPTIME: 00:00:00
-                        </div>
-                        <div class="text-sm font-['Share_Tech_Mono']" id="vvip-status">
-                            <span class="px-3 py-1 rounded-full bg-red-900/30 text-red-400">
-                                <i class="fas fa-lock mr-2"></i>LOCKED
-                            </span>
-                        </div>
-                    </div>
-                </div>
+<!-- Floating Action Button -->
+<button class="floating-btn" id="floatingBtn">
+  ⚡
+</button>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Console -->
-                    <div class="lg:col-span-2">
-                        <div class="vvip-console rounded-xl p-4 h-96">
-                            <div class="h-full overflow-y-auto" id="vvip-screen">
-                                <div class="console-line success">
-                                    <span class="text-cyan-400">[SYSTEM]</span> VVIP Pro Panel Initialized
-                                </div>
-                                <div class="console-line">
-                                    <span class="text-cyan-400">[AUTH]</span> System Locked - Enter Password
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- Floating Panel -->
+<div class="floating-panel" id="floatingPanel">
+  <!-- Password Overlay -->
+  <div class="password-overlay" id="passwordOverlay">
+    <h3>ENTER PASSWORD</h3>
+    <input type="password" class="password-input" id="passwordInput" placeholder="Enter password..." autocomplete="off">
+    <button class="password-btn" id="passwordSubmit">UNLOCK</button>
+    <div class="password-error" id="passwordError"></div>
+  </div>
+  
+  <div class="panel-header">
+    <h3>HTML WEB HACK</h3>
+    <button class="close-btn" id="closePanel">×</button>
+  </div>
+  
+  <div class="panel-content">
+    <!-- Prediction Card -->
+    <div class="card">
+      <h1>AMAN PREDICTION NUMBER TRENDS BASE</h1>
 
-                    <!-- Controls -->
-                    <div class="space-y-6">
-                        <!-- Access Control -->
-                        <div class="p-4 rounded-xl bg-black/30 border border-white/10">
-                            <h3 class="font-bold mb-4 text-cyan-400">
-                                <i class="fas fa-key mr-2"></i>ACCESS CONTROL
-                            </h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <input 
-                                        type="password" 
-                                        id="vvip-pass" 
-                                        placeholder="ENTER VVIP PASSWORD"
-                                        class="w-full vvip-input rounded-lg px-4 py-3 font-['Share_Tech_Mono']"
-                                    >
-                                </div>
-                                <div class="flex gap-3">
-                                    <button 
-                                        id="vvip-btnUnlock"
-                                        class="flex-1 vvip-btn rounded-lg py-3 font-bold"
-                                    >
-                                        <i class="fas fa-unlock mr-2"></i>UNLOCK
-                                    </button>
-                                    <button 
-                                        id="vvip-btnClear"
-                                        class="flex-1 bg-gray-800 text-gray-300 rounded-lg py-3 font-bold border border-gray-700"
-                                    >
-                                        <i class="fas fa-eraser mr-2"></i>CLEAR
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+      <div class="box">
+        <div class="label">Period number</div>
+        <div id="period" class="period">Loading...</div>
+      </div>
 
-                        <!-- Analysis Panel -->
-                        <div class="p-4 rounded-xl bg-black/30 border border-white/10">
-                            <h3 class="font-bold mb-4 text-cyan-400">
-                                <i class="fas fa-bolt mr-2"></i>PATTERN ANALYSIS
-                            </h3>
-                            <div class="space-y-4">
-                                <input 
-                                    type="text" 
-                                    id="vvip-digits" 
-                                    maxlength="3"
-                                    placeholder="3 DIGITS (0-9)"
-                                    disabled
-                                    class="w-full vvip-input rounded-lg px-4 py-3 text-center text-2xl font-bold font-['Share_Tech_Mono']"
-                                >
-                                <button 
-                                    id="vvip-btnAnalyze"
-                                    disabled
-                                    class="w-full vvip-btn rounded-lg py-3 text-lg font-bold"
-                                >
-                                    <i class="fas fa-play mr-2"></i>ANALYZE
-                                </button>
-                            </div>
-                        </div>
+      <div class="box">
+        <div class="label">Countdown to next minute</div>
+        <div id="timer" class="timer">00 : 00</div>
+      </div>
 
-                        <!-- Stats -->
-                        <div class="p-4 rounded-xl bg-black/30 border border-white/10">
-                            <h3 class="font-bold mb-4 text-cyan-400">
-                                <i class="fas fa-chart-bar mr-2"></i>STATISTICS
-                            </h3>
-                            <div class="grid grid-cols-3 gap-3">
-                                <div class="vvip-stat-card p-3 text-center">
-                                    <div class="text-xs text-gray-400 mb-1">ANALYSES</div>
-                                    <div class="text-2xl font-bold vvip-title" id="vvip-statTotal">0</div>
-                                </div>
-                                <div class="vvip-stat-card p-3 text-center">
-                                    <div class="text-xs text-gray-400 mb-1">LAST</div>
-                                    <div class="text-2xl font-bold text-white" id="vvip-statLast">—</div>
-                                </div>
-                                <div class="vvip-stat-card p-3 text-center">
-                                    <div class="text-xs text-gray-400 mb-1">CONF</div>
-                                    <div class="text-2xl font-bold text-green-400" id="vvip-statConf">100%</div>
-                                </div>
-                            </div>
-                            <div class="mt-4 p-3 rounded-lg bg-green-900/20 border border-green-500/30">
-                                <div class="text-center font-bold text-green-400" id="vvip-resultCard">
-                                    RESULT: —
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <div class="box">
+        <div class="label">Prediction</div>
+        <div id="main" class="prediction sm">SMALL 0</div>
+      </div>
 
-            <!-- Separator -->
-            <div class="section-divider">
-                <div class="divider-text font-['Orbitron']">
-                    <i class="fas fa-code-branch mr-2"></i>SECONDARY SYSTEM
-                </div>
-            </div>
-
-            <!-- TRX Section -->
-            <section class="trx-section p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold font-['Orbitron'] trx-title">
-                        <i class="fas fa-terminal mr-3"></i>TRX HACK v2.0
-                    </h2>
-                    <div class="text-sm font-['Share_Tech_Mono']" id="trx-status">
-                        <span class="px-3 py-1 rounded-full bg-red-900/30 text-red-400">
-                            <i class="fas fa-lock mr-2"></i>LOCKED
-                        </span>
-                    </div>
-                </div>
-
-                <!-- TRX Lock Screen -->
-                <div id="trx-lock-screen" class="trx-card rounded-xl p-8 text-center">
-                    <div class="mb-6">
-                        <i class="fas fa-lock text-6xl mb-4 text-red-500/50"></i>
-                        <h3 class="text-2xl font-bold mb-2 text-white">SYSTEM LOCKED</h3>
-                        <p class="text-gray-400">Enter TRX Access Code to unlock quantum analysis system</p>
-                    </div>
-                    <div class="max-w-md mx-auto space-y-4">
-                        <input 
-                            type="password" 
-                            id="trx-password"
-                            placeholder="ENTER TRX ACCESS CODE"
-                            class="w-full trx-input rounded-lg px-4 py-3 text-center font-['Share_Tech_Mono']"
-                        >
-                        <button 
-                            id="trx-unlock-btn"
-                            class="w-full trx-btn rounded-lg py-3 text-lg font-bold font-['Share_Tech_Mono']"
-                        >
-                            <i class="fas fa-unlock-alt mr-2"></i>UNLOCK TRX SYSTEM
-                        </button>
-                    </div>
-                    <div class="mt-6 text-sm text-gray-500">
-                        <i class="fas fa-shield-alt mr-2"></i>
-                        Quantum Pattern Recognition • Encrypted Access
-                    </div>
-                </div>
-
-                <!-- TRX Content (Hidden Initially) -->
-                <div id="trx-content" class="hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <!-- Main Panel -->
-                        <div class="trx-card rounded-xl p-6">
-                            <h3 class="font-bold mb-4 text-cyan-400">
-                                <i class="fas fa-bolt mr-2"></i>QUANTUM ANALYSIS
-                            </h3>
-                            <div class="space-y-6">
-                                <div>
-                                    <label class="block mb-2 text-gray-400">
-                                        <i class="fas fa-keyboard mr-2"></i>INPUT SEQUENCE (3 DIGITS)
-                                    </label>
-                                    <input 
-                                        type="text" 
-                                        id="trx-digits"
-                                        maxlength="3"
-                                        placeholder="123"
-                                        class="w-full trx-input rounded-lg px-4 py-4 text-center text-3xl font-bold font-['Share_Tech_Mono']"
-                                    >
-                                </div>
-                                <button 
-                                    id="trx-analyze-btn"
-                                    class="w-full trx-btn rounded-lg py-4 text-xl font-bold font-['Share_Tech_Mono']"
-                                >
-                                    <i class="fas fa-bolt mr-2"></i>INITIATE QUANTUM ANALYSIS
-                                </button>
-                                <div 
-                                    id="trx-result-display" 
-                                    class="min-h-[120px] flex flex-col items-center justify-center rounded-lg border border-white/10 p-6"
-                                >
-                                    <div class="text-gray-500 text-lg">
-                                        <i class="fas fa-microchip mr-2"></i>SYSTEM READY
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Stats Panel -->
-                        <div class="space-y-6">
-                            <div class="trx-card rounded-xl p-6">
-                                <h3 class="font-bold mb-4 text-cyan-400">
-                                    <i class="fas fa-chart-line mr-2"></i>ANALYTICS
-                                </h3>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-gray-400">Total Analysis</span>
-                                        <span id="trx-total-predictions" class="trx-badge px-3 py-1 rounded-full font-bold">0</span>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div class="p-4 rounded-lg bg-green-900/20 border border-green-500/30">
-                                            <div class="text-gray-400 text-sm">BIG PATTERN</div>
-                                            <div class="text-2xl font-bold text-green-400" id="trx-big-count">0</div>
-                                        </div>
-                                        <div class="p-4 rounded-lg bg-blue-900/20 border border-blue-500/30">
-                                            <div class="text-gray-400 text-sm">SMALL PATTERN</div>
-                                            <div class="text-2xl font-bold text-blue-400" id="trx-small-count">0</div>
-                                        </div>
-                                    </div>
-                                    <button 
-                                        id="trx-clear-history-btn"
-                                        class="w-full bg-red-900/20 text-red-400 rounded-lg py-2 font-bold border border-red-500/30 hidden"
-                                    >
-                                        <i class="fas fa-trash mr-2"></i>PURGE DATA
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="trx-card rounded-xl p-6">
-                                <h3 class="font-bold mb-4 text-cyan-400">
-                                    <i class="fas fa-history mr-2"></i>ANALYSIS LOG
-                                </h3>
-                                <div 
-                                    id="trx-history-list" 
-                                    class="space-y-2 max-h-48 overflow-y-auto"
-                                >
-                                    <div class="text-center py-8 text-gray-500">
-                                        <i class="fas fa-database text-2xl mb-2 block"></i>
-                                        NO DATA RECORDED
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-xs text-gray-500 flex justify-between">
-                                    <span>LOG SIZE: <span id="trx-log-size">0</span>/10</span>
-                                    <span id="trx-last-update">--:--:--</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- System Status -->
-                    <div class="trx-card rounded-xl p-4">
-                        <div class="flex justify-between items-center">
-                            <div class="font-['Share_Tech_Mono']">
-                                <i class="fas fa-shield-alt mr-2 text-cyan-400"></i>
-                                SECURITY STATUS: 
-                                <span class="text-green-400 font-bold">ENCRYPTED</span>
-                            </div>
-                            <div class="flex gap-2">
-                                <div class="w-3 h-3 rounded-full bg-green-500 glowing"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500 glowing" style="animation-delay: 0.2s"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-500 glowing" style="animation-delay: 0.4s"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-12 text-center text-gray-500 text-sm font-['Share_Tech_Mono']">
-            <div class="mb-2">
-                <span class="text-green-400">DUAL SYSTEM v3.0</span> • 
-                <span class="text-cyan-400">QUANTUM PATTERN RECOGNITION</span> • 
-                <span class="text-red-400">FOR AUTHORIZED USE ONLY</span>
-            </div>
-            <div>DEVELOPER: @DarkSize501 • SECURITY LEVEL: MAXIMUM • ALL RIGHTS RESERVED</div>
-        </footer>
+      <div class="meta">Timezone used: <strong>UTC</strong></div>
     </div>
+    
+    <!-- Web Hack Tools -->
+    <div class="hack-tools">
+      <h4>Web Hack Tools</h4>
+      <button class="tool-btn" id="inspectBtn">
+        <span>🔍</span> Inspect Element
+      </button>
+      <button class="tool-btn" id="refreshBtn">
+        <span>🔄</span> Refresh WebView
+      </button>
+      <button class="tool-btn" id="consoleBtn">
+        <span>📟</span> Open Console
+      </button>
+      <button class="tool-btn" id="dataBtn">
+        <span>📊</span> Extract Data
+      </button>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // =========================
-        // Matrix Background Effect
-        // =========================
-        function createMatrixEffect() {
-            const container = document.getElementById('matrix-bg');
-            const chars = '01';
-            
-            for (let i = 0; i < 100; i++) {
-                const char = document.createElement('div');
-                char.className = 'matrix-char';
-                char.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
-                char.style.left = Math.random() * 100 + 'vw';
-                char.style.animationDelay = Math.random() * 10 + 's';
-                char.style.fontSize = (10 + Math.random() * 10) + 'px';
-                char.style.opacity = 0.1 + Math.random() * 0.2;
-                container.appendChild(char);
-            }
-        }
+<!-- 🔔 Beep sound -->
+<audio id="beep" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
 
-        // =========================
-        // VVIP PRO PANEL SYSTEM
-        // =========================
-        const VVIP_PASSWORD = 'Hlg9CsrfKBu376mhknbR';
-        let vvipStats = { total: 0, last: '—', conf: '100%' };
-        let vvipSeconds = 0;
+<script>
+// --- Elements
+const periodEl = document.getElementById('period');
+const timerEl = document.getElementById('timer');
+const mainEl = document.getElementById('main');
+const beep = document.getElementById('beep');
+const floatingBtn = document.getElementById('floatingBtn');
+const floatingPanel = document.getElementById('floatingPanel');
+const closePanel = document.getElementById('closePanel');
+const webview = document.getElementById('webview');
+const inspectBtn = document.getElementById('inspectBtn');
+const refreshBtn = document.getElementById('refreshBtn');
+const consoleBtn = document.getElementById('consoleBtn');
+const dataBtn = document.getElementById('dataBtn');
 
-        // DOM Elements
-        const vvipScreen = document.getElementById('vvip-screen');
-        const vvipPassInput = document.getElementById('vvip-pass');
-        const vvipDigitsInput = document.getElementById('vvip-digits');
-        const vvipBtnUnlock = document.getElementById('vvip-btnUnlock');
-        const vvipBtnAnalyze = document.getElementById('vvip-btnAnalyze');
-        const vvipBtnClear = document.getElementById('vvip-btnClear');
-        const vvipStatTotal = document.getElementById('vvip-statTotal');
-        const vvipStatLast = document.getElementById('vvip-statLast');
-        const vvipStatConf = document.getElementById('vvip-statConf');
-        const vvipResultCard = document.getElementById('vvip-resultCard');
-        const vvipStatus = document.getElementById('vvip-status');
-        const vvipUptime = document.getElementById('vvip-uptime');
+// Password elements
+const passwordOverlay = document.getElementById('passwordOverlay');
+const passwordInput = document.getElementById('passwordInput');
+const passwordSubmit = document.getElementById('passwordSubmit');
+const passwordError = document.getElementById('passwordError');
 
-        // VVIP Console Functions
-        function vvipPushLine(text, type = 'info') {
-            const line = document.createElement('div');
-            line.className = `console-line ${type}`;
-            line.innerHTML = `
-                <span class="text-cyan-400">[${new Date().toLocaleTimeString()}]</span> ${text}
-            `;
-            vvipScreen.appendChild(line);
-            
-            // Limit console size
-            while (vvipScreen.children.length > 50) {
-                vvipScreen.removeChild(vvipScreen.firstChild);
-            }
-            
-            vvipScreen.scrollTop = vvipScreen.scrollHeight;
-        }
+// --- Password Configuration
+const CORRECT_PASSWORD = "CKLOTTERYHACK";
+let isUnlocked = false;
 
-        // VVIP Uptime Counter
-        setInterval(() => {
-            vvipSeconds++;
-            const h = String(Math.floor(vvipSeconds / 3600)).padStart(2, '0');
-            const m = String(Math.floor((vvipSeconds % 3600) / 60)).padStart(2, '0');
-            const s = String(vvipSeconds % 60).padStart(2, '0');
-            vvipUptime.innerHTML = `<i class="fas fa-clock mr-2"></i>UPTIME: ${h}:${m}:${s}`;
-        }, 1000);
+// --- Password Check Function
+function checkPassword() {
+  const input = passwordInput.value.trim();
+  
+  if (input === CORRECT_PASSWORD) {
+    isUnlocked = true;
+    passwordOverlay.style.display = 'none';
+    passwordError.textContent = '';
+    passwordInput.value = '';
+    
+    // Enable panel content interaction
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    });
+    
+    console.log('Panel unlocked successfully');
+  } else {
+    passwordError.textContent = 'Incorrect password! Try again.';
+    passwordInput.value = '';
+    passwordInput.focus();
+    
+    // Shake animation for error
+    passwordInput.style.animation = 'none';
+    setTimeout(() => {
+      passwordInput.style.animation = 'shake 0.5s';
+    }, 10);
+  }
+}
 
-        // VVIP Analysis Algorithm
-        function vvipDigitType(n) { return n <= 4 ? 'S' : 'B'; }
+// Add shake animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+`;
+document.head.appendChild(style);
 
-        function vvipAnalyzeSecure(inp) {
-            if (!/^\d{3}$/.test(inp)) return null;
-            
-            const n1 = Number(inp[0]), n2 = Number(inp[1]), n3 = Number(inp[2]);
-            const d1 = vvipDigitType(n1), d2 = vvipDigitType(n2), d3 = vvipDigitType(n3);
+// --- Password Event Listeners
+passwordSubmit.addEventListener('click', checkPassword);
+passwordInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    checkPassword();
+  }
+});
 
-            let selected = [];
-            if (d1 === d2 && d2 === d3) selected = [d1, d2, d3];
-            else if (d1 === d2) selected = [d1, d2];
-            else selected = [d3];
+// Initially disable tool buttons until unlocked
+document.querySelectorAll('.tool-btn').forEach(btn => {
+  btn.style.pointerEvents = 'none';
+  btn.style.opacity = '0.6';
+});
 
-            const bigCount = selected.filter(x => x === 'B').length;
-            const smallCount = selected.filter(x => x === 'S').length;
+// --- Floating Panel Control
+floatingBtn.addEventListener('click', () => {
+  if (!isUnlocked) {
+    passwordOverlay.style.display = 'flex';
+    passwordInput.focus();
+  }
+  floatingPanel.classList.toggle('active');
+});
 
-            let final = '';
-            if (bigCount === 3) final = 'BIG';
-            else if (bigCount === 1 || bigCount === 2) final = 'SMALL';
-            else if (smallCount === 3) final = 'SMALL';
-            else if (smallCount === 1 || smallCount === 2) final = 'BIG';
-            else final = 'UNKNOWN';
+closePanel.addEventListener('click', () => {
+  floatingPanel.classList.remove('active');
+});
 
-            return { result: final, confidence: 100 };
-        }
+// --- Web Hack Tools Functions
+inspectBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Inspect Element tool activated. Use browser DevTools (F12) to inspect the webview.');
+  console.log('Web Hack: Inspect Element tool activated');
+});
 
-        // VVIP Unlock System
-        vvipBtnUnlock.addEventListener('click', () => {
-            if (vvipPassInput.value.trim() === VVIP_PASSWORD) {
-                vvipPassInput.value = '';
-                vvipDigitsInput.disabled = false;
-                vvipBtnAnalyze.disabled = false;
-                
-                // Update UI
-                vvipStatus.innerHTML = `
-                    <span class="px-3 py-1 rounded-full bg-green-900/30 text-green-400">
-                        <i class="fas fa-unlock mr-2"></i>ACTIVE
-                    </span>
-                `;
-                
-                vvipPushLine('VVIP PASS ACCEPTED — SYSTEM UNLOCKED', 'success');
-                vvipPushLine('READY FOR PATTERN ANALYSIS', 'success');
-                
-                // Visual feedback
-                vvipBtnUnlock.innerHTML = '<i class="fas fa-check mr-2"></i>UNLOCKED';
-                vvipBtnUnlock.classList.remove('vvip-btn');
-                vvipBtnUnlock.classList.add('bg-green-900', 'text-green-400', 'border', 'border-green-500');
-                
-            } else {
-                vvipPushLine('ACCESS DENIED — INVALID PASSWORD', 'error');
-                vvipPassInput.style.borderColor = '#ff0033';
-                vvipPassInput.style.boxShadow = '0 0 20px rgba(255, 0, 51, 0.5)';
-                
-                setTimeout(() => {
-                    vvipPassInput.style.borderColor = '';
-                    vvipPassInput.style.boxShadow = '';
-                }, 1000);
-            }
-        });
+refreshBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  webview.src = webview.src;
+  alert('WebView refreshed successfully!');
+  console.log('Web Hack: WebView refreshed');
+});
 
-        // VVIP Clear Console
-        vvipBtnClear.addEventListener('click', () => {
-            vvipScreen.innerHTML = '';
-            vvipPushLine('CONSOLE CLEARED — READY FOR NEW SESSION', 'info');
-        });
+consoleBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Console mode activated. Check browser console for webview data.');
+  console.log('=== WEB HACK CONSOLE ===');
+  console.log('WebView URL:', webview.src);
+  console.log('WebView Dimensions:', {
+    width: webview.offsetWidth,
+    height: webview.offsetHeight
+  });
+  console.log('Current Prediction:', mainEl.textContent);
+  console.log('=====================');
+});
 
-        // VVIP Analyze
-        vvipBtnAnalyze.addEventListener('click', () => {
-            const digits = vvipDigitsInput.value.trim();
-            
-            if (!/^\d{3}$/.test(digits)) {
-                vvipPushLine('ERROR — PROVIDE 3 DIGITS (0-9)', 'error');
-                return;
-            }
+dataBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Data extraction initiated. Check console for extracted information.');
+  console.log('=== WEB HACK DATA EXTRACTION ===');
+  console.log('1. Current Time:', new Date().toISOString());
+  console.log('2. Prediction Data:', {
+    number: mainEl.textContent.split(' ')[1],
+    type: mainEl.textContent.split(' ')[0],
+    period: periodEl.textContent
+  });
+  console.log('3. WebView Information:', {
+    url: webview.src,
+    domain: new URL(webview.src).hostname,
+    isSecure: webview.src.startsWith('https')
+  });
+  console.log('4. User Agent:', navigator.userAgent);
+  console.log('==============================');
+});
 
-            vvipPushLine(`ANALYSIS STARTED — INPUT: ${digits}`, 'info');
-            vvipBtnAnalyze.disabled = true;
-            vvipBtnAnalyze.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>ANALYZING...';
+// --- Helpers
+function pad(n, s = 2) {
+  return String(n).padStart(s, '0');
+}
 
-            setTimeout(() => {
-                const result = vvipAnalyzeSecure(digits);
-                
-                if (result) {
-                    // Update stats
-                    vvipStats.total++;
-                    vvipStats.last = result.result;
-                    vvipStats.conf = result.confidence + '%';
-                    
-                    // Animate stat update
-                    vvipStatTotal.textContent = vvipStats.total;
-                    vvipStatLast.textContent = result.result;
-                    vvipStatConf.textContent = vvipStats.conf;
-                    
-                    // Update result card
-                    vvipResultCard.innerHTML = `
-                        RESULT: <span class="text-2xl ${result.result === 'BIG' ? 'text-green-400' : 'text-blue-400'}">${result.result}</span>
-                    `;
-                    
-                    vvipPushLine(`RESULT: ${result.result} — CONFIDENCE: ${result.confidence}%`, 'success');
-                    
-                    // Visual effects
-                    vvipResultCard.style.animation = 'none';
-                    setTimeout(() => {
-                        vvipResultCard.style.animation = 'glow 2s ease-in-out';
-                    }, 10);
-                } else {
-                    vvipPushLine('ANALYSIS FAILED — INVALID INPUT', 'error');
-                }
+function buildPeriodString(d) {
+  const yyyy = d.getUTCFullYear();
+  const mm = pad(d.getUTCMonth() + 1);
+  const dd = pad(d.getUTCDate());
+  const h = d.getUTCHours(), m = d.getUTCMinutes();
+  return `${yyyy}${mm}${dd}1000${10001 + (h * 60 + m)}`;
+}
 
-                vvipBtnAnalyze.disabled = false;
-                vvipBtnAnalyze.innerHTML = '<i class="fas fa-play mr-2"></i>ANALYZE';
-                vvipDigitsInput.value = '';
-            }, 1500);
-        });
+function makePrediction() {
+  const num = Math.floor(Math.random() * 10);
+  return { num, size: (num <= 4 ? "SMALL" : "BIG") };
+}
 
-        // =========================
-        // TRX HACK SYSTEM
-        // =========================
-        const TRX_PASSWORD = 'Hlg9CsrfKBu376mhknbR';
-        let trxStats = { big: 0, small: 0, total: 0 };
-        let trxHistory = [];
-        let trxUnlocked = false;
+// --- Update logic
+function updatePrediction() {
+  const now = new Date();
+  periodEl.textContent = buildPeriodString(now);
+  const p = makePrediction();
+  mainEl.textContent = `${p.size} ${p.num}`;
+  mainEl.className = "prediction fade " + (p.size === "SMALL" ? "sm" : "bg");
+  mainEl.style.animation = "pulseGlow 2s ease";
+  setTimeout(() => mainEl.style.animation = '', 2000);
+  try {
+    beep.currentTime = 0;
+    beep.play();
+  } catch (e) {}
+}
 
-        // DOM Elements
-        const trxLockScreen = document.getElementById('trx-lock-screen');
-        const trxContent = document.getElementById('trx-content');
-        const trxPasswordInput = document.getElementById('trx-password');
-        const trxUnlockBtn = document.getElementById('trx-unlock-btn');
-        const trxDigitsInput = document.getElementById('trx-digits');
-        const trxAnalyzeBtn = document.getElementById('trx-analyze-btn');
-        const trxResultDisplay = document.getElementById('trx-result-display');
-        const trxTotalPredictions = document.getElementById('trx-total-predictions');
-        const trxBigCount = document.getElementById('trx-big-count');
-        const trxSmallCount = document.getElementById('trx-small-count');
-        const trxClearHistoryBtn = document.getElementById('trx-clear-history-btn');
-        const trxHistoryList = document.getElementById('trx-history-list');
-        const trxLogSize = document.getElementById('trx-log-size');
-        const trxLastUpdate = document.getElementById('trx-last-update');
-        const trxStatus = document.getElementById('trx-status');
+function tick() {
+  const now = new Date();
+  const sec = now.getUTCSeconds();
+  const rem = 59 - sec;
+  timerEl.textContent = `   ${pad(0)}  :  ${pad(rem)}`.replace(/(?<=\\d)(?=\\d)/g, ' ');
+  if (sec === 0) updatePrediction();
+}
 
-        // TRX Unlock System
-        trxUnlockBtn.addEventListener('click', () => {
-            const password = trxPasswordInput.value.trim();
-            
-            if (password === TRX_PASSWORD) {
-                trxUnlocked = true;
-                trxPasswordInput.value = '';
-                
-                // Show TRX content
-                trxLockScreen.classList.add('hidden');
-                trxContent.classList.remove('hidden');
-                
-                // Update status
-                trxStatus.innerHTML = `
-                    <span class="px-3 py-1 rounded-full bg-green-900/30 text-green-400">
-                        <i class="fas fa-unlock mr-2"></i>ACTIVE
-                    </span>
-                `;
-                
-                // Visual effects
-                trxUnlockBtn.innerHTML = '<i class="fas fa-check mr-2"></i>UNLOCKED';
-                trxUnlockBtn.classList.remove('trx-btn');
-                trxUnlockBtn.classList.add('bg-green-900', 'text-green-400', 'border', 'border-green-500');
-                
-                // Add matrix particles
-                for (let i = 0; i < 20; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'matrix-char';
-                    particle.textContent = Math.random() > 0.5 ? '1' : '0';
-                    particle.style.left = Math.random() * 100 + 'vw';
-                    particle.style.top = '50%';
-                    particle.style.animation = 'matrixRain 2s linear forwards';
-                    document.getElementById('matrix-bg').appendChild(particle);
-                    
-                    setTimeout(() => particle.remove(), 2000);
-                }
-                
-            } else {
-                // Error effect
-                trxPasswordInput.style.borderColor = '#ff0033';
-                trxPasswordInput.style.boxShadow = '0 0 25px rgba(255, 0, 51, 0.5)';
-                
-                trxLockScreen.style.animation = 'none';
-                setTimeout(() => {
-                    trxLockScreen.style.animation = 'float 0.5s ease-in-out';
-                }, 10);
-                
-                setTimeout(() => {
-                    trxPasswordInput.style.borderColor = '';
-                    trxPasswordInput.style.boxShadow = '';
-                }, 1000);
-            }
-        });
+updatePrediction();
+setInterval(tick, 1000);
 
-        // TRX Analysis Algorithm
-        function trxAnalyzeDigits(digits) {
-            const nums = digits.split('').map(Number);
-            const [first, second, third] = nums;
-            
-            // Advanced analysis
-            const sum = first + second + third;
-            const product = first * second * third;
-            const range = Math.max(...nums) - Math.min(...nums);
-            
-            let bigScore = 0;
-            
-            if (sum >= 15) bigScore += 25;
-            else if (sum <= 8) bigScore -= 20;
-            
-            if (product >= 50) bigScore += 20;
-            else if (product === 0) bigScore -= 25;
-            
-            if (range >= 7) bigScore += 10;
-            else if (range <= 2) bigScore -= 15;
-            
-            const evenCount = nums.filter(n => n % 2 === 0).length;
-            if (evenCount >= 2) bigScore += 8;
-            else bigScore -= 5;
-            
-            if (new Set(nums).size < 3) bigScore -= 12;
-            if (nums.includes(7) || nums.includes(8) || nums.includes(9)) bigScore += 12;
-            
-            const randomFactor = (Math.random() - 0.5) * 20;
-            const finalScore = bigScore + randomFactor;
-            
-            const isBig = finalScore > 0;
-            const confidence = Math.min(95, Math.max(60, Math.abs(finalScore) + 60));
-            
-            return {
-                result: isBig ? 'BIG' : 'SMALL',
-                confidence: Math.round(confidence)
-            };
-        }
+// --- Spark animation background ---
+const c = document.getElementById('sparks'), ctx = c.getContext('2d');
+let w, h, particles = [];
 
-        // TRX Analyze Function
-        trxAnalyzeBtn.addEventListener('click', () => {
-            if (!trxUnlocked) return;
-            
-            const digits = trxDigitsInput.value.trim();
-            
-            if (!/^\d{3}$/.test(digits)) {
-                trxResultDisplay.innerHTML = `
-                    <div class="text-red-500 text-xl">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        ENTER 3 DIGITS
-                    </div>
-                `;
-                return;
-            }
+function resize() {
+  w = window.innerWidth;
+  h = window.innerHeight;
+  c.width = w;
+  c.height = h;
+}
 
-            // Show analyzing animation
-            trxAnalyzeBtn.disabled = true;
-            trxAnalyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>ANALYZING...';
-            
-            trxResultDisplay.innerHTML = `
-                <div class="text-center space-y-4">
-                    <div class="text-cyan-400 text-lg">
-                        <i class="fas fa-cog fa-spin mr-2"></i>
-                        QUANTUM ANALYSIS IN PROGRESS
-                    </div>
-                    <div class="flex justify-center space-x-2">
-                        ${[...Array(5)].map((_, i) => 
-                            `<div class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" style="animation-delay: ${i * 0.2}s"></div>`
-                        ).join('')}
-                    </div>
-                </div>
-            `;
+window.addEventListener('resize', resize);
+resize();
 
-            setTimeout(() => {
-                const analysis = trxAnalyzeDigits(digits);
-                
-                // Update stats
-                trxStats.total++;
-                if (analysis.result === 'BIG') trxStats.big++;
-                else trxStats.small++;
-                
-                // Update display
-                trxTotalPredictions.textContent = trxStats.total;
-                trxBigCount.textContent = trxStats.big;
-                trxSmallCount.textContent = trxStats.small;
-                
-                // Show result
-                trxResultDisplay.innerHTML = `
-                    <div class="text-center space-y-4">
-                        <div class="text-4xl font-bold font-['Orbitron'] ${analysis.result === 'BIG' ? 'text-green-400' : 'text-blue-400'}">
-                            ${analysis.result === 'BIG' ? 'BIG PATTERN' : 'SMALL PATTERN'}
-                        </div>
-                        <div class="trx-badge px-6 py-2 text-lg">
-                            CONFIDENCE: ${analysis.confidence}%
-                        </div>
-                        <div class="text-gray-500 text-sm">
-                            <i class="fas fa-check-circle mr-2"></i>
-                            ANALYSIS COMPLETE
-                        </div>
-                    </div>
-                `;
-                
-                // Add to history
-                const historyEntry = {
-                    digits: digits,
-                    result: analysis.result,
-                    confidence: analysis.confidence,
-                    timestamp: new Date()
-                };
-                
-                trxHistory = [historyEntry, ...trxHistory.slice(0, 9)];
-                updateTrxHistory();
-                
-                // Show clear button if needed
-                if (trxStats.total > 0) {
-                    trxClearHistoryBtn.classList.remove('hidden');
-                }
-                
-                // Reset button
-                trxAnalyzeBtn.disabled = false;
-                trxAnalyzeBtn.innerHTML = '<i class="fas fa-bolt mr-2"></i>INITIATE QUANTUM ANALYSIS';
-                trxDigitsInput.value = '';
-                
-                // Visual effect
-                trxResultDisplay.style.animation = 'none';
-                setTimeout(() => {
-                    trxResultDisplay.style.animation = 'float 1s ease-in-out';
-                }, 10);
-                
-            }, 2000);
-        });
+function createParticle() {
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2 + 0.5,
+    s: Math.random() * 0.7 + 0.3,
+    o: Math.random() * 0.5 + 0.5,
+    c: Math.random() < 0.5 ? '#ff3333' : '#ffd700'
+  };
+}
 
-        // Update TRX History
-        function updateTrxHistory() {
-            if (trxHistory.length === 0) {
-                trxHistoryList.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-database text-2xl mb-2 block"></i>
-                        NO DATA RECORDED
-                    </div>
-                `;
-            } else {
-                trxHistoryList.innerHTML = trxHistory.map(entry => `
-                    <div class="flex justify-between items-center p-3 border-b border-white/10 hover:bg-white/5 transition">
-                        <div class="flex items-center">
-                            <span class="font-mono text-lg mr-4 text-green-400">${entry.digits}</span>
-                            <span class="text-xs text-gray-500">${entry.timestamp.toLocaleTimeString()}</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="px-3 py-1 rounded text-sm font-medium ${
-                                entry.result === 'BIG' 
-                                    ? 'bg-green-900/30 text-green-400 border border-green-500/30' 
-                                    : 'bg-blue-900/30 text-blue-400 border border-blue-500/30'
-                            }">
-                                ${entry.result}
-                            </span>
-                            <span class="text-sm text-gray-400">${entry.confidence}%</span>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            trxLogSize.textContent = trxHistory.length;
-            trxLastUpdate.textContent = new Date().toLocaleTimeString();
-        }
+for (let i = 0; i < 80; i++) particles.push(createParticle());
 
-        // TRX Clear History
-        trxClearHistoryBtn.addEventListener('click', () => {
-            // Show purge animation
-            trxHistoryList.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="text-red-500 text-lg mb-2">
-                        <i class="fas fa-trash fa-spin mr-2"></i>
-                        PURGING DATA...
-                    </div>
-                    <div class="flex justify-center space-x-2">
-                        ${[...Array(3)].map((_, i) => 
-                            `<div class="w-2 h-2 bg-red-500 rounded-full animate-pulse" style="animation-delay: ${i * 0.2}s"></div>`
-                        ).join('')}
-                    </div>
-                </div>
-            `;
-            
-            setTimeout(() => {
-                trxHistory = [];
-                trxStats = { big: 0, small: 0, total: 0 };
-                
-                trxTotalPredictions.textContent = '0';
-                trxBigCount.textContent = '0';
-                trxSmallCount.textContent = '0';
-                trxClearHistoryBtn.classList.add('hidden');
-                
-                updateTrxHistory();
-            }, 1500);
-        });
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.fillStyle = p.c;
+    ctx.globalAlpha = p.o;
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.y += p.s;
+    if (p.y > h) {
+      p.y = 0;
+      p.x = Math.random() * w;
+    }
+  });
+  requestAnimationFrame(animate);
+}
 
-        // Initialize
-        createMatrixEffect();
-        vvipPushLine('SYSTEM BOOT — DUAL ANALYSIS PANEL INITIALIZED', 'success');
-    </script>
+animate();
+
+// --- Auto-open panel on load removed
+// Now panel requires password to access
+</script>
+</body>
+</html><!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMAN PREDICTION - Web Hack Interface</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@400;600&display=swap');
+
+:root{
+  --bg1:#1a0000;
+  --bg2:#3b0000;
+  --gold:#ffd700;
+  --red:#ff3333;
+  --text:#fff5e6;
+  --muted:#fcd9b6;
+}
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at top,#3b0000 0%,#0b0000 100%);
+  overflow:hidden;
+  font-family:"Poppins",sans-serif;
+  color:var(--text);
+}
+
+/* ---- Spark particles ---- */
+canvas#sparks{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+/* ---- Main Container ---- */
+.main-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* ---- Web View Section ---- */
+.webview-section {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.webview-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  background: #000;
+}
+
+/* ---- Floating Action Button ---- */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--gold));
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(255, 51, 51, 0.8);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6); }
+  50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6); }
+}
+
+/* ---- Floating Panel ---- */
+.floating-panel {
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  width: 380px;
+  height: 420px;
+  background: rgba(30,0,0,0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  z-index: 999;
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.floating-panel.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Password Overlay */
+.password-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,0,0,0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  z-index: 10;
+  border-radius: 20px;
+}
+
+.password-overlay h3 {
+  color: var(--gold);
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 22px;
+  text-shadow: 0 0 10px #ffae00;
+}
+
+.password-input {
+  width: 100%;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.password-input:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
+
+.password-btn {
+  padding: 10px 25px;
+  background: linear-gradient(to right, var(--red), var(--gold));
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.password-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.password-error {
+  color: var(--red);
+  font-size: 14px;
+  margin-top: 10px;
+  min-height: 20px;
+  text-align: center;
+}
+
+.panel-header {
+  padding: 20px;
+  background: linear-gradient(to right, rgba(255, 51, 51, 0.2), rgba(255, 215, 0, 0.2));
+  border-bottom: 1px solid var(--gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: var(--gold);
+  font-size: 20px;
+  text-shadow: 0 0 10px #ffae00;
+}
+
+.close-btn {
+  background: var(--red);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.panel-content {
+  padding: 20px;
+  overflow-y: auto;
+  height: 320px;
+}
+
+/* ---- Card inside Panel ---- */
+.card{
+  position:relative;
+  z-index:1;
+  width:100%;
+  padding:20px;
+  text-align:center;
+  border-radius:18px;
+  background:rgba(30,0,0,0.6);
+  box-shadow:0 0 20px rgba(255,0,0,0.25);
+  backdrop-filter:blur(8px);
+  overflow:hidden;
+  margin-bottom: 20px;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:18px;
+  background:conic-gradient(from 0deg, #ff3333, #ffd700, #ff3333);
+  animation:spin 5s linear infinite;
+  z-index:-1;
+  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  padding:2px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ---- Content ---- */
+h1{
+  margin:0 0 15px;
+  font-size:20px;
+  letter-spacing:1px;
+  color:var(--gold);
+  text-shadow:0 0 10px #ffae00;
+}
+
+.label{
+  font-size:12px;
+  color:var(--muted);
+  text-align:left;
+  margin-bottom:5px;
+}
+.box{
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:15px;
+}
+.period{
+  font-family:"Courier New",monospace;
+  font-size:14px;
+  color:#ffe8c6;
+  word-break:break-all;
+}
+.timer{
+  font-family:"Orbitron",monospace;
+  font-size:32px;
+  letter-spacing:2px;
+  text-shadow:0 0 15px #ff3333;
+}
+.prediction{
+  font-size:28px;
+  font-weight:700;
+  padding:10px 15px;
+  border-radius:8px;
+  display:inline-block;
+  min-width:150px;
+  transition:all 0.4s ease;
+  opacity:1;
+}
+.sm{
+  color:var(--gold);
+  box-shadow:0 0 15px 2px rgba(255,215,0,0.5);
+  background:rgba(255,215,0,0.08);
+}
+.bg{
+  color:var(--red);
+  box-shadow:0 0 15px 2px rgba(255,51,51,0.5);
+  background:rgba(255,51,51,0.08);
+}
+.fade{animation:fade 1.2s ease;}
+@keyframes fade{
+  0%{opacity:0;transform:scale(0.9);}
+  50%{opacity:1;transform:scale(1.05);}
+  100%{opacity:1;transform:scale(1);}
+}
+.meta{
+  font-size:11px;
+  color:var(--muted);
+  margin-top: 10px;
+}
+
+/* ---- Web Hack Tools ---- */
+.hack-tools {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 51, 51, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 51, 51, 0.3);
+}
+
+.hack-tools h4 {
+  color: var(--gold);
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.tool-btn {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.tool-btn i {
+  font-size: 18px;
+}
+
+/* Pulse */
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 10px 2px currentColor;}
+  50%{box-shadow:0 0 25px 5px currentColor;}
+  100%{box-shadow:0 0 10px 2px currentColor;}
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  
+  .webview-section {
+    height: 60%;
+  }
+  
+  .floating-panel {
+    width: 90%;
+    right: 5%;
+    bottom: 100px;
+    height: 350px;
+  }
+  
+  .floating-btn {
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+  }
+  
+  .panel-content {
+    height: 250px;
+  }
+}
+</style>
+</head>
+<body>
+<canvas id="sparks"></canvas>
+
+<div class="main-container">
+  <!-- Web View Section -->
+  <div class="webview-section">
+    <iframe 
+      src="https://www.cklottery.online/#/register?invitationCode=35651671244" 
+      class="webview-frame" 
+      id="webview"
+      title="CK Lottery"
+      allow="autoplay; encrypted-media"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    ></iframe>
+  </div>
+</div>
+
+<!-- Floating Action Button -->
+<button class="floating-btn" id="floatingBtn">
+  ⚡
+</button>
+
+<!-- Floating Panel -->
+<div class="floating-panel" id="floatingPanel">
+  <!-- Password Overlay -->
+  <div class="password-overlay" id="passwordOverlay">
+    <h3>ENTER PASSWORD</h3>
+    <input type="password" class="password-input" id="passwordInput" placeholder="Enter password..." autocomplete="off">
+    <button class="password-btn" id="passwordSubmit">UNLOCK</button>
+    <div class="password-error" id="passwordError"></div>
+  </div>
+  
+  <div class="panel-header">
+    <h3>HTML WEB HACK</h3>
+    <button class="close-btn" id="closePanel">×</button>
+  </div>
+  
+  <div class="panel-content">
+    <!-- Prediction Card -->
+    <div class="card">
+      <h1>AMAN PREDICTION NUMBER TRENDS BASE</h1>
+
+      <div class="box">
+        <div class="label">Period number</div>
+        <div id="period" class="period">Loading...</div>
+      </div>
+
+      <div class="box">
+        <div class="label">Countdown to next minute</div>
+        <div id="timer" class="timer">00 : 00</div>
+      </div>
+
+      <div class="box">
+        <div class="label">Prediction</div>
+        <div id="main" class="prediction sm">SMALL 0</div>
+      </div>
+
+      <div class="meta">Timezone used: <strong>UTC</strong></div>
+    </div>
+    
+    <!-- Web Hack Tools -->
+    <div class="hack-tools">
+      <h4>Web Hack Tools</h4>
+      <button class="tool-btn" id="inspectBtn">
+        <span>🔍</span> Inspect Element
+      </button>
+      <button class="tool-btn" id="refreshBtn">
+        <span>🔄</span> Refresh WebView
+      </button>
+      <button class="tool-btn" id="consoleBtn">
+        <span>📟</span> Open Console
+      </button>
+      <button class="tool-btn" id="dataBtn">
+        <span>📊</span> Extract Data
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 🔔 Beep sound -->
+<audio id="beep" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+// --- Elements
+const periodEl = document.getElementById('period');
+const timerEl = document.getElementById('timer');
+const mainEl = document.getElementById('main');
+const beep = document.getElementById('beep');
+const floatingBtn = document.getElementById('floatingBtn');
+const floatingPanel = document.getElementById('floatingPanel');
+const closePanel = document.getElementById('closePanel');
+const webview = document.getElementById('webview');
+const inspectBtn = document.getElementById('inspectBtn');
+const refreshBtn = document.getElementById('refreshBtn');
+const consoleBtn = document.getElementById('consoleBtn');
+const dataBtn = document.getElementById('dataBtn');
+
+// Password elements
+const passwordOverlay = document.getElementById('passwordOverlay');
+const passwordInput = document.getElementById('passwordInput');
+const passwordSubmit = document.getElementById('passwordSubmit');
+const passwordError = document.getElementById('passwordError');
+
+// --- Password Configuration
+const CORRECT_PASSWORD = "CKLOTTERYHACK";
+let isUnlocked = false;
+
+// --- Password Check Function
+function checkPassword() {
+  const input = passwordInput.value.trim();
+  
+  if (input === CORRECT_PASSWORD) {
+    isUnlocked = true;
+    passwordOverlay.style.display = 'none';
+    passwordError.textContent = '';
+    passwordInput.value = '';
+    
+    // Enable panel content interaction
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    });
+    
+    console.log('Panel unlocked successfully');
+  } else {
+    passwordError.textContent = 'Incorrect password! Try again.';
+    passwordInput.value = '';
+    passwordInput.focus();
+    
+    // Shake animation for error
+    passwordInput.style.animation = 'none';
+    setTimeout(() => {
+      passwordInput.style.animation = 'shake 0.5s';
+    }, 10);
+  }
+}
+
+// Add shake animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+`;
+document.head.appendChild(style);
+
+// --- Password Event Listeners
+passwordSubmit.addEventListener('click', checkPassword);
+passwordInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    checkPassword();
+  }
+});
+
+// Initially disable tool buttons until unlocked
+document.querySelectorAll('.tool-btn').forEach(btn => {
+  btn.style.pointerEvents = 'none';
+  btn.style.opacity = '0.6';
+});
+
+// --- Floating Panel Control
+floatingBtn.addEventListener('click', () => {
+  if (!isUnlocked) {
+    passwordOverlay.style.display = 'flex';
+    passwordInput.focus();
+  }
+  floatingPanel.classList.toggle('active');
+});
+
+closePanel.addEventListener('click', () => {
+  floatingPanel.classList.remove('active');
+});
+
+// --- Web Hack Tools Functions
+inspectBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Inspect Element tool activated. Use browser DevTools (F12) to inspect the webview.');
+  console.log('Web Hack: Inspect Element tool activated');
+});
+
+refreshBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  webview.src = webview.src;
+  alert('WebView refreshed successfully!');
+  console.log('Web Hack: WebView refreshed');
+});
+
+consoleBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Console mode activated. Check browser console for webview data.');
+  console.log('=== WEB HACK CONSOLE ===');
+  console.log('WebView URL:', webview.src);
+  console.log('WebView Dimensions:', {
+    width: webview.offsetWidth,
+    height: webview.offsetHeight
+  });
+  console.log('Current Prediction:', mainEl.textContent);
+  console.log('=====================');
+});
+
+dataBtn.addEventListener('click', () => {
+  if (!isUnlocked) return;
+  alert('Data extraction initiated. Check console for extracted information.');
+  console.log('=== WEB HACK DATA EXTRACTION ===');
+  console.log('1. Current Time:', new Date().toISOString());
+  console.log('2. Prediction Data:', {
+    number: mainEl.textContent.split(' ')[1],
+    type: mainEl.textContent.split(' ')[0],
+    period: periodEl.textContent
+  });
+  console.log('3. WebView Information:', {
+    url: webview.src,
+    domain: new URL(webview.src).hostname,
+    isSecure: webview.src.startsWith('https')
+  });
+  console.log('4. User Agent:', navigator.userAgent);
+  console.log('==============================');
+});
+
+// --- Helpers
+function pad(n, s = 2) {
+  return String(n).padStart(s, '0');
+}
+
+function buildPeriodString(d) {
+  const yyyy = d.getUTCFullYear();
+  const mm = pad(d.getUTCMonth() + 1);
+  const dd = pad(d.getUTCDate());
+  const h = d.getUTCHours(), m = d.getUTCMinutes();
+  return `${yyyy}${mm}${dd}1000${10001 + (h * 60 + m)}`;
+}
+
+function makePrediction() {
+  const num = Math.floor(Math.random() * 10);
+  return { num, size: (num <= 4 ? "SMALL" : "BIG") };
+}
+
+// --- Update logic
+function updatePrediction() {
+  const now = new Date();
+  periodEl.textContent = buildPeriodString(now);
+  const p = makePrediction();
+  mainEl.textContent = `${p.size} ${p.num}`;
+  mainEl.className = "prediction fade " + (p.size === "SMALL" ? "sm" : "bg");
+  mainEl.style.animation = "pulseGlow 2s ease";
+  setTimeout(() => mainEl.style.animation = '', 2000);
+  try {
+    beep.currentTime = 0;
+    beep.play();
+  } catch (e) {}
+}
+
+function tick() {
+  const now = new Date();
+  const sec = now.getUTCSeconds();
+  const rem = 59 - sec;
+  timerEl.textContent = `   ${pad(0)}  :  ${pad(rem)}`.replace(/(?<=\\d)(?=\\d)/g, ' ');
+  if (sec === 0) updatePrediction();
+}
+
+updatePrediction();
+setInterval(tick, 1000);
+
+// --- Spark animation background ---
+const c = document.getElementById('sparks'), ctx = c.getContext('2d');
+let w, h, particles = [];
+
+function resize() {
+  w = window.innerWidth;
+  h = window.innerHeight;
+  c.width = w;
+  c.height = h;
+}
+
+window.addEventListener('resize', resize);
+resize();
+
+function createParticle() {
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2 + 0.5,
+    s: Math.random() * 0.7 + 0.3,
+    o: Math.random() * 0.5 + 0.5,
+    c: Math.random() < 0.5 ? '#ff3333' : '#ffd700'
+  };
+}
+
+for (let i = 0; i < 80; i++) particles.push(createParticle());
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.fillStyle = p.c;
+    ctx.globalAlpha = p.o;
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.y += p.s;
+    if (p.y > h) {
+      p.y = 0;
+      p.x = Math.random() * w;
+    }
+  });
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+// --- Auto-open panel on load removed
+// Now panel requires password to access
+</script>
 </body>
 </html>
