@@ -1,1123 +1,432 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="my">
 <head>
-<meta charset="UTF-8">
-<title>CK LOTTERY HACK V5</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dream Pattern 10K</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+:root{
+  --bg:#070b14; --panel:#101a2a; --text:#e6eefc; --muted:#9db0d4;
+  --accent:#34b5ff; --ok:#2dd4bf; --danger:#d34b4b; --warn:#ffb020;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh;
+  font-family: system-ui,"Noto Sans Myanmar",sans-serif;
+  background:linear-gradient(180deg,#050816,#070b14);
+  display:flex; justify-content:center; align-items:center;
+  color:var(--text);
+}
+.app{
+  width:420px; max-width:95vw;
+  background:#0e1626;
+  border-radius:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  overflow:hidden;
+  position:relative; /* overlay anchor */
+}
+.header{
+  padding:20px;
+  background:#0f1c33;
+}
+.header h1{ margin:0; color:var(--accent); font-size:26px; }
+.header p{ margin:6px 0 0; font-size:13px; color:var(--muted); }
+.content{ padding:18px; }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background: #000;
-    font-family: 'Share Tech Mono', monospace;
-    overflow: hidden;
-    touch-action: none;
-    -webkit-tap-highlight-color: transparent;
+.row{ display:flex; justify-content:space-between; margin-bottom:10px; }
+.count{
+  background:#1a2640; padding:6px 12px; border-radius:999px;
+  font-size:13px; font-weight:700;
 }
 
-/* Iframe */
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+.meta{
+  display:flex; gap:8px; flex-wrap:wrap;
+  margin:10px 0 14px;
+}
+.pill{
+  background:#1a2640; padding:6px 10px; border-radius:999px;
+  font-size:12px; font-weight:900; color:#fff;
+}
+.pill.ok{ color:var(--ok); }
+.pill.warn{ color:var(--warn); }
+.smallbtn{ height:46px; font-size:13px; border-radius:14px; border:none; }
+.smallbtn:active{ transform:scale(.98) }
+.resetbtn{ background:var(--danger); color:#fff; }
+
+.slots{
+  display:grid; grid-template-columns:repeat(10,1fr);
+  gap:6px; margin-bottom:14px;
+}
+.slot{
+  height:40px; border-radius:10px;
+  background:#1a2640;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800;
+}
+.slot.empty{ opacity:.3 }
+
+.result{
+  background:#121f36;
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:14px;
+}
+.result h3{ margin:0 0 6px; font-size:14px }
+.answer{ display:flex; justify-content:space-between; align-items:center; margin-top:8px; }
+.answer span{ font-size:18px; font-weight:900; }
+.bar{
+  height:10px; border-radius:999px;
+  background:#0a1222; overflow:hidden; margin-top:8px;
+}
+.fill{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--ok));
+  transition:.3s;
 }
 
-/* Floating Container */
-#floatingContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 94%;
-    max-width: 400px;
-    height: auto;
-    min-height: 500px;
-    max-height: 85vh;
-    background: rgba(0, 10, 0, 0.95);
-    backdrop-filter: blur(15px);
-    border: 2px solid #00ff88;
-    border-radius: 20px;
-    box-shadow: 
-        0 0 40px rgba(0, 255, 136, 0.5),
-        inset 0 0 20px rgba(0, 255, 136, 0.1);
-    z-index: 10000;
-    overflow: hidden;
-    display: none;
-    user-select: none;
-    touch-action: none;
+.keypad{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+button{
+  height:54px; border:none; border-radius:16px;
+  background:#1a2640; color:#fff;
+  font-size:20px; font-weight:800;
 }
+button:active{ transform:scale(.97) }
+.clear{ background:var(--danger); font-size:14px }
+.undo{ background:#23345a; font-size:14px }
 
-/* Floating Header (Draggable) */
-#floatingHeader {
-    padding: 20px 20px 15px;
-    background: rgba(0, 30, 0, 0.8);
-    border-bottom: 1px solid #00ff88;
-    cursor: move;
-    text-align: center;
-    position: relative;
-    touch-action: none;
+/* password */
+.overlay{
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex; align-items:center; justify-content:center;
 }
-
-.floating-title {
-    color: #00ff88;
-    font-size: 18px;
-    margin: 0;
-    text-shadow: 0 0 10px #00ff88;
-    user-select: none;
+.card{
+  background:#101a2a; padding:20px; border-radius:18px;
+  width:90%; max-width:360px;
 }
-
-.floating-subtitle {
-    color: #00aa55;
-    font-size: 12px;
-    margin: 5px 0 0 0;
-    user-select: none;
+.card input{
+  width:100%; padding:12px;
+  border-radius:12px; border:none;
+  background:#1a2640; color:#fff;
 }
-
-/* Close Button */
-#closeFloating {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(255, 0, 0, 0.2);
-    border: 1px solid #ff4444;
-    color: #ff4444;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10001;
-    touch-action: manipulation;
-}
-
-/* Content Area */
-#floatingContent {
-    padding: 20px;
-    overflow-y: auto;
-    max-height: calc(85vh - 130px);
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Steps Indicator */
-.steps-indicator {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0 30px;
-    position: relative;
-}
-
-.steps-indicator::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    right: 20px;
-    height: 3px;
-    background: #003300;
-    z-index: 1;
-    transform: translateY(-50%);
-}
-
-.step-circle {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #002200;
-    border: 2px solid #005500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #00aa55;
-    font-size: 14px;
-    font-weight: bold;
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s ease;
-}
-
-.step-circle.active {
-    background: #00ff88;
-    border-color: #00ff88;
-    color: #000;
-    box-shadow: 0 0 15px #00ff88;
-    transform: scale(1.1);
-}
-
-.step-label {
-    position: absolute;
-    top: 40px;
-    font-size: 11px;
-    color: #00aa55;
-    white-space: nowrap;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Mode Selection */
-.mode-section {
-    margin: 25px 0;
-}
-
-.section-title {
-    color: #00ff88;
-    font-size: 14px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.section-title i {
-    font-size: 16px;
-}
-
-.mode-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.mode-btn {
-    padding: 14px 8px;
-    background: rgba(0, 30, 0, 0.7);
-    border: 1px solid #008844;
-    border-radius: 10px;
-    color: #00cc66;
-    font-size: 13px;
-    text-align: center;
-    transition: all 0.2s ease;
-    touch-action: manipulation;
-}
-
-.mode-btn.active {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: #00ff88;
-    color: #00ff88;
-    box-shadow: 0 0 10px #00ff88;
-}
-
-/* Code Input */
-.code-section {
-    margin: 25px 0;
-}
-
-.code-display {
-    width: 100%;
-    padding: 20px;
-    background: #000;
-    border: 2px solid #00ff88;
-    border-radius: 15px;
-    color: #00ff88;
-    font-size: 28px;
-    text-align: center;
-    letter-spacing: 15px;
-    margin-bottom: 20px;
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 0 10px #00ff88;
-}
-
-/* Compact Numpad */
-.compact-numpad {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.num-btn {
-    padding: 14px 0;
-    background: rgba(0, 40, 0, 0.8);
-    border: 1px solid #008844;
-    border-radius: 8px;
-    color: #00ff88;
-    font-size: 18px;
-    font-weight: bold;
-    touch-action: manipulation;
-    transition: all 0.1s ease;
-}
-
-.num-btn:active {
-    background: #00aa44;
-    color: #000;
-    transform: scale(0.95);
-}
-
-.num-btn.clear {
-    grid-column: span 2;
-    background: rgba(80, 0, 0, 0.8);
-    border-color: #ff4444;
-    color: #ff8888;
-    font-size: 14px;
-}
-
-/* Action Buttons */
-.action-section {
-    margin: 30px 0 20px;
-}
-
-.floating-action-btn {
-    width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, #003300, #00aa44);
-    border: 2px solid #00ff88;
-    border-radius: 15px;
-    color: #00ff88;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
-    touch-action: manipulation;
-    transition: all 0.2s ease;
-    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
-}
-
-.floating-action-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 8px rgba(0, 255, 136, 0.3);
-}
-
-.floating-action-btn.hack-btn {
-    background: linear-gradient(135deg, #004400, #00ff88);
-    color: #000;
-    font-size: 20px;
-    margin-top: 25px;
-}
-
-/* Result Display */
-.result-section {
-    margin: 25px 0;
-    padding: 20px;
-    background: rgba(0, 20, 0, 0.5);
-    border: 1px solid #00ff88;
-    border-radius: 15px;
-    text-align: center;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#floatingResult {
-    color: #00ff88;
-    font-size: 22px;
-    font-weight: bold;
-    text-shadow: 0 0 10px #00ff88;
-    transition: all 0.3s;
-    min-height: 30px;
-}
-
-/* Toggle Button */
-#toggleBtn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00aa44, #00ff88);
-    border: 3px solid #00ff88;
-    color: #000;
-    font-size: 30px;
-    z-index: 9999;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 136, 0.8),
-        inset 0 0 20px rgba(0, 255, 255, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-    animation: floatBtn 3s infinite ease-in-out;
-}
-
-@keyframes floatBtn {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(5deg); }
-}
-
-/* Mini Controls */
-#miniControls {
-    position: fixed;
-    bottom: 110px;
-    right: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 9998;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mini-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(0, 30, 0, 0.9);
-    border: 2px solid #00aa55;
-    color: #00ff88;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-    transition: all 0.2s ease;
-}
-
-.mini-btn:active {
-    background: #00aa44;
-    color: #000;
-    transform: scale(0.95);
-}
-
-/* Lock Screen */
-#lock {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100000;
-    padding: 20px;
-}
-
-#lockBox {
-    width: 100%;
-    max-width: 350px;
-    padding: 30px;
-    text-align: center;
-    border: 2px solid red;
-    border-radius: 20px;
-    box-shadow: 
-        0 0 40px rgba(255, 0, 0, 0.5),
-        inset 0 0 20px rgba(255, 0, 0, 0.1);
-    color: #ff4444;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
-}
-
-#lockBox h3 {
-    margin: 0 0 25px 0;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-#password {
-    width: 100%;
-    padding: 18px;
-    margin: 20px 0;
-    background: #000;
-    border: 2px solid #ff4444;
-    border-radius: 12px;
-    color: #ff4444;
-    font-size: 18px;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-#lockMsg {
-    margin: 20px 0 0 0;
-    min-height: 20px;
-    font-size: 14px;
-    color: #ff8888;
-}
-
-/* Scanlines */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(0, 255, 0, .03),
-        rgba(0, 255, 0, .03) 1px,
-        transparent 2px,
-        transparent 4px
-    );
-    z-index: 99999;
-}
-
-/* Animations */
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px #00ff88; }
-    50% { box-shadow: 0 0 25px #00ff88; }
-    100% { box-shadow: 0 0 10px #00ff88; }
-}
-
-.pulse {
-    animation: pulse 2s infinite;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-
-/* Hide scrollbar */
-::-webkit-scrollbar {
-    display: none;
-}
-
-* {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    #floatingContainer {
-        width: 92%;
-        max-height: 80vh;
-    }
-    
-    .floating-title {
-        font-size: 16px;
-    }
-    
-    .code-display {
-        font-size: 24px;
-        letter-spacing: 12px;
-        padding: 18px;
-    }
-    
-    .num-btn {
-        padding: 12px 0;
-        font-size: 16px;
-    }
-    
-    .floating-action-btn {
-        padding: 16px;
-        font-size: 16px;
-    }
-    
-    #toggleBtn {
-        width: 65px;
-        height: 65px;
-        font-size: 28px;
-    }
-    
-    .mini-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 16px;
-    }
-}
-
-@media (max-height: 700px) {
-    #floatingContainer {
-        max-height: 75vh;
-    }
-    
-    #floatingContent {
-        padding: 15px;
-        max-height: calc(75vh - 120px);
-    }
-    
-    .steps-indicator {
-        margin: 15px 0 20px;
-    }
-    
-    .mode-section, .code-section, .action-section {
-        margin: 20px 0;
-    }
-}
+.card button{ width:100%; margin-top:10px }
+.msg{ margin-top:8px; font-size:12px; color:#ff6b6b }
+.oktxt{ color:#2dd4bf }
 </style>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+<div class="app">
 
-<!-- Lock Screen -->
-<div id="lock">
-    <div id="lockBox">
-        <h3><i class="fas fa-shield-alt"></i> SECURE ACCESS</h3>
-        <input type="password" id="password" placeholder="ENTER ACCESS CODE" autocomplete="off">
-        <button class="floating-action-btn" onclick="unlock()">
-            <i class="fas fa-key"></i> UNLOCK SYSTEM
-        </button>
-        <p id="lockMsg"></p>
+  <div class="header">
+    <h1>DREAM PATTERN 10K</h1>
+    <p>Auto Learn (EXACT10 + PARTIAL6) + Mode Display</p>
+  </div>
+
+  <div class="content">
+    <div class="row">
+      <div>LAST INPUT 10 DIGITS</div>
+      <div class="count" id="count">0/10</div>
     </div>
-</div>
 
-<!-- Main Iframe -->
-<iframe src="https://www.cklottery.online/#/register?invitationCode=35651671244"></iframe>
-
-<!-- Floating Interface -->
-<div id="floatingContainer">
-    <div id="floatingHeader">
-        <h3 class="floating-title"><i class="fas fa-bolt"></i> CK HACK V5</h3>
-        <p class="floating-subtitle">2026 1 Min Lottery Hack</p>
-        <button id="closeFloating" onclick="hideFloating()">
-            <i class="fas fa-times"></i>
-        </button>
+    <div class="meta">
+      <div class="pill" id="modePill">MODE: —</div>
+      <div class="pill ok">SAMPLES: <span id="samples">0</span></div>
+      <div class="pill warn">P10: <span id="p10">0</span></div>
+      <div class="pill warn">P6: <span id="p6">0</span></div>
+      <button class="smallbtn resetbtn" id="resetDataBtn" type="button">RESET DATA</button>
     </div>
-    
-    <div id="floatingContent">
-        <!-- Steps Indicator -->
-        <div class="steps-indicator">
-            <div class="step-circle active" id="floatingStep1">
-                1
-                <div class="step-label">INPUT</div>
-            </div>
-            <div class="step-circle" id="floatingStep2">
-                2
-                <div class="step-label">ANALYZE</div>
-            </div>
-            <div class="step-circle" id="floatingStep3">
-                3
-                <div class="step-label">RESULT</div>
-            </div>
-        </div>
-        
-        <!-- Mode Selection -->
-        <div class="mode-section">
-            <div class="section-title">
-                <i class="fas fa-sliders-h"></i> HACKING MODE
-            </div>
-            <div class="mode-buttons">
-                <button class="mode-btn active" data-mode="v1" onclick="selectMode('v1')">V1</button>
-                <button class="mode-btn" data-mode="v2" onclick="selectMode('v2')">V2</button>
-                <button class="mode-btn" data-mode="v3" onclick="selectMode('v3')">V3</button>
-            </div>
-        </div>
-        
-        <!-- Code Input -->
-        <div class="code-section">
-            <div class="section-title">
-                <i class="fas fa-code"></i> 4-DIGIT CODE
-            </div>
-            <div class="code-display" id="codeDisplay">____</div>
-            
-            <div class="compact-numpad">
-                <button class="num-btn" onclick="addDigit(1)">1</button>
-                <button class="num-btn" onclick="addDigit(2)">2</button>
-                <button class="num-btn" onclick="addDigit(3)">3</button>
-                <button class="num-btn" onclick="addDigit(4)">4</button>
-                <button class="num-btn" onclick="addDigit(5)">5</button>
-                <button class="num-btn" onclick="addDigit(6)">6</button>
-                <button class="num-btn" onclick="addDigit(7)">7</button>
-                <button class="num-btn" onclick="addDigit(8)">8</button>
-                <button class="num-btn" onclick="addDigit(9)">9</button>
-                <button class="num-btn" onclick="addDigit(0)">0</button>
-                <button class="num-btn clear" onclick="clearDigits()">
-                    <i class="fas fa-backspace"></i> CLEAR
-                </button>
-            </div>
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="action-section">
-            <button class="floating-action-btn hack-btn" onclick="executeHack()">
-                <i class="fas fa-bolt"></i> EXECUTE HACK
-            </button>
-        </div>
-        
-        <!-- Result Display -->
-        <div class="result-section">
-            <div id="floatingResult">READY</div>
-        </div>
+
+    <div class="slots" id="slots"></div>
+
+    <div class="result">
+      <h3>RESULT (EXACT10 → PARTIAL6 → MAJORITY)</h3>
+      <div class="answer">
+        <span id="label">—</span>
+        <span id="percent">—</span>
+      </div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
     </div>
-</div>
 
-<!-- Toggle Button -->
-<button id="toggleBtn" onclick="toggleFloating()">
-    <i class="fas fa-bolt"></i>
-</button>
+    <div class="keypad" id="keypad"></div>
+  </div>
 
-<!-- Mini Controls -->
-<div id="miniControls">
-    <button class="mini-btn" onclick="quickAction('refresh')" title="Refresh">
-        <i class="fas fa-sync-alt"></i>
-    </button>
-    <button class="mini-btn" onclick="quickAction('hide')" title="Hide">
-        <i class="fas fa-eye-slash"></i>
-    </button>
-    <button class="mini-btn" onclick="quickAction('info')" title="Info">
-        <i class="fas fa-info"></i>
-    </button>
+  <!-- PASSWORD -->
+  <div class="overlay" id="overlay">
+    <div class="card">
+      <input type="password" id="pw" placeholder="Password">
+      <button onclick="login()">LOGIN</button>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-// Global Variables
-let tries = 0;
-let lockedUntil = 0;
-let currentMode = 'v1';
-let codeDigits = [];
-let isDragging = false;
-let dragOffset = { x: 0, y: 0 };
-let currentPosition = { x: 0, y: 0 };
+/** =========================
+ * CONFIG
+ * ========================= */
+const PASSWORD="2026CKLOTTERYHACKNEW";
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // Set initial position for floating container
-    currentPosition = {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2
-    };
-    
-    // Setup drag functionality
-    setupDrag();
-    
-    // Setup keyboard events
-    setupKeyboard();
+// thresholds to reduce noise
+const THRESH_EXACT10 = 3;   // exact10 needs at least 3 samples
+const THRESH_PARTIAL6 = 10; // partial6 needs at least 10 samples
+
+// localStorage keys
+const LS_DIGITS = "dp10k_digits_v2";
+const LS_MAP10  = "dp10k_map10_v2";
+const LS_MAP6   = "dp10k_map6_v2";
+const LS_META   = "dp10k_meta_v2";
+
+/**
+ * map entry:
+ * { big: number, small: number, total: number }
+ */
+let digits = [];
+let map10 = {};
+let map6  = {};
+let meta = { samples: 0 };
+
+/** =========================
+ * DOM
+ * ========================= */
+const slots   = document.getElementById("slots");
+const count   = document.getElementById("count");
+const label   = document.getElementById("label");
+const percent = document.getElementById("percent");
+const fill    = document.getElementById("fill");
+
+const modePill = document.getElementById("modePill");
+const samplesEl = document.getElementById("samples");
+const p10El = document.getElementById("p10");
+const p6El  = document.getElementById("p6");
+const resetDataBtn = document.getElementById("resetDataBtn");
+
+/** =========================
+ * Storage helpers
+ * ========================= */
+function safeParse(json, fallback){
+  try { return JSON.parse(json); } catch { return fallback; }
+}
+function saveAll(){
+  localStorage.setItem(LS_DIGITS, JSON.stringify(digits));
+  localStorage.setItem(LS_MAP10, JSON.stringify(map10));
+  localStorage.setItem(LS_MAP6, JSON.stringify(map6));
+  localStorage.setItem(LS_META, JSON.stringify(meta));
+}
+function loadAll(){
+  digits = safeParse(localStorage.getItem(LS_DIGITS), []);
+  map10  = safeParse(localStorage.getItem(LS_MAP10), {});
+  map6   = safeParse(localStorage.getItem(LS_MAP6), {});
+  meta   = safeParse(localStorage.getItem(LS_META), { samples: 0 });
+
+  if(!Array.isArray(digits)) digits = [];
+  if(typeof map10 !== "object" || map10 === null) map10 = {};
+  if(typeof map6 !== "object"  || map6  === null) map6  = {};
+  if(typeof meta !== "object"  || meta  === null) meta = { samples: 0 };
+  if(typeof meta.samples !== "number") meta.samples = 0;
+}
+
+/** =========================
+ * UI
+ * ========================= */
+function setMode(text, cls){
+  modePill.className = "pill" + (cls ? (" " + cls) : "");
+  modePill.textContent = "MODE: " + text;
+}
+function updateMetaUI(){
+  samplesEl.textContent = String(meta.samples || 0);
+  p10El.textContent = String(Object.keys(map10).length);
+  p6El.textContent  = String(Object.keys(map6).length);
+}
+function render(){
+  slots.innerHTML="";
+  for(let i=0;i<10;i++){
+    let d=document.createElement("div");
+    d.className="slot"+(digits[i]==null?" empty":"");
+    d.textContent=digits[i] ?? "";
+    slots.appendChild(d);
+  }
+  count.textContent = digits.length + "/10";
+  updateMetaUI();
+  calc();
+}
+
+/** =========================
+ * Learning
+ * ========================= */
+function isBigDigit(d){ return d >= 5; }
+
+function bump(map, key, nextDigit){
+  if(!key) return;
+  if(!map[key]) map[key] = { big:0, small:0, total:0 };
+  if(isBigDigit(nextDigit)) map[key].big += 1;
+  else map[key].small += 1;
+  map[key].total += 1;
+}
+
+function learn(prev10Key, prev6Key, nextDigit){
+  bump(map10, prev10Key, nextDigit);
+  bump(map6,  prev6Key,  nextDigit);
+  meta.samples = (meta.samples || 0) + 1;
+}
+
+/** =========================
+ * Prediction helpers
+ * ========================= */
+function predictFromEntry(entry){
+  const big = entry.big, small = entry.small, total = entry.total;
+
+  if(big === small){
+    return { label:"NO CLEAR", p:50, mode:"TIE", cls:"warn" };
+  }
+  const isBig = big > small;
+  const p = Math.round((Math.max(big, small)/total)*1000)/10;
+  return { label: isBig ? "BIG" : "SMALL", p, mode:"LEARNED", cls:"ok" };
+}
+
+function calc(){
+  if(digits.length < 10){
+    label.textContent="—";
+    percent.textContent="—";
+    fill.style.width="0%";
+    setMode("—");
+    return;
+  }
+
+  const key10 = digits.join("");
+  const key6  = digits.slice(-6).join("");
+
+  // 1) EXACT10
+  const e10 = map10[key10];
+  if(e10 && e10.total >= THRESH_EXACT10){
+    const out = predictFromEntry(e10);
+    label.textContent = out.label;
+    percent.textContent = out.p + "%";
+    fill.style.width = out.p + "%";
+    setMode("EXACT10 (" + e10.total + ")", out.cls);
+    return;
+  }
+
+  // 2) PARTIAL6
+  const e6 = map6[key6];
+  if(e6 && e6.total >= THRESH_PARTIAL6){
+    const out = predictFromEntry(e6);
+    label.textContent = out.label;
+    percent.textContent = out.p + "%";
+    fill.style.width = out.p + "%";
+    setMode("PARTIAL6 (" + e6.total + ")", out.cls);
+    return;
+  }
+
+  // 3) MAJORITY fallback on last 10 digits
+  let big=0, small=0;
+  digits.forEach(d => (d>=5 ? big++ : small++));
+  const total = big + small;
+
+  if(big === small){
+    label.textContent="NO CLEAR";
+    percent.textContent="50%";
+    fill.style.width="50%";
+    setMode("MAJORITY (TIE)", "warn");
+    return;
+  }
+
+  const isBig = big > small;
+  const p = Math.round((Math.max(big, small)/total)*1000)/10;
+  label.textContent = isBig ? "BIG" : "SMALL";
+  percent.textContent = p + "%";
+  fill.style.width = p + "%";
+  setMode("MAJORITY", "");
+}
+
+/** =========================
+ * Input handlers
+ * ========================= */
+function add(n){
+  // when already at 10, learn (prev10/prev6 -> nextDigit), then shift+push
+  if(digits.length === 10){
+    const prev10 = digits.join("");
+    const prev6  = digits.slice(-6).join("");
+    learn(prev10, prev6, n);
+
+    digits.shift();
+    digits.push(n);
+  }else{
+    digits.push(n);
+  }
+
+  saveAll();
+  render();
+}
+
+function clearAll(){
+  digits = [];
+  saveAll();
+  render();
+}
+
+function undo(){
+  // NOTE: does not rollback learned map (needs action log to rollback properly)
+  digits.pop();
+  saveAll();
+  render();
+}
+
+/** =========================
+ * Keypad
+ * ========================= */
+const keypad=document.getElementById("keypad");
+[1,2,3,4,5,6,7,8,9].forEach(n=>{
+  let b=document.createElement("button");
+  b.textContent=n; b.onclick=()=>add(n);
+  keypad.appendChild(b);
 });
+let c=document.createElement("button");
+c.textContent="CLEAR"; c.className="clear"; c.onclick=clearAll;
+keypad.appendChild(c);
 
-// Setup Drag Functionality
-function setupDrag() {
-    const header = document.getElementById('floatingHeader');
-    const container = document.getElementById('floatingContainer');
-    
-    header.addEventListener('touchstart', startDrag, { passive: false });
-    header.addEventListener('mousedown', startDrag);
-    
-    function startDrag(e) {
-        e.preventDefault();
-        isDragging = true;
-        
-        const rect = container.getBoundingClientRect();
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        dragOffset = {
-            x: clientX - rect.left,
-            y: clientY - rect.top
-        };
-        
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag, { passive: false });
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchend', stopDrag);
-        
-        // Add visual feedback
-        container.style.opacity = '0.9';
-    }
-    
-    function drag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        // Calculate new position
-        let newX = clientX - dragOffset.x;
-        let newY = clientY - dragOffset.y;
-        
-        // Boundary checking
-        const containerWidth = container.offsetWidth;
-        const containerHeight = container.offsetHeight;
-        
-        newX = Math.max(10, Math.min(window.innerWidth - containerWidth - 10, newX));
-        newY = Math.max(10, Math.min(window.innerHeight - containerHeight - 10, newY));
-        
-        // Apply position
-        container.style.left = newX + 'px';
-        container.style.top = newY + 'px';
-        container.style.transform = 'none';
-        
-        currentPosition = { x: newX, y: newY };
-    }
-    
-    function stopDrag() {
-        isDragging = false;
-        container.style.opacity = '1';
-        
-        document.removeEventListener('mousemove', drag);
-        document.removeEventListener('touchmove', drag);
-        document.removeEventListener('mouseup', stopDrag);
-        document.removeEventListener('touchend', stopDrag);
-    }
+let z=document.createElement("button");
+z.textContent="0"; z.onclick=()=>add(0);
+keypad.appendChild(z);
+
+let u=document.createElement("button");
+u.textContent="UNDO"; u.className="undo"; u.onclick=undo;
+keypad.appendChild(u);
+
+/** =========================
+ * Reset learned data
+ * ========================= */
+resetDataBtn.onclick = () => {
+  if(confirm("Learned Data (EXACT10/PARTIAL6) အားလုံးဖျက်မလား?")){
+    map10 = {};
+    map6 = {};
+    meta = { samples: 0 };
+    saveAll();
+    render();
+  }
+};
+
+/** =========================
+ * Login
+ * ========================= */
+function login(){
+  let v=document.getElementById("pw").value;
+  let m=document.getElementById("msg");
+  if(v===PASSWORD){
+    m.textContent="Success"; m.className="msg oktxt";
+    document.getElementById("overlay").style.display="none";
+  }else{
+    m.textContent="Password မမှန်ပါ";
+  }
 }
 
-// Setup Keyboard Events
-function setupKeyboard() {
-    document.addEventListener('keydown', (e) => {
-        if (e.key >= '0' && e.key <= '9') {
-            addDigit(parseInt(e.key));
-        } else if (e.key === 'Backspace' || e.key === 'Delete') {
-            clearDigits();
-        } else if (e.key === 'Enter') {
-            executeHack();
-        } else if (e.key === 'Escape') {
-            hideFloating();
-        }
-    });
-}
-
-// Unlock System
-function unlock() {
-    if (Date.now() < lockedUntil) {
-        lockMsg.innerText = `LOCKED (${Math.ceil((lockedUntil - Date.now()) / 1000)}s)`;
-        return;
-    }
-    
-    const password = document.getElementById('password');
-    
-    if (password.value === "2026CKLOTTERYHACK") {
-        // Success
-        lock.style.display = 'none';
-        showNotification('SYSTEM UNLOCKED', 'success');
-        
-        // Show toggle button
-        document.getElementById('toggleBtn').style.display = 'flex';
-    } else {
-        // Failed
-        tries++;
-        lockMsg.innerText = `ACCESS DENIED (${tries}/3)`;
-        password.style.borderColor = '#ff0000';
-        password.style.animation = 'shake 0.5s';
-        
-        if (tries >= 3) {
-            lockedUntil = Date.now() + 30000;
-            tries = 0;
-            lockMsg.innerText = 'SYSTEM LOCKED FOR 30 SECONDS';
-            setTimeout(() => {
-                lockMsg.innerText = '';
-                password.style.borderColor = '#ff4444';
-            }, 30000);
-        }
-        
-        // Reset animation
-        setTimeout(() => {
-            password.style.animation = '';
-        }, 500);
-    }
-}
-
-// Floating Interface Controls
-function toggleFloating() {
-    const container = document.getElementById('floatingContainer');
-    const miniControls = document.getElementById('miniControls');
-    
-    if (container.style.display === 'none' || !container.style.display) {
-        // Show floating container
-        container.style.display = 'block';
-        container.style.left = currentPosition.x + 'px';
-        container.style.top = currentPosition.y + 'px';
-        container.style.transform = 'none';
-        
-        // Show mini controls
-        setTimeout(() => {
-            miniControls.style.opacity = '1';
-        }, 300);
-        
-        // Update toggle button
-        document.getElementById('toggleBtn').innerHTML = '<i class="fas fa-times"></i>';
-        document.getElementById('toggleBtn').style.background = 'linear-gradient(135deg, #aa0044, #ff0044)';
-        
-        showNotification('HACK INTERFACE ACTIVE', 'info');
-    } else {
-        hideFloating();
-    }
-}
-
-function hideFloating() {
-    const container = document.getElementById('floatingContainer');
-    const miniControls = document.getElementById('miniControls');
-    
-    container.style.display = 'none';
-    miniControls.style.opacity = '0';
-    
-    // Reset toggle button
-    document.getElementById('toggleBtn').innerHTML = '<i class="fas fa-bolt"></i>';
-    document.getElementById('toggleBtn').style.background = 'linear-gradient(135deg, #00aa44, #00ff88)';
-}
-
-// Code Input Functions
-function addDigit(digit) {
-    if (codeDigits.length < 4) {
-        codeDigits.push(digit);
-        updateCodeDisplay();
-        
-        // Visual feedback
-        const buttons = document.querySelectorAll('.num-btn');
-        buttons.forEach(btn => {
-            if (btn.textContent == digit) {
-                btn.style.background = '#00ff88';
-                btn.style.color = '#000';
-                setTimeout(() => {
-                    btn.style.background = '';
-                    btn.style.color = '';
-                }, 150);
-            }
-        });
-    }
-}
-
-function clearDigits() {
-    codeDigits = [];
-    updateCodeDisplay();
-    
-    // Visual feedback
-    const clearBtn = document.querySelector('.num-btn.clear');
-    clearBtn.style.background = '#ff4444';
-    clearBtn.style.color = '#000';
-    setTimeout(() => {
-        clearBtn.style.background = '';
-        clearBtn.style.color = '';
-    }, 150);
-}
-
-function updateCodeDisplay() {
-    const display = document.getElementById('codeDisplay');
-    let displayText = '';
-    
-    for (let i = 0; i < 4; i++) {
-        if (codeDigits[i] !== undefined) {
-            displayText += codeDigits[i];
-        } else {
-            displayText += '_';
-        }
-    }
-    
-    display.textContent = displayText;
-}
-
-// Mode Selection
-function selectMode(mode) {
-    currentMode = mode;
-    
-    // Update UI
-    document.querySelectorAll('.mode-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.mode === mode) {
-            btn.classList.add('active');
-        }
-    });
-    
-    showNotification(`MODE ${mode.toUpperCase()} SELECTED`, 'info');
-}
-
-// Execute Hack
-function executeHack() {
-    if (codeDigits.length !== 4) {
-        showFloatingResult('ENTER 4 DIGITS', 'error');
-        return;
-    }
-    
-    // Update steps
-    updateSteps(1);
-    showFloatingResult('>>> SCANNING...', 'process');
-    
-    setTimeout(() => {
-        updateSteps(2);
-        showFloatingResult('>>> ANALYZING DATA...', 'process');
-        
-        setTimeout(() => {
-            const result = calculateResult();
-            updateSteps(3);
-            showFloatingResult(result, 'result');
-            
-            // Visual effect
-            const hackBtn = document.querySelector('.hack-btn');
-            hackBtn.style.background = 'linear-gradient(135deg, #00ff88, #00ffcc)';
-            hackBtn.style.color = '#000';
-            setTimeout(() => {
-                hackBtn.style.background = 'linear-gradient(135deg, #004400, #00ff88)';
-                hackBtn.style.color = '#000';
-            }, 1000);
-            
-            // Show mini controls
-            document.getElementById('miniControls').style.opacity = '1';
-        }, 800);
-    }, 700);
-}
-
-// Update Steps
-function updateSteps(step) {
-    for (let i = 1; i <= 3; i++) {
-        const stepElement = document.getElementById(`floatingStep${i}`);
-        if (i <= step) {
-            stepElement.classList.add('active');
-        } else {
-            stepElement.classList.remove('active');
-        }
-    }
-}
-
-// Calculate Result
-function calculateResult() {
-    const digits = codeDigits;
-    
-    if (currentMode === 'v1') {
-        return logicV1(digits);
-    } else if (currentMode === 'v2') {
-        return logicV2(digits);
-    } else {
-        return logicV3(digits);
-    }
-}
-
-// Hack Logics
-function logicV1(d) {
-    for (let i = 0; i < 3; i++) {
-        if (d[i] !== d[i + 1]) {
-            return d[i + 1] >= 5 ? "BIG 🔴" : "SMALL 🔵";
-        }
-    }
-    return fallback(d, false);
-}
-
-function logicV2(d) {
-    for (let i = 3; i > 0; i--) {
-        if (d[i] !== d[i - 1]) {
-            return d[i - 1] >= 5 ? "BIG 🔴" : "SMALL 🔵";
-        }
-    }
-    return fallback(d, true);
-}
-
-function logicV3(d) {
-    let score = 0;
-    d.forEach(n => n >= 5 ? score += 2 : score -= 2);
-    
-    for (let i = 0; i < 3; i++) {
-        if (d[i + 1] > d[i]) score++;
-        else if (d[i + 1] < d[i]) score--;
-    }
-    
-    if (d[3] > d[2]) score += 2;
-    if (d[3] < d[2]) score -= 2;
-    
-    const result = score >= 0 ? "BIG 🔴" : "SMALL 🔵";
-    const confidence = Math.min(95, Math.abs(score) * 10 + 55);
-    
-    return `${result} ${confidence}%`;
-}
-
-function fallback(d, reverse) {
-    const bigCount = d.filter(n => n >= 5).length;
-    let result = bigCount >= 3 ? "BIG 🔴" : "SMALL 🔵";
-    
-    if (reverse) {
-        result = result.includes("BIG") ? "SMALL 🔵" : "BIG 🔴";
-    }
-    
-    return result;
-}
-
-// Show Result with Animation
-function showFloatingResult(text, type) {
-    const resultElement = document.getElementById('floatingResult');
-    
-    // Clear and set type
-    resultElement.textContent = '';
-    resultElement.className = '';
-    
-    if (type === 'error') {
-        resultElement.style.color = '#ff4444';
-        resultElement.classList.add('shake');
-    } else if (type === 'process') {
-        resultElement.style.color = '#00aaff';
-    } else {
-        resultElement.style.color = '#00ff88';
-        resultElement.classList.add('pulse');
-    }
-    
-    // Typewriter effect
-    let i = 0;
-    const typing = setInterval(() => {
-        resultElement.textContent += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(typing);
-        }
-    }, 30);
-}
-
-// Quick Actions
-function quickAction(action) {
-    switch(action) {
-        case 'refresh':
-            showNotification('SYSTEM REFRESHED', 'info');
-            codeDigits = [];
-            updateCodeDisplay();
-            updateSteps(0);
-            showFloatingResult('READY', 'result');
-            break;
-            
-        case 'hide':
-            document.querySelector('iframe').style.opacity = 
-                document.querySelector('iframe').style.opacity === '0.2' ? '1' : '0.2';
-            showNotification('PAGE VISIBILITY TOGGLED', 'info');
-            break;
-            
-        case 'info':
-            alert('CK LOTTERY HACK V5\n2026 CK LOTTERY HACK 100% WIN\n\nDrag header to move\nUse numpad to input\nSelect mode and execute');
-            break;
-    }
-}
-
-// Notification System
-function showNotification(message, type) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'error' ? '#330000' : type === 'success' ? '#003300' : '#002233'};
-        color: ${type === 'error' ? '#ff8888' : type === 'success' ? '#88ff88' : '#88aaff'};
-        border: 1px solid ${type === 'error' ? '#ff4444' : type === 'success' ? '#00ff88' : '#00aaff'};
-        padding: 15px 20px;
-        border-radius: 10px;
-        z-index: 100000;
-        font-size: 14px;
-        max-width: 300px;
-        transform: translateX(150%);
-        transition: transform 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    `;
-    
-    notification.innerHTML = `
-        <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-        ${message}
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 10);
-    
-    // Auto remove
-    setTimeout(() => {
-        notification.style.transform = 'translateX(150%)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
-
-// Password input enter key support
-document.getElementById('password').addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-        unlock();
-    }
-});
+/** =========================
+ * Boot
+ * ========================= */
+loadAll();
+render();
 </script>
 </body>
 </html>
