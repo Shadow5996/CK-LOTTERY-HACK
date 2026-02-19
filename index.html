@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CK Lottery Predictor Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-pink: #ff2a6d;
+            --neon-green: #00ff88;
+            --neon-yellow: #ffcc00;
+            --neon-red: #ff4444;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+            --card-bg: rgba(15, 15, 25, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            height: 100%;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(183, 103, 255, 0.05) 0%, transparent 50%);
+        }
+
+        /* Enhanced Quantum Loading Screen with CK Logo */
+        .quantum-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, #0a0a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .quantum-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ck-logo-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ck-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ff9900;
+            text-shadow: 
+                0 0 10px #ff9900,
+                0 0 20px #ff9900,
+                0 0 30px #ff9900,
+                0 0 40px #ff6600,
+                0 0 70px #ff6600,
+                0 0 80px #ff6600,
+                0 0 100px #ff3300,
+                0 0 150px #ff3300;
+            animation: burn 1.5s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes burn {
+            0% {
+                text-shadow: 
+                    0 0 10px #ff9900,
+                    0 0 20px #ff9900,
+                    0 0 30px #ff9900,
+                    0 0 40px #ff6600,
+                    0 0 70px #ff6600,
+                    0 0 80px #ff6600,
+                    0 0 100px #ff3300,
+                    0 0 150px #ff3300;
+                color: #ff9900;
+            }
+            100% {
+                text-shadow: 
+                    0 0 5px #ff9900,
+                    0 0 10px #ff9900,
+                    0 0 15px #ff9900,
+                    0 0 20px #ff6600,
+                    0 0 35px #ff6600,
+                    0 0 40px #ff6600,
+                    0 0 50px #ff3300,
+                    0 0 75px #ff3300;
+                color: #ffcc00;
+            }
+        }
+
+        .quantum-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .quantum-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .quantum-status {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .quantum-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .quantum-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .quantum-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Main Container */
+        .main-container {
+            display: none;
+            min-height: 100vh;
+            padding: 10px;
+            position: relative;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 25px 25px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* Tab System */
+        .tab-system {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-nav {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn.active {
+            color: var(--neon-blue);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 0 0 8px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            padding: 15px;
+            min-height: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* CK Lottery Container */
+        .ck-container {
+            height: 500px;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .ck-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Enhanced VIP Access Screen */
+        .vip-access {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.9) 0%, rgba(5, 5, 8, 0.95) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-access::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .vip-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .vip-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900, #ff6600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .vip-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            max-width: 100%;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip-progress-container {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .vip-progress-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--neon-yellow);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .vip-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .vip-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-yellow), #ff9900, #ff6600);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .vip-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        .vip-form {
+            width: 100%;
+            max-width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .vip-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-yellow);
+            border-radius: 8px;
+            color: var(--neon-yellow);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .vip-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .vip-input::placeholder {
+            color: rgba(255, 204, 0, 0.5);
+        }
+
+        .vip-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-yellow), #ff9900);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+        }
+
+        /* Wingo Hack System Container */
+        .wingo-hack-container {
+            display: none;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wingo-header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wingo-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .wingo-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .wingo-content {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .wingo-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .wingo-input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .wingo-input::placeholder {
+            color: rgba(0, 255, 136, 0.5);
+        }
+
+        .wingo-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wingo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
+        }
+
+        .wingo-result {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wingo-result-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .wingo-result-text.BIG {
+            color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.7);
+        }
+
+        .wingo-result-text.SMALL {
+            color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 42, 109, 0.7);
+        }
+
+        .wingo-confidence {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .wingo-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .wingo-stat {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .wingo-stat-title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .wingo-stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+        }
+
+        .wingo-history {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .wingo-history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        .wingo-history-time {
+            color: var(--text-secondary);
+        }
+
+        .wingo-history-prediction.big {
+            color: var(--neon-green);
+        }
+
+        .wingo-history-prediction.small {
+            color: var(--neon-pink);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .action-btn.register {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
+        .action-btn.telegram {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .watermark {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            padding: 8px 15px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-link:hover {
+            background: rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .quantum-title {
+                font-size: 2rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .vip-title {
+                font-size: 1.8rem;
+            }
+            
+            .wingo-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Quantum Loading Screen with CK Logo -->
+    <div class="quantum-loader" id="quantum-loader">
+        <div class="quantum-container">
+            <div class="ck-logo-container">
+                <div class="ck-logo">CK</div>
+            </div>
+            
+            <h1 class="quantum-title">CK LOTTERY HACK NEW SEVER</h1>
+            <p class="quantum-subtitle">INITIALIZING SECURITY PROTOCOLS</p>
+            
+            <div class="quantum-status" id="quantum-status">BOOTING SYSTEMS...</div>
+            
+            <div class="quantum-progress">
+                <div class="quantum-progress-bar" id="quantum-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="main-container" id="main-app">
+        <div class="cyber-grid"></div>
+        
+        <div class="header">
+            <h1 class="main-title">CK HACK SEVER V3</h1>
+            <p class="subtitle">PLAY SAFE 100% WIN SYSTEM</p>
+        </div>
+        
+        <div class="tab-system">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="lottery">CK LOTTERY</button>
+                <button class="tab-btn" data-tab="predictor">HACK V3 TOOL</button>
+            </div>
+            
+            <div class="tab-content active" id="lottery">
+                <div class="ck-container">
+                    <iframe src="https://www.cklottery.online/#/register?invitationCode=35651671244"></iframe>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="predictor">
+                <!-- Enhanced VIP Access Screen -->
+                <div class="vip-access" id="vip-access">
+                    <div class="vip-icon">⚡</div>
+                    <h2 class="vip-title">VVIP ACCESS REQUIRED</h2>
+                    <p class="vip-desc">ဒီ Hack File သည် ရောင်းစားရန်ခွင့်မပြုပါ၊ Free ချပေးထားတာဖြစ်ပါတယ်၊ Ck Acc ဖွင့်ပြီး Password လာယူနိုင်ပါတယ်။</p>
+                    
+                    <div class="vip-progress-container">
+                        <div class="vip-progress-text" id="vip-progress-text">INITIALIZING QUANTUM PROTOCOL... 0%</div>
+                        <div class="vip-progress-bar">
+                            <div class="vip-progress-fill" id="vip-progress-fill"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="vip-form" id="vip-form">
+                        <input type="password" class="vip-input" id="vip-password" placeholder="ENTER QUANTUM KEY">
+                        <button class="vip-submit" id="vip-submit">ACTIVATE SYSTEM</button>
+                    </div>
+                </div>
+                
+                <!-- Wingo Hack System Container -->
+                <div class="wingo-hack-container" id="wingo-hack-container">
+                    <div class="wingo-header">
+                        <h1 class="wingo-title">WINGO HACK SYSTEM PRO</h1>
+                        <p class="wingo-subtitle">QUANTUM PATTERN RECOGNITION SYSTEM</p>
+                    </div>
+                    
+                    <div class="wingo-content">
+                        <input
+                            id="wingo-input"
+                            type="text"
+                            class="wingo-input"
+                            placeholder="ENTER 3 DIGITS"
+                            maxlength="3"
+                        />
+                        
+                        <button class="wingo-button" id="wingo-button">
+                            RUN HACK
+                        </button>
+                        
+                        <div class="wingo-result" id="wingo-result">
+                            <div class="wingo-result-text" id="wingo-result-text">SYSTEM READY</div>
+                            <div class="wingo-confidence" id="wingo-confidence"></div>
+                        </div>
+                        
+                        <div class="wingo-stats">
+                            <div class="wingo-stat">
+                                <div class="wingo-stat-title">TOTAL ANALYSIS</div>
+                                <div class="wingo-stat-value" id="wingo-total">0</div>
+                            </div>
+                            <div class="wingo-stat">
+                                <div class="wingo-stat-title">BIG PATTERN</div>
+                                <div class="wingo-stat-value" id="wingo-big">0</div>
+                            </div>
+                            <div class="wingo-stat">
+                                <div class="wingo-stat-title">SMALL PATTERN</div>
+                                <div class="wingo-stat-value" id="wingo-small">0</div>
+                            </div>
+                            <div class="wingo-stat">
+                                <div class="wingo-stat-title">SUCCESS RATE</div>
+                                <div class="wingo-stat-value" id="wingo-rate">100%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <a href="https://www.cklottery.online/#/register?invitationCode=35651671244" class="action-btn register">REGISTER</a>
+                            <a href="https://t.me/cklotteryfreehackfile" class="action-btn telegram">JOIN TELEGRAM</a>
+                        </div>
+                    </div>
+                    
+                    <div class="wingo-history" id="wingo-history">
+                        <div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>
+                        <!-- History items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="watermark">SYSTEM v4.0 | DEVELOPED BY @DarkSize501</div>
+            <a href="https://t.me/DarkSize501" class="contact-link" target="_blank">
+                <span>CONTACT DEVELOPER</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // VIP 30 SEC Data
+        const QUANTUM_KEY = "VVIPCKUPDATE";
+        let wingoHistory = [];
+        let wingoStats = { total: 0, big: 0, small: 0 };
+        
+        // Quantum Loading Sequence
+        function initQuantumLoader() {
+            const loader = document.getElementById('quantum-loader');
+            const status = document.getElementById('quantum-status');
+            const progress = document.getElementById('quantum-progress');
+            
+            let progressValue = 0;
+            
+            const messages = [
+                "BOOTING SYSTEMS...",
+                "SCANNING SECURITY LAYERS...",
+                "BYPASSING QUANTUM FIREWALLS...",
+                "DECRYPTING DATA STREAMS...",
+                "ESTABLISHING CONNECTION...",
+                "SYSTEM READY"
+            ];
+            
+            const interval = setInterval(() => {
+                progressValue += 1;
+                progress.style.width = `${progressValue}%`;
+                
+                // Update status message
+                if (progressValue <= 20) {
+                    status.textContent = messages[0];
+                } else if (progressValue <= 40) {
+                    status.textContent = messages[1];
+                } else if (progressValue <= 60) {
+                    status.textContent = messages[2];
+                } else if (progressValue <= 80) {
+                    status.textContent = messages[3];
+                } else if (progressValue <= 95) {
+                    status.textContent = messages[4];
+                } else {
+                    status.textContent = messages[5];
+                }
+                
+                if (progressValue >= 100) {
+                    clearInterval(interval);
+                    
+                    // Transition to main app
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            document.getElementById('main-app').style.display = 'block';
+                            initMainApp();
+                        }, 1000);
+                    }, 1500);
+                }
+            }, 40);
+        }
+        
+        // Main Application Initialization
+        function initMainApp() {
+            // Tab System
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Update tabs
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // If predictor tab is clicked, start VIP sequence
+                    if (tabId === 'predictor') {
+                        startVipSequence();
+                    }
+                });
+            });
+            
+            // Initialize lottery iframe
+            const iframe = document.querySelector('.ck-container iframe');
+            iframe.onload = () => {
+                console.log('CK Lottery loaded');
+            };
+        }
+        
+        // VIP Access Sequence
+        function startVipSequence() {
+            const progressFill = document.getElementById('vip-progress-fill');
+            const progressText = document.getElementById('vip-progress-text');
+            const vipForm = document.getElementById('vip-form');
+            
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += 1;
+                progressFill.style.width = `${progress}%`;
+                
+                if (progress <= 20) {
+                    progressText.textContent = `INITIALIZING QUANTUM PROTOCOL... ${progress}%`;
+                } else if (progress <= 40) {
+                    progressText.textContent = `SCANNING SECURITY MATRIX... ${progress}%`;
+                } else if (progress <= 60) {
+                    progressText.textContent = `BYPASSING ENCRYPTION... ${progress}%`;
+                } else if (progress <= 80) {
+                    progressText.textContent = `ESTABLISHING CONNECTION... ${progress}%`;
+                } else {
+                    progressText.textContent = `FINALIZING ACCESS... ${progress}%`;
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressText.textContent = 'ACCESS PROTOCOL READY - ENTER VVIP KEY';
+                    vipForm.style.opacity = '1';
+                    
+                    // Setup password submission
+                    const vipPassword = document.getElementById('vip-password');
+                    const vipSubmit = document.getElementById('vip-submit');
+                    
+                    vipSubmit.addEventListener('click', unlockQuantumTool);
+                    vipPassword.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') unlockQuantumTool();
+                    });
+                    
+                    vipPassword.focus();
+                }
+            }, 40);
+        }
+        
+        // Unlock Quantum Tool
+        function unlockQuantumTool() {
+            const password = document.getElementById('vip-password').value;
+            const vipAccess = document.getElementById('vip-access');
+            const wingoHackContainer = document.getElementById('wingo-hack-container');
+            
+            if (password === QUANTUM_KEY) {
+                vipAccess.style.display = 'none';
+                wingoHackContainer.style.display = 'block';
+                initWingoHack();
+            } else {
+                const vipInput = document.getElementById('vip-password');
+                vipInput.style.borderColor = 'var(--neon-red)';
+                vipInput.style.boxShadow = '0 0 20px rgba(255, 68, 68, 0.7)';
+                vipInput.value = '';
+                
+                setTimeout(() => {
+                    vipInput.style.borderColor = 'var(--neon-yellow)';
+                    vipInput.style.boxShadow = '0 0 15px rgba(255, 204, 0, 0.3)';
+                }, 1000);
+            }
+        }
+        
+        // Initialize Wingo Hack System
+        function initWingoHack() {
+            const input = document.getElementById('wingo-input');
+            const button = document.getElementById('wingo-button');
+            const resultText = document.getElementById('wingo-result-text');
+            const confidence = document.getElementById('wingo-confidence');
+            const total = document.getElementById('wingo-total');
+            const big = document.getElementById('wingo-big');
+            const small = document.getElementById('wingo-small');
+            const historyList = document.getElementById('wingo-history');
+            
+            // Update stats
+            function updateStats() {
+                total.textContent = wingoStats.total;
+                big.textContent = wingoStats.big;
+                small.textContent = wingoStats.small;
+            }
+            
+            // Update history
+            function updateHistory() {
+                historyList.innerHTML = '<div style="color: var(--neon-green); text-align: center; margin-bottom: 8px;">ANALYSIS LOG</div>';
+                
+                if (wingoHistory.length === 0) {
+                    historyList.innerHTML += '<div class="wingo-history-item"><span class="wingo-history-time">NO DATA RECORDED</span></div>';
+                } else {
+                    wingoHistory.forEach(entry => {
+                        const historyItem = document.createElement('div');
+                        historyItem.className = 'wingo-history-item';
+                        historyItem.innerHTML = `
+                            <span class="wingo-history-time">${entry.timestamp}</span>
+                            <span class="wingo-history-prediction ${entry.result.toLowerCase()}">${entry.digits} → ${entry.result}</span>
+                        `;
+                        historyList.appendChild(historyItem);
+                    });
+                }
+            }
+            
+            // Wingo Hack algorithm from UPCK.html
+            function type(n) {
+                return n <= 4 ? "S" : "B";
+            }
+            
+            function calculate() {
+                const digits = input.value;
+                
+                if (!/^\d{3}$/.test(digits)) {
+                    resultText.textContent = "ERROR";
+                    resultText.className = "wingo-result-text SMALL";
+                    confidence.textContent = "INVALID INPUT";
+                    return null;
+                }
+                
+                const d1 = type(Number(digits[0]));
+                const d2 = type(Number(digits[1]));
+                const d3 = type(Number(digits[2]));
+                
+                let selected = [];
+                if (d1 === d2 && d2 === d3) selected = [d1, d2, d3];
+                else if (d1 === d2) selected = [d1, d2];
+                else selected = [d3];
+                
+                let bigCount = selected.filter(v => v === "B").length;
+                let smallCount = selected.filter(v => v === "S").length;
+                
+                let result = "";
+                
+                if (bigCount === 1 || bigCount === 2) result = "SMALL";
+                else if (bigCount === 3) result = "BIG";
+                else if (smallCount === 1 || smallCount === 2) result = "BIG";
+                else if (smallCount === 3) result = "SMALL";
+                
+                return {
+                    result: result,
+                    confidence: 100,
+                    analysis: {
+                        d1: d1,
+                        d2: d2,
+                        d3: d3,
+                        selected: selected,
+                        bigCount: bigCount,
+                        smallCount: smallCount
+                    }
+                };
+            }
+            
+            // Handle input change
+            input.addEventListener('input', function(e) {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 3);
+                input.value = value;
+                button.disabled = value.length !== 3;
+            });
+            
+            // Handle button click
+            button.addEventListener('click', function() {
+                if (input.value.length !== 3) return;
+                
+                // Show loading animation
+                resultText.textContent = "ANALYZING...";
+                confidence.textContent = "";
+                button.disabled = true;
+                
+                // Simulate analysis delay
+                setTimeout(() => {
+                    const analysis = calculate();
+                    
+                    if (!analysis) return;
+                    
+                    // Update result
+                    resultText.textContent = analysis.result;
+                    resultText.className = `wingo-result-text ${analysis.result}`;
+                    confidence.textContent = `CONFIDENCE: ${analysis.confidence}%`;
+                    
+                    // Update stats
+                    wingoStats.total++;
+                    if (analysis.result === 'BIG') {
+                        wingoStats.big++;
+                    } else {
+                        wingoStats.small++;
+                    }
+                    updateStats();
+                    
+                    // Add to history
+                    const now = new Date();
+                    const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                    
+                    wingoHistory.unshift({
+                        digits: input.value,
+                        result: analysis.result,
+                        confidence: analysis.confidence,
+                        timestamp: timestamp
+                    });
+                    
+                    // Keep only last 10 entries
+                    if (wingoHistory.length > 10) {
+                        wingoHistory.pop();
+                    }
+                    
+                    updateHistory();
+                    
+                    // Clear input and re-enable button
+                    input.value = '';
+                    button.disabled = true;
+                }, 1500);
+            });
+            
+            // Initialize
+            updateStats();
+            updateHistory();
+        }
+        
+        // Start the application
+        window.addEventListener('load', initQuantumLoader);
+    </script>
+</body>
+</html>
