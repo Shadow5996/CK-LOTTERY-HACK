@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>⛓️ CYPHER BREACH · Pattern Hunter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: #010101;
+            font-family: 'Share Tech Mono', 'Courier New', 'Fira Code', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 12px;
+        }
+
+        /* PASSWORD OVERLAY - HACK THEME */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000dd;
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            border: 2px solid #0f0;
+            box-shadow: inset 0 0 50px rgba(0,255,0,0.2);
+        }
+        .password-card {
+            background: #0a0f0a;
+            width: 92%;
+            max-width: 360px;
+            padding: 32px 20px;
+            text-align: center;
+            border: 2px solid #0f0;
+            border-radius: 28px;
+            box-shadow: 0 0 28px rgba(0,255,0,0.4);
+        }
+        .lock-icon {
+            font-size: 58px;
+            filter: drop-shadow(0 0 6px #0f0);
+            font-family: monospace;
+        }
+        .password-card h2 {
+            color: #0f0;
+            font-size: 1.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin: 10px 0;
+            text-shadow: 0 0 6px #0f0;
+        }
+        .password-input {
+            background: #000;
+            border: 2px solid #0f0;
+            padding: 14px;
+            width: 100%;
+            border-radius: 48px;
+            font-size: 1rem;
+            color: #0f0;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            outline: none;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+        .unlock-btn {
+            background: #0f0;
+            border: none;
+            padding: 14px 0;
+            width: 100%;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #000;
+            cursor: pointer;
+            transition: 0.1s linear;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+        .unlock-btn:active { transform: scale(0.96); background: #0a0; }
+        .error-msg { color: #ff4444; font-size: 12px; margin-top: 12px; text-shadow: 0 0 2px red; }
+
+        /* MAIN APP - HACKING UI */
+        .app-container {
+            display: none;
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .hack-card {
+            background: #030603e6;
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 20px 16px 28px;
+            border: 1.5px solid #0f0;
+            box-shadow: 0 0 16px rgba(0,255,0,0.3), inset 0 0 12px rgba(0,255,0,0.1);
+        }
+
+        /* TERMINAL HEADER */
+        .terminal-bar {
+            background: #000000aa;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0f0;
+        }
+        .glitch-text {
+            font-weight: bold;
+            color: #0f0;
+            text-shadow: 0 0 4px #0f0;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        .sys-led {
+            display: flex;
+            gap: 8px;
+        }
+        .led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0f0;
+            box-shadow: 0 0 6px #0f0;
+            animation: pulseLed 1.2s infinite;
+        }
+        @keyframes pulseLed { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* SETTINGS PANEL - CRACKED STYLE */
+        .crack-panel {
+            background: #020804cc;
+            border-radius: 28px;
+            margin-bottom: 22px;
+            border: 1px solid #0f0;
+            overflow: hidden;
+        }
+        .crack-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #031003;
+            cursor: pointer;
+            border-bottom: 1px solid #0f0;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hack-icon { font-size: 24px; filter: drop-shadow(0 0 4px #0f0);}
+        .logo-text {
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #0f0;
+            letter-spacing: 2px;
+        }
+        .settings-toggle {
+            background: #000;
+            border: 1px solid #0f0;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 10px;
+            color: #0f0;
+        }
+
+        .tabs-container {
+            display: flex;
+            border-bottom: 1px solid #0f0;
+            background: #010501;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 0;
+            font-weight: bold;
+            color: #8f9;
+            font-family: monospace;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            color: #0f0;
+            background: #021a02;
+            border-bottom: 2px solid #0f0;
+            text-shadow: 0 0 3px #0f0;
+        }
+        .tab-content {
+            padding: 18px 14px;
+            background: #010903cc;
+            display: none;
+        }
+        .tab-content.active-tab { display: block; }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .setting-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #afc;
+            letter-spacing: 1px;
+        }
+        .toggle-switch {
+            width: 48px;
+            height: 24px;
+            background: #1f2a1f;
+            border-radius: 40px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid #0f0;
+        }
+        .toggle-switch.active { background: #0f0; }
+        .toggle-knob {
+            width: 20px;
+            height: 20px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active .toggle-knob { left: 25px; background: #000; }
+        select.setting-select {
+            background: #000;
+            border: 1px solid #0f0;
+            padding: 8px 12px;
+            border-radius: 30px;
+            color: #0f0;
+            font-weight: bold;
+            font-family: monospace;
+        }
+        .reset-btn {
+            background: #3a0f0f;
+            border: 1px solid #f33;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #f77;
+            cursor: pointer;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .stat-card {
+            background: #010b01;
+            border: 1px solid #0f0;
+            border-radius: 18px;
+            padding: 10px 4px;
+            text-align: center;
+        }
+        .stat-label { font-size: 9px; color: #8f9; letter-spacing: 2px; }
+        .stat-value { font-size: 26px; font-weight: bold; color: #0f0; font-family: monospace; }
+
+        .strip-wrapper {
+            background: #010a01;
+            border-radius: 48px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #0f0;
+        }
+        .number-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .digit-box {
+            min-width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-weight: 900;
+            font-size: 24px;
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            box-shadow: 0 0 6px #0f0;
+            flex-shrink: 0;
+        }
+        .small-bg { background: #004d1a; border-color: #0f0; color:#aff; }
+        .big-bg { background: #4a0000; border-color: #f44; color:#faa; }
+
+        .prediction-box {
+            background: #010a01;
+            border: 2px solid #0f0;
+            border-radius: 32px;
+            padding: 22px 12px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        #prediction-result {
+            font-size: 48px;
+            font-weight: 900;
+            color: #0f0;
+            text-shadow: 0 0 12px #0f0;
+            font-family: monospace;
+            letter-spacing: 4px;
+        }
+        .status-text {
+            font-size: 10px;
+            background: #000000aa;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            color: #0f0;
+        }
+        .pattern-hint { font-size: 9px; color: #8f9; margin-top: 8px; }
+
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .numpad button {
+            background: #000;
+            border: 2px solid #0f0;
+            padding: 16px;
+            border-radius: 28px;
+            color: #0f0;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.05s linear;
+            box-shadow: 0 4px 0 #0a3;
+        }
+        .numpad button:active {
+            transform: translateY(3px);
+            box-shadow: none;
+            background: #0f0;
+            color: black;
+        }
+        .btn-zero { grid-column: span 3; background: #001a00; }
+        .footer-note {
+            font-size: 8px;
+            text-align: center;
+            margin-top: 18px;
+            color: #2a6b2a;
+        }
+        ::-webkit-scrollbar { height: 3px; background: #0a2a0a; }
+    </style>
+</head>
+<body>
+
+<!-- PASSWORD LOCK (HACK STYLE) -->
+<div id="passwordOverlay" class="password-overlay">
+    <div class="password-card">
+        <div class="lock-icon">⛓️💀⛓️</div>
+        <h2>ROOT ACCESS</h2>
+        <p style="color:#6f9; font-size:12px;">[ SECURE VAULT ]</p>
+        <input type="password" id="passwordInput" class="password-input" placeholder=">_ ENCRYPTION KEY" autocomplete="off">
+        <button id="unlockBtn" class="unlock-btn">⚡ BREACH FIREWALL</button>
+        <div id="passError" class="error-msg"></div>
+    </div>
+</div>
+
+<!-- MAIN HACKING UI -->
+<div class="app-container" id="mainApp">
+    <div class="hack-card">
+        <!-- TERMINAL HEADER -->
+        <div class="terminal-bar">
+            <span class="glitch-text">⛧ CYPHER_HUNTER v2.0 ⛧</span>
+            <div class="sys-led"><div class="led"></div><div class="led"></div><div class="led"></div></div>
+        </div>
+
+        <!-- SETTINGS PANEL (CRACKED) -->
+        <div class="crack-panel" id="settingsPanel">
+            <div class="crack-header" id="settingsHeaderBtn">
+                <div class="logo-area">
+                    <span class="hack-icon">🔓🛠️</span>
+                    <span class="logo-text">[ROOT_MENU]</span>
+                </div>
+                <div class="settings-toggle">⚙️ EXEC</div>
+            </div>
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="display">VISUAL</button>
+                <button class="tab-btn" data-tab="prediction">PREDICT</button>
+                <button class="tab-btn" data-tab="data">DATA</button>
+            </div>
+            <div class="tab-content active-tab" id="tab-display">
+                <div class="setting-item"><span class="setting-label">🌑 DARK MATRIX</span><div class="toggle-switch" id="darkModeToggle"><div class="toggle-knob"></div></div></div>
+                <div class="setting-item"><span class="setting-label">⚡ ANIM GLITCH</span><div class="toggle-switch" id="animationToggle"><div class="toggle-knob"></div></div></div>
+                <div class="setting-item"><span class="setting-label">🔔 ALERT DAEMON</span><div class="toggle-switch" id="alertToggle"><div class="toggle-knob"></div></div></div>
+            </div>
+            <div class="tab-content" id="tab-prediction">
+                <div class="setting-item"><span class="setting-label">🎲 PREDICTION ENGINE</span><select id="predictionMode" class="setting-select"><option value="auto">AUTO (PATTERN+FRQ)</option><option value="strict">STRICT PATTERN</option><option value="trend">TREND FOLLOWER</option></select></div>
+                <div class="setting-item"><span class="setting-label">🔍 SEQUENCE DEPTH</span><select id="depthSelect" class="setting-select"><option value="5">5 last</option><option value="10" selected>10 last</option><option value="20">20 last</option></select></div>
+            </div>
+            <div class="tab-content" id="tab-data">
+                <div class="setting-item"><span class="setting-label">🗑️ WIPE HISTORY</span><button id="resetHistoryBtn" class="reset-btn">RESET SESSION</button></div>
+                <div class="setting-item"><span class="setting-label">📡 DUMP LOGS</span><button id="exportBtn" class="reset-btn" style="background:#003300;">EXPORT DATA</button></div>
+            </div>
+        </div>
+
+        <!-- LIVE STATUS -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; background:#020a02; border-radius: 60px; padding: 5px 16px;">
+            <div style="display: flex; gap: 8px;"><div class="led" style="width:8px;height:8px;"></div><span id="fbStatus" style="font-size:10px;color:#0f0;">[PATTERN_ACTIVE]</span></div>
+            <span style="color:#0f0; font-size:9px;">⚡ LIVE</span>
+        </div>
+
+        <!-- NUMBER STRIP -->
+        <div class="strip-wrapper">
+            <div class="number-strip" id="number-strip"><div style="color:#2e5e2e; padding:12px;">[WAITING FOR INPUT]</div></div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-label">BIG</div><div class="stat-value" id="bigCount">0</div></div>
+            <div class="stat-card"><div class="stat-label">SMALL</div><div class="stat-value" id="smallCount">0</div></div>
+            <div class="stat-card"><div class="stat-label">TOTAL</div><div class="stat-value" id="totalCount">0</div></div>
+        </div>
+
+        <!-- PREDICTION CORE -->
+        <div class="prediction-box">
+            <div style="font-size:12px; color:#8f9;">⏣ NEXT BREACH ⏣</div>
+            <div id="prediction-result">[NULL]</div>
+            <div class="status-text" id="logic-status">SCANNING...</div>
+            <div class="pattern-hint" id="patternHint">_ pattern_hunter_rdy</div>
+        </div>
+
+        <!-- KEYPAD -->
+        <div class="numpad">
+            <button onclick="manualInput(1)">1</button><button onclick="manualInput(2)">2</button><button onclick="manualInput(3)">3</button>
+            <button onclick="manualInput(4)">4</button><button onclick="manualInput(5)">5</button><button onclick="manualInput(6)">6</button>
+            <button onclick="manualInput(7)">7</button><button onclick="manualInput(8)">8</button><button onclick="manualInput(9)">9</button>
+            <button class="btn-zero" onclick="manualInput(0)">0</button>
+        </div>
+        <div class="footer-note">[ ROOT_ACCESS: GRANTED ] ⚡ pattern algorithm active</div>
+    </div>
+</div>
+
+<script>
+    // ========== PASSWORD ==========
+    const CORRECT_PASSWORD = "ALLLOTTERYHACK1MIN";
+    const overlay = document.getElementById('passwordOverlay');
+    const mainApp = document.getElementById('mainApp');
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const passErrorSpan = document.getElementById('passError');
+
+    function unlockSystem() {
+        if (passwordInput.value.trim() === CORRECT_PASSWORD) {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainApp.style.display = 'block';
+                document.body.style.overflow = 'auto';
+                initCoreApp();
+            }, 300);
+        } else {
+            passErrorSpan.innerText = '[ ACCESS DENIED ] INVALID KEY';
+            passwordInput.value = '';
+            passwordInput.style.borderColor = '#f33';
+            setTimeout(() => passwordInput.style.borderColor = '#0f0', 700);
+        }
+    }
+    unlockBtn.addEventListener('click', unlockSystem);
+    passwordInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') unlockSystem(); });
+
+    // ========== APP CORE (PRESERVED LOGIC, HACK UI) ==========
+    let numberHistory = [];     // newest first
+    let predictionMode = "auto";
+    let sequenceDepth = 10;
+    let animationEnabled = true;
+    let alertEnabled = false;
+    let darkModeActive = false;
+
+    const numberStripDiv = document.getElementById('number-strip');
+    const bigCountSpan = document.getElementById('bigCount');
+    const smallCountSpan = document.getElementById('smallCount');
+    const totalCountSpan = document.getElementById('totalCount');
+    const predictionResultDiv = document.getElementById('prediction-result');
+    const logicStatusSpan = document.getElementById('logic-status');
+    const patternHintSpan = document.getElementById('patternHint');
+
+    function getWorkingHistory() {
+        let maxLen = Math.min(sequenceDepth, numberHistory.length);
+        return numberHistory.slice(0, maxLen);
+    }
+
+    function predictByFrequency() {
+        if (numberHistory.length < 2) return null;
+        const lastNum = numberHistory[0];
+        let followers = [];
+        for (let i = 0; i < numberHistory.length - 1; i++) {
+            if (numberHistory[i] === lastNum) followers.push(numberHistory[i+1]);
+        }
+        if (followers.length === 0) return null;
+        let freq = {};
+        followers.forEach(f => freq[f] = (freq[f] || 0) + 1);
+        let maxCount = 0, most = null;
+        for (let [num, cnt] of Object.entries(freq)) {
+            if (cnt > maxCount) { maxCount = cnt; most = parseInt(num); }
+        }
+        return most;
+    }
+
+    function detectRepeatingPattern() {
+        if (numberHistory.length < 4) return null;
+        let chrono = numberHistory;
+        let lastTwo = [chrono[0], chrono[1]];
+        let occurrences = 0;
+        for (let i = 0; i < chrono.length - 1; i++) {
+            if (chrono[i] === lastTwo[0] && chrono[i+1] === lastTwo[1]) occurrences++;
+        }
+        if (occurrences >= 2) {
+            let afterPattern = [];
+            for (let i = 0; i < chrono.length - 2; i++) {
+                if (chrono[i] === lastTwo[0] && chrono[i+1] === lastTwo[1]) {
+                    if (chrono[i+2] !== undefined) afterPattern.push(chrono[i+2]);
+                }
+            }
+            if (afterPattern.length > 0) {
+                let freq = {};
+                afterPattern.forEach(f => freq[f] = (freq[f] || 0) + 1);
+                let maxCount = 0, mostCommon = null;
+                for (let [num, count] of Object.entries(freq)) {
+                    if (count > maxCount) { maxCount = count; mostCommon = parseInt(num); }
+                }
+                return { pattern: lastTwo.join(''), next: mostCommon };
+            }
+        }
+        return null;
+    }
+
+    function predictByTrend() {
+        if (numberHistory.length < 3) return null;
+        let recent = numberHistory.slice(0, 4);
+        let avg = recent.reduce((a,b)=>a+b,0)/recent.length;
+        if (avg > 4.5) return 7;
+        else if (avg < 3.5) return 2;
+        let last = numberHistory[0];
+        return last >=5 ? 3 : 6;
+    }
+
+    function generatePrediction() {
+        let predicted = null;
+        let explanation = "";
+        if (predictionMode === "strict") {
+            let pattern = detectRepeatingPattern();
+            if (pattern && pattern.next !== null) {
+                predicted = pattern.next;
+                explanation = `[STRICT] ${pattern.pattern} → ${predicted}`;
+                logicStatusSpan.innerHTML = "⛓️ STRICT MODE";
+            } else {
+                predicted = null;
+                explanation = "No strict pattern";
+                logicStatusSpan.innerHTML = "⚠️ PATTERN FAIL";
+            }
+        } 
+        else if (predictionMode === "trend") {
+            predicted = predictByTrend();
+            explanation = predicted !== null ? `TREND → ${predicted}` : "Trend null";
+            logicStatusSpan.innerHTML = "📈 TREND MODE";
+        } 
+        else {
+            let pattern = detectRepeatingPattern();
+            if (pattern && pattern.next !== null) {
+                predicted = pattern.next;
+                explanation = `PATTERN [${pattern.pattern}] → ${predicted}`;
+                logicStatusSpan.innerHTML = "🎯 PATTERN MATCH";
+            } else {
+                predicted = predictByFrequency();
+                if (predicted !== null) {
+                    explanation = `FREQ: last ${numberHistory[0]} → ${predicted}`;
+                    logicStatusSpan.innerHTML = "📊 FREQUENCY MODE";
+                } else {
+                    explanation = "Need more data";
+                    logicStatusSpan.innerHTML = "🔄 COLLECTING";
+                }
+            }
+        }
+        
+        if (predicted === null || isNaN(predicted)) {
+            predictionResultDiv.innerHTML = "???";
+            patternHintSpan.innerHTML = "input more digits";
+            return;
+        }
+        let bsText = predicted < 5 ? "SMALL" : "BIG";
+        predictionResultDiv.innerHTML = `${predicted} ${bsText}`;
+        patternHintSpan.innerHTML = `${explanation} → ${predicted < 5 ? '🔵 SMALL' : '🔴 BIG'}`;
+        
+        if (alertEnabled && predicted !== null) {
+            console.log(`ALERT: ${predicted}`);
+            if (Notification.permission === "granted") new Notification("CYPHER ALERT", { body: `Next: ${predicted} (${bsText})` });
+        }
+    }
+
+    function renderNumberStrip() {
+        if (!numberHistory.length) {
+            numberStripDiv.innerHTML = '<div style="color:#2e6b2e; padding:12px;">[ EMPTY QUEUE ]</div>';
+            bigCountSpan.innerText = "0"; smallCountSpan.innerText = "0"; totalCountSpan.innerText = "0";
+            return;
+        }
+        numberStripDiv.innerHTML = numberHistory.map(n => `
+            <div class="digit-box ${n < 5 ? 'small-bg' : 'big-bg'}" style="${animationEnabled ? 'animation: slideIn 0.2s ease;' : ''}">
+                ${n}
+            </div>
+        `).join('');
+        const bigs = numberHistory.filter(n => n >= 5).length;
+        const smalls = numberHistory.filter(n => n < 5).length;
+        bigCountSpan.innerText = bigs;
+        smallCountSpan.innerText = smalls;
+        totalCountSpan.innerText = numberHistory.length;
+    }
+
+    function addNumber(num) {
+        if (isNaN(num) || num < 0 || num > 9) return;
+        numberHistory.unshift(num);
+        let maxDepth = parseInt(sequenceDepth) || 10;
+        if (numberHistory.length > maxDepth + 5) numberHistory = numberHistory.slice(0, maxDepth + 3);
+        renderNumberStrip();
+        generatePrediction();
+    }
+
+    window.manualInput = function(num) {
+        addNumber(num);
+        if (animationEnabled) {
+            const stripDiv = document.getElementById('number-strip');
+            stripDiv.style.opacity = '0.7';
+            setTimeout(() => stripDiv.style.opacity = '1', 80);
+        }
+    };
+
+    function resetHistory() {
+        numberHistory = [];
+        renderNumberStrip();
+        predictionResultDiv.innerHTML = "[RESET]";
+        logicStatusSpan.innerHTML = "SESSION WIPED";
+        patternHintSpan.innerHTML = "awaiting input...";
+        generatePrediction();
+    }
+
+    function exportSession() {
+        let dataStr = `=== CYPHER_BREACH LOG ===\nNumbers (newest first): ${numberHistory.join(', ')}\nBig: ${numberHistory.filter(n=>n>=5).length} Small: ${numberHistory.filter(n=>n<5).length}\nMode: ${predictionMode} Depth: ${sequenceDepth}`;
+        navigator.clipboard.writeText(dataStr).then(() => {
+            const oldMsg = logicStatusSpan.innerHTML;
+            logicStatusSpan.innerHTML = "[DATA DUMPED]";
+            setTimeout(() => logicStatusSpan.innerHTML = oldMsg, 1300);
+        });
+    }
+
+    function initSettingsHack() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const dispTab = document.getElementById('tab-display');
+        const predTab = document.getElementById('tab-prediction');
+        const dataTab = document.getElementById('tab-data');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                [dispTab, predTab, dataTab].forEach(t => t.classList.remove('active-tab'));
+                if(id === 'display') dispTab.classList.add('active-tab');
+                if(id === 'prediction') predTab.classList.add('active-tab');
+                if(id === 'data') dataTab.classList.add('active-tab');
+            });
+        });
+        const darkToggle = document.getElementById('darkModeToggle');
+        const animToggle = document.getElementById('animationToggle');
+        const alertToggle = document.getElementById('alertToggle');
+        const predModeSelect = document.getElementById('predictionMode');
+        const depthSelect = document.getElementById('depthSelect');
+        const resetBtn = document.getElementById('resetHistoryBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        
+        darkToggle.addEventListener('click', () => {
+            darkToggle.classList.toggle('active');
+            darkModeActive = darkToggle.classList.contains('active');
+            document.body.style.background = darkModeActive ? '#000000' : '#010101';
+        });
+        animToggle.addEventListener('click', () => {
+            animToggle.classList.toggle('active');
+            animationEnabled = animToggle.classList.contains('active');
+            renderNumberStrip();
+        });
+        alertToggle.addEventListener('click', () => {
+            alertToggle.classList.toggle('active');
+            alertEnabled = alertToggle.classList.contains('active');
+            if(alertEnabled && Notification.permission === "default") Notification.requestPermission();
+        });
+        predModeSelect.addEventListener('change', (e) => { predictionMode = e.target.value; generatePrediction(); });
+        depthSelect.addEventListener('change', (e) => { sequenceDepth = parseInt(e.target.value); if (numberHistory.length > sequenceDepth + 3) numberHistory = numberHistory.slice(0, sequenceDepth + 2); renderNumberStrip(); generatePrediction(); });
+        resetBtn.addEventListener('click', () => resetHistory());
+        exportBtn.addEventListener('click', () => exportSession());
+        
+        animToggle.classList.add('active');
+        animationEnabled = true;
+        alertToggle.classList.remove('active');
+        darkToggle.classList.remove('active');
+    }
+
+    function initCollapseHack() {
+        const header = document.getElementById('settingsHeaderBtn');
+        let collapsed = false;
+        const tabsContainer = document.querySelector('.tabs-container');
+        const tabContents = document.querySelectorAll('.tab-content');
+        header.addEventListener('click', () => {
+            if(!collapsed) {
+                tabsContainer.style.display = 'none';
+                tabContents.forEach(tc => tc.style.display = 'none');
+                collapsed = true;
+            } else {
+                tabsContainer.style.display = 'flex';
+                const activeTabBtn = document.querySelector('.tab-btn.active');
+                const activeId = activeTabBtn.getAttribute('data-tab');
+                document.getElementById(`tab-${activeId}`).style.display = 'block';
+                collapsed = false;
+            }
+        });
+    }
+
+    function initCoreApp() {
+        initSettingsHack();
+        initCollapseHack();
+        renderNumberStrip();
+        generatePrediction();
+        document.getElementById('fbStatus').innerHTML = "[PATTERN_ENGINE: ONLINE]";
+        if(!document.querySelector('#hackKeyframe')) {
+            const style = document.createElement('style');
+            style.id = 'hackKeyframe';
+            style.textContent = `@keyframes slideIn { 0% { transform: translateX(-18px) scale(0.8); opacity: 0; } 100% { transform: translateX(0) scale(1); opacity: 1; } }`;
+            document.head.appendChild(style);
+        }
+    }
+    mainApp.style.display = 'none';
+</script>
+</body>
+</html>
